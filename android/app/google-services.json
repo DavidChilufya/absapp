@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "861485056497",
+    "firebase_url": "https://abs-zdtp-2019.firebaseio.com",
+    "project_id": "abs-zdtp-2019",
+    "storage_bucket": "abs-zdtp-2019.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:861485056497:android:a7b548ba5cf84e5c0e0450",
+        "android_client_info": {
+          "package_name": "com.chilufya.absapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "861485056497-0sqgdk477b259k38ea2qhdfa7f07af80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQENTnVyjTDDn4JWgt8DuTeJjwXTCPBPk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "861485056497-0sqgdk477b259k38ea2qhdfa7f07af80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
