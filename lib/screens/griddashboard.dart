@@ -1,106 +1,77 @@
 
+import 'package:absapp/screens/create.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class GridDashboard extends StatelessWidget {
   static const String id = 'grid_dashboard';
-  final String uid;
-  GridDashboard(this.uid);
+  GridDashboard();
 
   Items item1 = new Items(
-      title: "Calendar",
-      subtitle: "March, Wednesday",
-      event: "3 Events",
+      title: "New",
+      total: "",
       img: "assets/calendar.png");
 
   Items item2 = new Items(
-    title: "Groceries",
-    subtitle: "Bocali, Apple",
-    event: "4 Items",
+    title: "Drafts",
+    total: "200",
     img: "assets/food.png",
   );
   Items item3 = new Items(
-    title: "Locations",
-    subtitle: "Lucy Mao going to Office",
-    event: "",
+    title: "Tests",
+    total: "500",
     img: "assets/map.png",
   );
   Items item4 = new Items(
-    title: "Activity",
-    subtitle: "Rose favirited your Post",
-    event: "",
+    title: "Pending",
+    total: "20",
     img: "assets/festival.png",
   );
   Items item5 = new Items(
-    title: "To do",
-    subtitle: "Homework, Design",
-    event: "4 Items",
+    title: "Uploaded",
+    total: "500",
     img: "assets/todo.png",
   );
   Items item6 = new Items(
-    title: "Settings",
-    subtitle: "",
-    event: "2 Items",
+    title: "All",
+    total: "2000",
     img: "assets/setting.png",
   );
 
   @override
   Widget build(BuildContext context) {
-    List<Items> myList = [item1, item2, item3, item4, item5, item6];
-    var color = 0xff453658;
+    List<Items> myList = [this.item1, this.item2, this.item3, this.item4, this.item5, this.item6];
+    var color = Theme.of(context).accentColor.withAlpha(30);
     return Flexible(
       child: GridView.count(
           childAspectRatio: 1.0,
-          padding: EdgeInsets.only(left: 16, right: 16),
-          crossAxisCount: 2,
-          crossAxisSpacing: 18,
-          mainAxisSpacing: 18,
+          padding: EdgeInsets.only(left: 8, right: 8),
+          crossAxisCount: 3,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
           children: myList.map((data) {
-            return Container(
-              decoration: BoxDecoration(
-                  color: Color(color), borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    data.img,
-                    width: 42,
-                  ),
-                  SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    data.title,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    data.subtitle,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white38,
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                  SizedBox(
-                    height: 14,
-                  ),
-                  Text(
-                    data.event,
-                    style: GoogleFonts.openSans(
-                        textStyle: TextStyle(
-                            color: Colors.white70,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w600)),
-                  ),
-                ],
+            return GestureDetector(
+              child: Container(
+                decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.asset(data.img,width: 42,),
+                    SizedBox( height: 14, ),
+                    Text(
+                      data.title,
+                      style: Theme.of(context).textTheme.headline5.copyWith(),
+                    ),
+                    SizedBox(height: 5,),
+                    Text(
+                      data.total,
+                      style: Theme.of(context).textTheme.bodyText2.copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
+              onTap: () {
+                Navigator.pushNamed(context, NewInterview.id);
+              },
             );
           }).toList()),
     );
@@ -109,8 +80,7 @@ class GridDashboard extends StatelessWidget {
 
 class Items {
   String title;
-  String subtitle;
-  String event;
+  String total;
   String img;
-  Items({this.title, this.subtitle, this.event, this.img});
+  Items({this.title, this.total, this.img});
 }

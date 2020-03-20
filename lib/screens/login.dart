@@ -1,5 +1,5 @@
 import 'package:absapp/screens/forgot_pass.dart';
-import 'package:absapp/screens/griddashboard.dart';
+import 'package:absapp/screens/home.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -39,7 +39,7 @@ class _LoginState extends State<Login> {
         if (user != null)
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => GridDashboard(user)),
+              MaterialPageRoute(builder: (context) => Home(user)),
               ModalRoute.withName("/"));
       } catch (e) {
         setState(() {
