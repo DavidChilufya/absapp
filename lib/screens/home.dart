@@ -1,5 +1,4 @@
 import 'package:absapp/screens/questionaire/metaData/bloc/meta_data_bloc.dart';
-import 'package:absapp/screens/questionaire/metaData/bloc/meta_data_event.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
