@@ -1,37 +1,41 @@
 
-import 'package:absapp/screens/create.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data.dart';
 import 'package:flutter/material.dart';
 
-class GridDashboard extends StatelessWidget {
+class GridDashboard extends StatefulWidget {
   static const String id = 'grid_dashboard';
-  GridDashboard();
+  _GridDashboardState createState() => _GridDashboardState();
+}
 
-  Items item1 = new Items(
+class _GridDashboardState extends State<GridDashboard> {
+  
+
+  Items item1 = Items(
       title: "New",
       total: "",
       img: "assets/calendar.png");
 
-  Items item2 = new Items(
+  Items item2 = Items(
     title: "Drafts",
     total: "200",
     img: "assets/food.png",
   );
-  Items item3 = new Items(
+  Items item3 = Items(
     title: "Tests",
     total: "500",
     img: "assets/map.png",
   );
-  Items item4 = new Items(
+  Items item4 = Items(
     title: "Pending",
     total: "20",
     img: "assets/festival.png",
   );
-  Items item5 = new Items(
+  Items item5 = Items(
     title: "Uploaded",
     total: "500",
     img: "assets/todo.png",
   );
-  Items item6 = new Items(
+  Items item6 = Items(
     title: "All",
     total: "2000",
     img: "assets/setting.png",
@@ -70,7 +74,7 @@ class GridDashboard extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pushNamed(context, NewInterview.id);
+                Navigator.pushNamed(context, InterviewMetaData.id);
               },
             );
           }).toList()),

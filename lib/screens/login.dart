@@ -123,8 +123,9 @@ class _LoginState extends State<Login> {
                           keyboardType: TextInputType.text,
                           controller: _passwordController,
                           validator: (value) {
-                            if (value.length < 8)
+                            if (value.length < 8){
                               return "Password must be at least 8 characters";
+                            }
                             return null;
                           },
                           decoration: InputDecoration(

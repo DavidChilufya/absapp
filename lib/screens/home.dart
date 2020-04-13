@@ -1,14 +1,36 @@
+import 'package:absapp/screens/questionaire/metaData/bloc/meta_data_bloc.dart';
+import 'package:absapp/screens/questionaire/metaData/bloc/meta_data_event.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:absapp/screens/griddashboard.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   static const String id = 'home';
   final FirebaseUser _user;
 
   Home(this._user);
+  _Home createState() => _Home(this._user);
+}
+
+class _Home extends State<Home>  {
+  
+  final FirebaseUser _user;
+  _Home(this._user);
+  MetaDataBloc _metaDataBloc;
+  //CreateInterview_DAO foo;
+  @override
+  void initState() {
+    super.initState();
+    // Obtaining the FruitBloc instance through BlocProvider which is an InheritedWidget
+    
+    // Events can be passed into the bloc by calling dispatch.
+    // We want to start loading fruits right from the start.
+    //_metaDataBloc.add(LoadInterviews());
+
+  }
+
 
   @override
   Widget build(BuildContext context) {

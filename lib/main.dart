@@ -1,6 +1,6 @@
-import 'package:absapp/screens/create.dart';
 import 'package:absapp/screens/home.dart';
 import 'package:absapp/screens/login.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data.dart';
 import 'package:absapp/screens/settings.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
@@ -62,7 +62,7 @@ class App extends StatelessWidget {
         routes: {
           Welcome.id: (context) => Welcome(),
           Login.id  : (context) => Login(),
-          NewInterview.id : (context) => NewInterview(),
+          InterviewMetaData.id : (context) => InterviewMetaData(),
         },
         home: FutureBuilder<FirebaseUser>(
             future: Auth.getCurrentUser(),
