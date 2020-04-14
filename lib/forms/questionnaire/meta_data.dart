@@ -1,20 +1,22 @@
-import 'package:absapp/screens/home.dart';
-import 'package:absapp/services/auth.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data_dao.dart';
+import 'package:absapp/screens/questionaire/metaData/model/meta_data.dart';
 import 'package:flutter/material.dart';
 
-class NewInterViewForm extends StatefulWidget {
+class MetaDataForm extends StatefulWidget {
   @override
-  _NewInterviewFormState createState() => _NewInterviewFormState();
+  _MetaDataFormState createState() => _MetaDataFormState();
 }
 
-class _NewInterviewFormState extends State<NewInterViewForm> {
-  
+class _MetaDataFormState extends State<MetaDataForm> {
+  MetaDataDao _metaDataDao = MetaDataDao();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
 
     void _submitForm() async {
       if (_formKey.currentState.validate()) {
                   // If the form is valid, display a Snackbar.
+                  InterviewMetaDataModel interview = InterviewMetaDataModel(interview_id: 'sdsdsd', houshold_id: 'sdsdsd');
+                  await _metaDataDao.insert(interview);
                   Scaffold.of(context)
                       .showSnackBar(SnackBar(content: Text('Processing Data')));
                 }
