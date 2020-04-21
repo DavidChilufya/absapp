@@ -135,10 +135,10 @@ class _LoginState extends State<Login> {
                           ),
                           obscureText: true,
                         ),
-                        if (errorMessage.length > 0) SizedBox(height: 12),
+                        if (errorMessage.isEmpty) SizedBox(height: 12),
                         Text(errorMessage,
                             style: TextStyle(color: Colors.red)),
-                        if (errorMessage.length > 0) SizedBox(height: 12),
+                        if (errorMessage.isNotEmpty) SizedBox(height: 12),
                         FlatButton(
                           child: Text(
                             "Forgot your password?",

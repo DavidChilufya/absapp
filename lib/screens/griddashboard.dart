@@ -1,5 +1,5 @@
 
-import 'package:absapp/screens/questionaire/metaData/meta_data.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:flutter/material.dart';
 
 class GridDashboard extends StatefulWidget {

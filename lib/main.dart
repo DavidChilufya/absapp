@@ -1,6 +1,8 @@
 import 'package:absapp/screens/home.dart';
+import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/login.dart';
-import 'package:absapp/screens/questionaire/metaData/meta_data.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
+import 'package:absapp/screens/questionaire/sections/section_screen.dart';
 import 'package:absapp/screens/settings.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
@@ -48,21 +50,21 @@ class App extends StatelessWidget {
           inputDecorationTheme: InputDecorationTheme(
             contentPadding: EdgeInsets.all(8),
             filled: true,
-            
-            
-            /*enabledBorder: OutlineInputBorder(
+            enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
               borderSide: BorderSide(style: BorderStyle.none),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.0),
-            ), */
+            ), 
           ),
         ),
         routes: {
           Welcome.id: (context) => Welcome(),
           Login.id  : (context) => Login(),
           InterviewMetaData.id : (context) => InterviewMetaData(),
+          Interview.id : (context) => Interview(),
+          Section.id : (context) => Section(),
         },
         home: FutureBuilder<FirebaseUser>(
             future: Auth.getCurrentUser(),

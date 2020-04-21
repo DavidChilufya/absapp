@@ -1,24 +1,28 @@
-import 'package:absapp/screens/questionaire/metaData/model/meta_data.dart';
+import 'package:absapp/screens/questionaire/metaData/meta_data_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
+
 @immutable
 abstract class MetaDataEvent extends Equatable {
-  MetaDataEvent([List props = const []]) : super(props);
+  const MetaDataEvent();
+
+  @override
+  List<Object> get props => [];
 }
 
-class LoadInterviews extends MetaDataEvent {}
+class SubmitButtonPressed extends MetaDataEvent {
+  final InterviewMetaDataModel data;
 
-class AddRandomInterview extends MetaDataEvent {}
+  const SubmitButtonPressed({@required this.data, });
+    
+ 
 
-class UpdateWithRandomInterview extends MetaDataEvent {
-  final InterviewMetaDataModel updatedInterview;
+  @override
+  List<Object> get props => [data];
 
-  UpdateWithRandomInterview(this.updatedInterview) : super([updatedInterview]);
-}
-
-class DeleteInterview extends MetaDataEvent {
-  final InterviewMetaDataModel interview;
-
-  DeleteInterview(this.interview) : super([interview]);
+  @override
+  String toString() {
+    return 'Submitted { data: $data }';
+  }
 }

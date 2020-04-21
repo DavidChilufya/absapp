@@ -1,16 +1,41 @@
-import 'package:absapp/screens/questionaire/metaData/model/meta_data.dart';
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-abstract class MetaDataState extends Equatable {
-  MetaDataState([List props = const []]) : super(props);
-}
+class MetaDataState {
+  final bool isSubmitting;
+  final bool isSuccess;
 
-class InterviewsLoading extends MetaDataState {}
+  MetaDataState({
+    @required this.isSubmitting,
+    @required this.isSuccess,
+  });
 
-class InterviewsLoaded extends MetaDataState {
-  final List<InterviewMetaDataModel> interviews;
+  factory MetaDataState.empty() {
+    return MetaDataState(
+      isSubmitting: false,
+      isSuccess: false,
+    );
+  }
 
-  InterviewsLoaded(this.interviews) : super([interviews]);
+  factory MetaDataState.loading() {
+    return MetaDataState(
+      isSubmitting: true,
+      isSuccess: false,
+    );
+  }
+
+  factory MetaDataState.success() {
+    return MetaDataState(
+      isSubmitting: false,
+      isSuccess: true,
+    );
+  }
+
+  @override
+  String toString() {
+    return '''MetaDataState {
+      isSubmitting: $isSubmitting,
+      isSuccess: $isSuccess,
+    }''';
+  }
 }
