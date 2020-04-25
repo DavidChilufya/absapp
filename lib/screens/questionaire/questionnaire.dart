@@ -1,7 +1,9 @@
 class Questionaire {
   static List questionnaire = [
     {
-      'title': 'General Information',
+      'status':[true],
+      'title': 'Meta Data',
+      'no' : '',
       '_1': [ 'Name of dairy Cooperative Union you belong to', ['Select','Balaka','Chibombo','Fisenge','Kwanshama','Liteta','Mufulira']],
       '_2': [ 'Name of Primary Cooperative', [
         {'Balaka':['Select','BALAKA','TUJATANE','MASENGO A','MALUMBO','BALAKA C','TUKABASANGA','TWATASHA','MAPALO','KAFUTO','TWEENDE',
@@ -13,7 +15,7 @@ class Questionaire {
         {'Mufulira':['KALINDINI','KAFUE','MUKAMBO','KAMUKOLWE','MUTUNDU SOUTH']} 
         ]
       ],
-      '_3': ['Is this your first Interview ?', ['Yes','No']], 
+      '_3': ['Is this your first Interview ?', ['Yes','No','Household Unlisted']], 
       '_4': ['Household ID'], 
       '_5': ['Latitude'],
       '_6': ['Longitude'],
@@ -23,6 +25,7 @@ class Questionaire {
     {
       'status':[true], //means section is active
       'title': 'General Information',
+      'no' : '1',
       'A.': {'Name of respondent',[true], {}},
       'B.': {'Village/ Settlement name where farm HH is located',[false], {}},
       'C.': {'Age of respondent',[true], {}},
@@ -32,6 +35,17 @@ class Questionaire {
     {
       'status':[true], //means section is active
       'title': 'Household Information',
+      'no' : '2',
+      'A.': {'Number of children 16yrs and under',[true], {}},
+      'B.': {'Number of Young adults, i.e 17-25yrs',[false], {}},
+      'C.': {'Number of 26 - 40 year olds',[true], {}},
+      'D.': {'Number of 40 - 60 year olds',[true], {'Male', 'Female'}},
+      'E.': {'Number of people older than 60 years',[true], {}},
+    },
+    {
+      'status':[true], //means section is active
+      'title': 'Household Information',
+      'no' : '3',
       'A.': {'Number of children 16yrs and under',[true], {}},
       'B.': {'Number of Young adults, i.e 17-25yrs',[false], {}},
       'C.': {'Number of 26 - 40 year olds',[true], {}},

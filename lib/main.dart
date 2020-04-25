@@ -2,7 +2,7 @@ import 'package:absapp/screens/home.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/login.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
-import 'package:absapp/screens/questionaire/sections/section_screen.dart';
+import 'package:absapp/screens/questionaire/sections/section_container.dart';
 import 'package:absapp/screens/settings.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
@@ -64,7 +64,7 @@ class App extends StatelessWidget {
           Login.id  : (context) => Login(),
           InterviewMetaData.id : (context) => InterviewMetaData(),
           Interview.id : (context) => Interview(),
-          Section.id : (context) => Section(),
+          SectionContainer.id : (context) => SectionContainer(),
         },
         home: FutureBuilder<FirebaseUser>(
             future: Auth.getCurrentUser(),

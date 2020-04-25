@@ -1,48 +1,51 @@
-import 'dart:math';
-
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MetaDataForm extends StatefulWidget {
+  final String interview_id;
+
+  MetaDataForm({this.interview_id});
+
   @override
-  _MetaDataFormState createState() => _MetaDataFormState();
+  _MetaDataFormState createState() => _MetaDataFormState(interview_id);
 }
 
 class _MetaDataFormState extends State<MetaDataForm> {
-  String _interview_id;
+  
+  _MetaDataFormState(this.interview_id);
+  var year = DateTime.now().year;
+  final String interview_id;
   String coop_union = 'Select';
   String prime_coop = 'Select';
+  String householdId;
+  String firstInterview;
+  String latitude;
+  String longitude;
+  
   int _3_index = 1;
-  final _usernameController = TextEditingController();
-  final _passwordController = TextEditingController();
+  TextEditingController  _householdIdController = TextEditingController();
+  TextEditingController  _latitudeController = TextEditingController();
+  TextEditingController  _longitudeController = TextEditingController();
+  TextEditingController  _dateController = TextEditingController();
+  TextEditingController  _timeController = TextEditingController();
+
   InterviewDao _metaDataDao = InterviewDao();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
-
+  //Initial values
   
-
-  void _submitForm() async {
-    if (_formKey.currentState.validate()) {
-      // If the form is valid, display a Snackbar.
-    Map metaData =  { 'interview_id': 'sdsdsd','houshold_id': 'sdsdsd','coop_union': 'sdsdsd','prime_coop': 'sdsdsd',
-                              'first_interview': false,'latitude': 'sdsdsd','longitude': 'sdsdsd','date_': 'sdsdsd','time_': 'sdsdsd',
-                                 'year': 'sdsdsd','test': false };
-    InterviewModel interview = InterviewModel(interview_id: 'qqqqqqqqqqqqqqqqqqqqq2', household_id: 'sdsdsd',user_email: 'null', user_id: 'null', 
-                                                   question_number: 'null', completed: false,test: false, meta_data: metaData);
-      await _metaDataDao.insert(interview);
-      await Navigator.pushNamed(
-        context, 
-        Interview.id,
-        arguments: interview
-      );
-    }
-  }
+  
 
   @override
   Widget build(BuildContext context) {
+    
+    DateTime now = DateTime.now(); 
+    _dateController.text = DateFormat('dd/MM/yyyy').format(now);
+    _timeController.text = DateFormat('kk:mm').format(now);
     
     Map questions = Questionaire.questionnaire[0];
     return SafeArea(
@@ -116,6 +119,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                         selected: _3_index == index,
                         onSelected: (bool selected) {
                           setState(() {
+                            firstInterview = questions['_3'][1][index];
                             _3_index = selected ? index : null;
                           });
                         },
@@ -128,6 +132,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     style: Theme.of(context).textTheme.headline5.copyWith()),
                 SizedBox(height: 6),
                 TextFormField(
+                  controller: _householdIdController,
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value.isEmpty) return 'Field cannot be blank';
@@ -140,6 +145,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                   children: <Widget>[
                     Flexible(
                       child: TextFormField(
+                        controller: _latitudeController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value.isEmpty) return 'Field cannot be blank';
@@ -153,6 +159,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     SizedBox(width: 6),
                     Flexible(
                       child: TextFormField(
+                        controller: _longitudeController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value.isEmpty) return 'Field cannot be blank';
@@ -171,6 +178,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                   children: <Widget>[
                     Flexible(
                       child: TextFormField(
+                        controller: _dateController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value.isEmpty) return 'Field cannot be blank';
@@ -184,6 +192,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     SizedBox(width: 6),
                     Flexible(
                       child: TextFormField(
+                        controller: _timeController,
                         keyboardType: TextInputType.text,
                         validator: (value) {
                           if (value.isEmpty) return 'Field cannot be blank';
@@ -209,5 +218,43 @@ class _MetaDataFormState extends State<MetaDataForm> {
       ],
     )));
   }
+
+  void _submitForm() async {
+    
+    if (_formKey.currentState.validate()) {
+      // If the form is valid, display a Snackbar.
+      String year_ = DateTime.now().year.toString();
+      
+
+      Map metaData =  { 'interview_id': interview_id,'houshold_id': _householdIdController.text,
+                        'coop_union': coop_union,'prime_coop': prime_coop,'first_interview': firstInterview,
+                        'latitude': _latitudeController.text,'longitude': _longitudeController.text,
+                        'date_': _dateController.text,'time_': _timeController.text,'year': year_,'test': false };
+                                  
+      InterviewModel interview = InterviewModel(interview_id: interview_id, household_id: _householdIdController.text,user_email: 'null', user_id: 'null', 
+                                                    question_number: '0', year_: year_,completed: false,test: false, meta_data: metaData, sections: [{}]);
+        await _metaDataDao.insert(interview).then((value) => {
+          Navigator.pushNamed(
+            context, 
+            Interview.id,
+            arguments: interview
+          )
+        });
+      
+    }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    _householdIdController.dispose();
+    _latitudeController.dispose();
+    _longitudeController.dispose();
+    _dateController.dispose();
+    _timeController.dispose();
+    super.dispose();
+  }
+
 
 }

@@ -1,4 +1,3 @@
-import 'package:absapp/screens/questionaire/metaData/bloc/meta_data_bloc.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,7 +16,6 @@ class _Home extends State<Home>  {
   
   final FirebaseUser _user;
   _Home(this._user);
-  MetaDataBloc _metaDataBloc;
   //CreateInterview_DAO foo;
   @override
   void initState() {
