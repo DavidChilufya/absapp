@@ -1,5 +1,4 @@
 import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
-import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:absapp/screens/questionaire/sections/section_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -11,12 +10,12 @@ class SectionContainer extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     List routeData = ModalRoute.of(context).settings.arguments;
-    InterviewModel interview = routeData[0];
+    Map interview = routeData[0];
     var section = routeData[1];
 
     String sectionNo = section['no'];
-    String interviewId = interview.interview_id;
-    String year_ = interview.year_;
+    String interviewId = interview['interview_id'];
+    String year_ = interview['year_'];
     return BlocProvider(
       create: (BuildContext context) => InterviewBloc(),
       child: Scaffold(

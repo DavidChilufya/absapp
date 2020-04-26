@@ -2,7 +2,6 @@ import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
 import 'package:absapp/screens/interview/bloc/interview_state.dart';
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
-import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -198,17 +197,17 @@ class _OneState extends State<One> {
         'test': false
       };
 
-      InterviewModel interview = InterviewModel(
-          interview_id: interview_id,
-          household_id: _householdIdController.text,
-          user_email: 'null',
-          user_id: 'null',
-          question_number: '0',
-          year_: year_,
-          completed: false,
-          test: false,
-          meta_data: metaData);
-      await _metaDataDao.insert(interview).then((value) =>
+      Map interview= {
+          'interview_id': interview_id,
+          'household_id': _householdIdController.text,
+          'user_email': 'null',
+          'user_id': 'null',
+          'question_number': '0',
+          'year_': year_,
+          'completed': false,
+          'test': false,
+          'meta_data': metaData};
+      await _metaDataDao.writeToHive({'sdsd':'sd'}, 'jhhj').then((value) =>
           {Navigator.pushNamed(context, Interview.id, arguments: interview)});
     }
   }

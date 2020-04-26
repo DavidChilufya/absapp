@@ -26,7 +26,7 @@ class AppDatabase{
 
       // Calling _openDatabase will also complete the completer with database instance
 
-      _openDatabase();
+      await _openDatabase();
 
     }
 

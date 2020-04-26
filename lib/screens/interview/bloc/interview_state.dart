@@ -1,17 +1,14 @@
 
-import 'package:absapp/screens/interview/model/interview_model.dart';
-import 'package:equatable/equatable.dart';
+abstract class InterviewState{
+  Map interview;
+  InterviewState(this.interview);
 
-abstract class InterviewState extends Equatable {
-  final InterviewModel interview;
-  const InterviewState(this.interview);
-
-  @override
-  List<InterviewModel> get props => [interview];
+  Map get getInterview => interview;
+  List get getInterviewList => [interview];
 }
 
 class InitialState extends InterviewState{
-  InitialState(InterviewModel interview) : super(interview);
+  InitialState(Map interview) : super(interview);
 }
 
 class InterviewID extends InterviewState {
@@ -20,26 +17,22 @@ class InterviewID extends InterviewState {
 }
 
 class MetaDataState extends InterviewState{
-  final InterviewModel interviewModel;
+  final Map interviewModel;
   MetaDataState(this.interviewModel) : super(null);
 
 }
 
 class InterviewLoadedState extends InterviewState{
-  final InterviewModel interviews;
+  var interviews;
 
   InterviewLoadedState(this.interviews) : super(null);
-  InterviewModel getInterview() => interviews;
   @override
-  List<InterviewModel> get props => [interviews];
+  Map get getInterview => interviews;
+  @override
+  List get getInterviewList => [interviews];
 
   @override
   String toString() => interviews.toString();
 }
 
-class InitialSectionState extends InterviewState{
-  final InterviewModel interview;
-  InitialSectionState(this.interview):super(null);
-
-}
 

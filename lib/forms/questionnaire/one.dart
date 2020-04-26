@@ -2,8 +2,6 @@ import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
 import 'package:absapp/screens/interview/bloc/interview_event.dart';
 import 'package:absapp/screens/interview/bloc/interview_state.dart';
 import 'package:absapp/screens/interview/interview_dao.dart';
-import 'package:absapp/screens/interview/interview_screen.dart';
-import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +10,7 @@ import 'package:intl/intl.dart';
 class One extends StatefulWidget {
   final String interview_id;
 
-  One({this.interview_id});
+  One(this.interview_id);
 
   @override
   _OneState createState() => _OneState(interview_id);
@@ -45,6 +43,8 @@ class _OneState extends State<One> {
     final interviewBloc = BlocProvider.of<InterviewBloc>(context);
     interviewBloc.add(LoadSection(interview_id,'one'));
 
+    Map interview;
+    
     DateTime now = DateTime.now();
     _dateController.text = DateFormat('dd/MM/yyyy').format(now);
     _timeController.text = DateFormat('kk:mm').format(now);
@@ -52,6 +52,8 @@ class _OneState extends State<One> {
     Map questions = Questionaire.questionnaire[0];
     return BlocBuilder<InterviewBloc, InterviewState>(
         builder: (context, state) {
+          interview = state.getInterview;
+          
       return Stack(
         children: <Widget>[
           Padding(
@@ -181,7 +183,7 @@ class _OneState extends State<One> {
                 width: 500,
                 child: RaisedButton(
                   child: Text("Submit"),
-                  onPressed: _submitForm,
+                  onPressed: () => _submitForm(state.getInterview),
                 ),
               ))
         ],
@@ -189,12 +191,12 @@ class _OneState extends State<One> {
     });
   }
 
-  void _submitForm() async {
+  void _submitForm(var states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       String year_ = DateTime.now().year.toString();
 
-      Map metaData = {
+      Map data = {
         'interview_id': interview_id,
         'houshold_id': _householdIdController.text,
         'coop_union': coop_union,
@@ -207,20 +209,13 @@ class _OneState extends State<One> {
         'year': year_,
         'test': false
       };
-
-      InterviewModel interview = InterviewModel(
-          interview_id: interview_id,
-          household_id: _householdIdController.text,
-          user_email: 'null',
-          user_id: 'null',
-          question_number: '0',
-          year_: year_,
-          completed: false,
-          test: false,
-          meta_data: metaData, sections: [{'sdsdsdsdsd'}]);
-      await _metaDataDao.update(interview_id,{'one': {'asasas':'sdsdsd'}}).then((value) =>
-          {//Navigator.pushNamed(context, Interview.id, arguments: interview)
-          });
+      
+      states['sections']['sec_1'] = data;
+      print('2222222222222222222222222222222222222222222${states}44444444444444444444444444444444444444444444444444444444444');
+      await _metaDataDao.updateHive(states, interview_id);
+      //.then((value) =>
+         // {//Navigator.pushNamed(context, Interview.id, arguments: interview)
+         // });
     }
   }
 

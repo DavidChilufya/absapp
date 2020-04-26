@@ -3,7 +3,6 @@ import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
 import 'package:absapp/screens/interview/bloc/interview_state.dart';
 import 'package:absapp/screens/interview/bloc/interview_event.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
-import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,8 +31,9 @@ class _SectionState extends State<Section> {
 
   @override
   Widget build(BuildContext context) {
+    print('sd');
     List routeData = ModalRoute.of(context).settings.arguments;
-    InterviewModel interview = routeData[0];
+    Map interview ;
     final interviewBloc = BlocProvider.of<InterviewBloc>(context);
     interviewBloc.add(LoadInterviewEvent(interview_id));
 
@@ -51,15 +51,14 @@ class _SectionState extends State<Section> {
     return BlocBuilder<InterviewBloc, InterviewState>(
         builder: (context, state) {
           //interviewBloc.add(LoadInterviewEvent(interview_id));
-        print('${state.props[0].sections}ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp');
-
+        interview = state.getInterview;
         return Scaffold(
             body: Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
                 child: PageView(
                   controller: _pageViewController,
                   children: [
-                    One(),
+                    One(interview_id),
                     Center(child: Text('Page 2')),
                     Center(child: Text('Page 3')),
                     Center(child: Text('Page 4')),

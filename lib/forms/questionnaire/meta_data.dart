@@ -1,6 +1,5 @@
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
-import 'package:absapp/screens/interview/model/interview_model.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +14,6 @@ class MetaDataForm extends StatefulWidget {
 }
 
 class _MetaDataFormState extends State<MetaDataForm> {
-  
   _MetaDataFormState(this.interview_id);
   var year = DateTime.now().year;
   final String interview_id;
@@ -25,28 +23,25 @@ class _MetaDataFormState extends State<MetaDataForm> {
   String firstInterview;
   String latitude;
   String longitude;
-  
+
   int _3_index = 1;
-  TextEditingController  _householdIdController = TextEditingController();
-  TextEditingController  _latitudeController = TextEditingController();
-  TextEditingController  _longitudeController = TextEditingController();
-  TextEditingController  _dateController = TextEditingController();
-  TextEditingController  _timeController = TextEditingController();
+  TextEditingController _householdIdController = TextEditingController();
+  TextEditingController _latitudeController = TextEditingController();
+  TextEditingController _longitudeController = TextEditingController();
+  TextEditingController _dateController = TextEditingController();
+  TextEditingController _timeController = TextEditingController();
 
   InterviewDao _metaDataDao = InterviewDao();
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   //Initial values
-  
-  
 
   @override
   Widget build(BuildContext context) {
-    
-    DateTime now = DateTime.now(); 
+    DateTime now = DateTime.now();
     _dateController.text = DateFormat('dd/MM/yyyy').format(now);
     _timeController.text = DateFormat('kk:mm').format(now);
-    
+
     Map questions = Questionaire.questionnaire[0];
     return SafeArea(
         child: SingleChildScrollView(
@@ -220,27 +215,38 @@ class _MetaDataFormState extends State<MetaDataForm> {
   }
 
   void _submitForm() async {
-    
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       String year_ = DateTime.now().year.toString();
-      
 
-      Map metaData =  { 'interview_id': interview_id,'houshold_id': _householdIdController.text,
-                        'coop_union': coop_union,'prime_coop': prime_coop,'first_interview': firstInterview,
-                        'latitude': _latitudeController.text,'longitude': _longitudeController.text,
-                        'date_': _dateController.text,'time_': _timeController.text,'year': year_,'test': false };
-                                  
-      InterviewModel interview = InterviewModel(interview_id: interview_id, household_id: _householdIdController.text,user_email: 'null', user_id: 'null', 
-                                                    question_number: '0', year_: year_,completed: false,test: false, meta_data: metaData, sections: [{}]);
-        await _metaDataDao.insert(interview).then((value) => {
-          Navigator.pushNamed(
-            context, 
-            Interview.id,
-            arguments: interview
-          )
-        });
-      
+      Map metaData = {
+        'interview_id': interview_id,
+        'houshold_id': _householdIdController.text,
+        'coop_union': coop_union,
+        'prime_coop': prime_coop,
+        'first_interview': firstInterview,
+        'latitude': _latitudeController.text,
+        'longitude': _longitudeController.text,
+        'date_': _dateController.text,
+        'time_': _timeController.text,
+        'year': year_,
+        'test': false
+      };
+
+      var interview = {
+        'interview_id': interview_id,
+        'household_id': _householdIdController.text,
+        'user_email': 'null',
+        'user_id': 'null',
+        'question_number': '0',
+        'year_': year_,
+        'completed': false,
+        'test': false,
+        'meta_data': metaData,
+        'sections': {}
+      };
+      await _metaDataDao.writeToHive(interview, interview_id).then((value) =>
+          {Navigator.pushNamed(context, Interview.id, arguments: interview)});
     }
   }
 
@@ -255,6 +261,4 @@ class _MetaDataFormState extends State<MetaDataForm> {
     _timeController.dispose();
     super.dispose();
   }
-
-
 }
