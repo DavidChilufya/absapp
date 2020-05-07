@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 
 class MetaDataForm extends StatefulWidget {
@@ -14,17 +18,23 @@ class MetaDataForm extends StatefulWidget {
 }
 
 class _MetaDataFormState extends State<MetaDataForm> {
+  
   _MetaDataFormState(this.interview_id);
   var year = DateTime.now().year;
   final String interview_id;
-  String coop_union = 'Select';
-  String prime_coop = 'Select';
+  FirebaseUser _user;
+  String coop_union;
+  String prime_coop ;
+  dynamic prime_coop_list ;
+  bool prime_coop_show = false;
+  bool first_interview_show = false;
   String householdId;
   String firstInterview;
   String latitude;
   String longitude;
+  String _user_email, _user_id;
 
-  int _3_index = 1;
+  int _3_index;
   TextEditingController _householdIdController = TextEditingController();
   TextEditingController _latitudeController = TextEditingController();
   TextEditingController _longitudeController = TextEditingController();
@@ -37,12 +47,25 @@ class _MetaDataFormState extends State<MetaDataForm> {
   //Initial values
 
   @override
+  void initState() {
+    householdId = '00';
+    prime_coop_list = ['Select'];
+    coop_union = 'Select';
+    prime_coop = 'Select';
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    this._user = ModalRoute.of(context).settings.arguments;
+
+    
+    _user_email = _user.email;
+    _user_id = _user.uid;
     DateTime now = DateTime.now();
     _dateController.text = DateFormat('dd/MM/yyyy').format(now);
     _timeController.text = DateFormat('kk:mm').format(now);
-
-    Map questions = Questionaire.questionnaire[0];
+    Map questions = Questionaire.metaData[0];
     return SafeArea(
         child: SingleChildScrollView(
             child: Column(
@@ -71,6 +94,24 @@ class _MetaDataFormState extends State<MetaDataForm> {
                   onChanged: (String newValue) {
                     setState(() {
                       coop_union = newValue;
+                      prime_coop = 'Select';
+                      if(coop_union == 'Balaka'){
+                        prime_coop_list = questions['_2'][1][0]['Balaka'];
+                      }if(coop_union == 'Fisenge'){
+                        prime_coop_list = questions['_2'][1][2]['Fisenge'];
+                      }if(coop_union == 'Chibombo'){
+                        prime_coop_list = questions['_2'][1][1]['Chibombo'];
+                      }if(coop_union == 'Kwanshama'){
+                        prime_coop_list = questions['_2'][1][3]['Kwanshama'];
+                      }if(coop_union == 'Liteta'){
+                        prime_coop_list = questions['_2'][1][4]['Liteta'];
+                      }if(coop_union == 'Mufulira'){
+                        prime_coop_list = questions['_2'][1][5]['Mufulira'];
+                      }
+                      prime_coop_show = true;
+                      _householdIdController.clear();
+                      _3_index = -1;
+                      first_interview_show = false;
                     });
                   },
                   underline: SizedBox(),
@@ -79,49 +120,60 @@ class _MetaDataFormState extends State<MetaDataForm> {
                 Text('${questions['_2'][0]}',
                     style: Theme.of(context).textTheme.headline5.copyWith()),
                 SizedBox(height: 6),
-                DropdownButton(
-                  value: prime_coop,
-                  items: questions['_2'][1][0]['Balaka']
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      prime_coop = newValue;
-                    });
-                  },
-                  underline: SizedBox(),
-                  //isExpanded: true,
-                ),
+                Visibility(
+                  visible: prime_coop_show,
+                  child: DropdownButton(
+                    value: prime_coop,
+                    items: prime_coop_list
+                        .map<DropdownMenuItem<String>>((String value) {
+                      return DropdownMenuItem<String>(
+                        value: value,
+                        child: Text(value),
+                      );
+                    }).toList(),
+                    onChanged: (String newValue) {
+                      setState(() {
+                        prime_coop = newValue;
+                        first_interview_show = true;
+                        print('${_user.email} === ${createHouseholdId(_user_email)}');
+
+                      });
+                    },
+                    underline: SizedBox(),
+                    //isExpanded: true,
+                  )),
+                
                 Text('${questions['_3'][0]}',
                     style: Theme.of(context).textTheme.headline5.copyWith()),
                 SizedBox(height: 6),
-                Wrap(
-                  spacing: 8,
-                  children: List<Widget>.generate(
-                    questions['_3'][1].length,
-                    (int index) {
-                      return ChoiceChip(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8),
+                Visibility(
+                  visible: first_interview_show,
+                  child: Wrap(
+                    spacing: 8,
+                    children: List<Widget>.generate(
+                      questions['_3'][1].length,
+                      (int index) {
+                        return ChoiceChip(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(8),
+                            ),
                           ),
-                        ),
-                        label: Text(questions['_3'][1][index]),
-                        selected: _3_index == index,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            firstInterview = questions['_3'][1][index];
-                            _3_index = selected ? index : null;
-                          });
-                        },
-                      );
-                    },
-                  ).toList(),
-                ),
+                          label: Text(questions['_3'][1][index]),
+                          selected: _3_index == index,
+                          onSelected: (bool selected) {
+                            setState(() {
+                              firstInterview = questions['_3'][1][index];
+                              householdId = createHouseholdId(_user_email);
+                              _3_index = selected ? index : null;
+                              _householdIdController..text = householdId;
+                            });
+                          },
+                        );
+                      },
+                    ).toList(),
+                  )),
+                
                 SizedBox(height: 12),
                 Text('${questions['_4'][0]}',
                     style: Theme.of(context).textTheme.headline5.copyWith()),
@@ -214,40 +266,75 @@ class _MetaDataFormState extends State<MetaDataForm> {
     )));
   }
 
+  void showTopShortToast() {
+    Fluttertoast.showToast(
+        msg: "Select First Interview",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
+  }
+  
   void _submitForm() async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       String year_ = DateTime.now().year.toString();
+      if(firstInterview != null){
+        Map metaData = {
+          'interview_id': interview_id,
+          'houshold_id': _householdIdController.text,
+          'coop_union': coop_union,
+          'prime_coop': prime_coop,
+          'first_interview': firstInterview,
+          'latitude': _latitudeController.text,
+          'longitude': _longitudeController.text,
+          'date_': _dateController.text,
+          'time_': _timeController.text,
+          'year': year_,
+          'test': false
+        };
 
-      Map metaData = {
-        'interview_id': interview_id,
-        'houshold_id': _householdIdController.text,
-        'coop_union': coop_union,
-        'prime_coop': prime_coop,
-        'first_interview': firstInterview,
-        'latitude': _latitudeController.text,
-        'longitude': _longitudeController.text,
-        'date_': _dateController.text,
-        'time_': _timeController.text,
-        'year': year_,
-        'test': false
-      };
-
-      var interview = {
-        'interview_id': interview_id,
-        'household_id': _householdIdController.text,
-        'user_email': 'null',
-        'user_id': 'null',
-        'question_number': '0',
-        'year_': year_,
-        'completed': false,
-        'test': false,
-        'meta_data': metaData,
-        'sections': {}
-      };
-      await _metaDataDao.writeToHive(interview, interview_id).then((value) =>
-          {Navigator.pushNamed(context, Interview.id, arguments: interview)});
+        var interview = {
+          'interview_id': interview_id,
+          'household_id': _householdIdController.text,
+          'user_email': _user_email,
+          'user_id': _user_id,
+          'question_number': '0',
+          'year_': year_,
+          'completed': false,
+          'test': false,
+          'meta_data': metaData,
+          'sections': {}
+        };
+        await _metaDataDao.writeToHive(interview, interview_id).then((value) =>
+            {Navigator.pushNamed(context, Interview.id, arguments: interview)});
+    }else{
+      showTopShortToast();
+      print('Hello word ${firstInterview}');
     }
+    }
+  }
+
+  String createHouseholdId(String email){
+      String userNo;
+      String householdId;
+      String coop;
+      if(email == 'david@gmail.com'){
+        userNo = '14';
+      }
+      coop = coop_union.substring(0, 3).toUpperCase();
+
+      householdId = coop+randomNumber()+'-'+userNo;
+      return householdId;
+  }
+
+  String randomNumber({int strlen}) {
+    const chars = "0123456789";
+    Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
+    String result = "";
+    for (var i = 0; i < 3; i++) {
+      result += chars[rnd.nextInt(chars.length)];
+    }
+    return result;
   }
 
   @override

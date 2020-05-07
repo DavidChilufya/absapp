@@ -26,7 +26,10 @@ class ListViewSections extends StatelessWidget {
 
   Widget _myListView(BuildContext context) {
     //List<Sections> myList = [this.section1, this.section2];
-    List myList = Questionaire.questionnaire;
+    Questionaire questionnaire = Questionaire();
+
+    questionnaire.setSections();
+    List myList = questionnaire.getSections();
 
     return ListView.builder(
       padding: EdgeInsets.only(top: 10),
@@ -45,7 +48,7 @@ class ListViewSections extends StatelessWidget {
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
               ListTile(
                 title: Text(
-                    '${myList[index]['no']} ' '${myList[index]['title']}',
+                    '${myList[index]['title']}',
                     style: Theme.of(context).textTheme.subtitle2.copyWith()),
                 subtitle: Row(children: <Widget>[
                   Padding(

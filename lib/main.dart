@@ -1,5 +1,6 @@
 import 'package:absapp/screens/home.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
+import 'package:absapp/screens/interview_list/interview_list.dart';
 import 'package:absapp/screens/login.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
@@ -15,7 +16,7 @@ void main() => runApp(App());
 
 class App extends StatelessWidget {
   final Color primaryColor = Color(0xff03da9d);
-  final Color accentColor = Color(0xff333333);
+  final Color accentColor = Colors.orangeAccent;//Color(0xff333333);
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +66,7 @@ class App extends StatelessWidget {
           InterviewMetaData.id : (context) => InterviewMetaData(),
           Interview.id : (context) => Interview(),
           SectionContainer.id : (context) => SectionContainer(),
+          InterviewList.id : (context) => InterviewList()
         },
         home: FutureBuilder<FirebaseUser>(
             future: Auth.getCurrentUser(),

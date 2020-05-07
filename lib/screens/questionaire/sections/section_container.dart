@@ -21,7 +21,7 @@ class SectionContainer extends StatelessWidget{
       child: Scaffold(
         appBar: AppBar(
           title : Text('${interviewId} | ${year_}  ')),
-        body:Section(interviewId)
+        body:Section(interviewId,int.parse(sectionNo))
       ) ,
       );
   }

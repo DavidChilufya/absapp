@@ -1,37 +1,34 @@
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class One extends StatefulWidget {
+class Six extends StatefulWidget {
   final String interview_id;
   final Map interview;
 
-  One(this.interview_id, this.interview);
+  Six(this.interview_id, this.interview);
 
   @override
-  _OneState createState() => _OneState(interview_id, interview);
+  _SixState createState() => _SixState(interview_id, interview);
 }
 
-class _OneState extends State<One> {
-  bool loading = true;
-  _OneState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
+class _SixState extends State<Six> {
+  _SixState(this.interview_id, this.interview);
   Map interview;
+  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions ;
 
   String _title,q1,q2,q3,q4,q5;//Questions
-  List _4options;
-  int _4_index ;
-  String _4answer;
 
   final String interview_id;
   
   TextEditingController _1Controller = TextEditingController();
+  TextEditingController _2Controller = TextEditingController();
   TextEditingController _3Controller = TextEditingController();
+  TextEditingController _4Controller = TextEditingController();
   TextEditingController _5Controller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -41,47 +38,31 @@ class _OneState extends State<One> {
 
   @override
   void initState() {
-    
-      print('${interview}8888888888888888888888888888888888');
+    if(interview['sections']['sec_6'] != null ){
+      
+      dataExist = true;
+        _1Controller..text = interview['sections']['sec_6']['_1'];
+        _2Controller..text = interview['sections']['sec_6']['_2'];
+        _3Controller..text = interview['sections']['sec_6']['_3'];
+        _4Controller..text = interview['sections']['sec_6']['_4'];
+        _5Controller..text = interview['sections']['sec_6']['_5'];
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if(interview['sections']['sec_1'] != null){
-        loading = false;
-       // print('${interview['sections']['sec_1']['_1']}88888888888888888888888888888888882');
-        _1Controller..text = interview['sections']['sec_1']['_1'];
-        _3Controller..text = interview['sections']['sec_1']['_3'];
-        _5Controller..text = interview['sections']['sec_1']['_5'];
-        _4answer = interview['sections']['sec_1']['_4'][0];
-        _4_index = interview['sections']['sec_1']['_4'][1];
-        dataExist = true;
-
-      }else{
-        loading = false;
-      }
-    
-    questions = questionaire.getSections()[0];
+    questions = questionaire.getSections()[5];
     _title = questions['title'];
     q1 = questions['_1'][0];
     q2 = questions['_2'][0];
     q3 = questions['_3'][0];
     q4 = questions['_4'][0];
     q5 = questions['_5'][0];
-    _4options = questions['_4'][2];
     
     submitBtnTxt = dataExist?'Edit':'Submit';
-      
-      return Scaffold(
-        body:  loading
-          ? Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
-                ),
-            )
-          :Stack(
+   
+      return Stack(
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.only(bottom: 50),
@@ -108,14 +89,38 @@ class _OneState extends State<One> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child:
                               TextFormField(
                                 controller: _1Controller,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: "Area Ha",
+                                        ),
                                 validator: (value) {
                                   if (value.isEmpty){return 'Field cannot be blank';}
                                   else{ return null; }
                                   },
-                              ),
+                              ), ),
+                              
+                              SizedBox(height: 12),
+                              Text('${q2}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5
+                                      .copyWith()),
+                              SizedBox(height: 6),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
+                              TextFormField(
+                                controller: _2Controller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: "Area Ha",
+                                        ),
+                                validator: (value) {
+                                  if (value.isEmpty){return 'Field cannot be blank';}
+                                  else{ return null; }
+                                },
+                              ),),
                               SizedBox(height: 12),
                               Text('${q3}',
                                   style: Theme.of(context)
@@ -123,44 +128,37 @@ class _OneState extends State<One> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
-                               TextFormField(
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
+                              TextFormField(
                                 controller: _3Controller,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: "Area Ha",
+                                        ),
                                 validator: (value) {
                                   if (value.isEmpty){return 'Field cannot be blank';}
                                   else{ return null; }
                                 },
-                              ),
+                              ),),
                               SizedBox(height: 12),
                               Text('${q4}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline5
                                       .copyWith()),
-                                      SizedBox(height: 6),
-                              Wrap(
-                                spacing: 8,
-                                children: List<Widget>.generate(
-                                  _4options.length,
-                                  (int index) {
-                                    return ChoiceChip(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(8),
+                              SizedBox(height: 6),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
+                              TextFormField(
+                                controller: _4Controller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: "Area Ha",
                                         ),
-                                      ),
-                                      label: Text(_4options[index]),
-                                      selected: _4_index == index,
-                                      onSelected: (bool selected) {
-                                        setState(() {
-                                          _4answer = _4options[index];
-                                          _4_index = selected ? index : null;
-                                        });
-                                      },
-                                    );
-                                  },
-                                ).toList(),
-                              ),        
+                                validator: (value) {
+                                  if (value.isEmpty){return 'Field cannot be blank';}
+                                  else{ return null; }
+                                },
+                              ),),
                               SizedBox(height: 12),
                               Text('${q5}',
                                   style: Theme.of(context)
@@ -168,17 +166,22 @@ class _OneState extends State<One> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
+                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
                               TextFormField(
                                 controller: _5Controller,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: "Area Ha",
+                                        ),
                                 validator: (value) {
                                   if (value.isEmpty){return 'Field cannot be blank';}
                                   else{ return null; }
                                 },
-                              ),
+                              ),),
+                              
                             ],
                           )),
-                      SizedBox(height: 14),
+                          SizedBox(height: 14),
                     ],
                   ))),
           Align(
@@ -192,7 +195,7 @@ class _OneState extends State<One> {
                 ),
               ))
         ],
-      )); 
+      );
   }
 
   void _submitForm(var states) async {
@@ -201,13 +204,13 @@ class _OneState extends State<One> {
       
       Map data = {
         '_1': _1Controller.text,
-        '_2': '',
+        '_2': _2Controller.text,
         '_3': _3Controller.text,
-        '_4': [_4answer, _4_index],
+        '_4': _4Controller.text,
         '_5': _5Controller.text,
       };
 
-      states['sections']['sec_1'] = data;
+      states['sections']['sec_6'] = data;
       print('22222222222222222222222${states}444444444444444444444444444444444');
           
       await _interviewDao.updateHive(states, interview_id)
@@ -236,7 +239,7 @@ class _OneState extends State<One> {
     // widget tree.
     Fluttertoast.cancel();
     _1Controller.dispose();
-    _3Controller.dispose();
+    _2Controller.dispose();
     _5Controller.dispose();
     super.dispose();
   }

@@ -4,6 +4,7 @@ import 'package:absapp/widgets/interview/listview_sections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Interview extends StatefulWidget {
   static const String id = "interview";
@@ -37,15 +38,22 @@ class _InterviewState extends State<Interview> {
       create: (BuildContext context) => InterviewBloc(),
       child: Scaffold(
         backgroundColor: Theme.of(context).primaryColor,
-        body: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 30,
+        body: _interview == null
+          ? Center(
+              child: SpinKitDoubleBounce(
+                color: Theme.of(context).accentColor,
+                size: 50.0,
+                ),
+            )
+          : Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 30,
+                ),
+                InterviewHeader(headerModel: _headerModel),
+                ListViewSections(interview: _interview)
+              ],
             ),
-            InterviewHeader(headerModel: _headerModel),
-            ListViewSections(interview: _interview)
-          ],
-        ),
       ),
     );
   }
