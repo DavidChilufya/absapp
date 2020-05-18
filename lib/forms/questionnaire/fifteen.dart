@@ -3,6 +3,7 @@ import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+
 class Fifteen extends StatefulWidget {
   final String interview_id;
   final Map interview;
@@ -37,9 +38,9 @@ class _FifteenState extends State<Fifteen> {
   final String interview_id;
   
   TextEditingController _1_1Controller = TextEditingController();
-  TextEditingController _1_2Controller = TextEditingController();
+  //TextEditingController _1_2Controller = TextEditingController();
   TextEditingController _1_3Controller = TextEditingController();
-  TextEditingController _1_4Controller = TextEditingController();
+  //TextEditingController _1_4Controller = TextEditingController();
   TextEditingController _1_5Controller = TextEditingController();
   TextEditingController _1_6Controller = TextEditingController();
   TextEditingController _1_7Controller = TextEditingController();
@@ -63,7 +64,7 @@ class _FifteenState extends State<Fifteen> {
   TextEditingController _6_1Controller = TextEditingController();
 
   TextEditingController _7_1Controller = TextEditingController();
-  TextEditingController _7_2Controller = TextEditingController();
+  //TextEditingController _7_2Controller = TextEditingController();
   TextEditingController _7_3Controller = TextEditingController();
 
   TextEditingController _8_otherController = TextEditingController();
@@ -74,6 +75,8 @@ class _FifteenState extends State<Fifteen> {
   bool dataExist = false;
   String submitBtnTxt;
   //Initial values
+  double  _1_total, _2_total,_3_total,_4_total,_5_total,_6_total,_7_total,_8_total,_total;
+  String _stringTotal;
 
   @override
   void initState() {
@@ -84,6 +87,12 @@ class _FifteenState extends State<Fifteen> {
     _title = questions['title'];
     _inputOptions = questions['_input'][2];
 
+    _2_2AmountOtherController..text = '0.0';
+    _2_1AmountOtherController..text = '0.0';
+    _8_2Controller..text = '0.0';
+    _total = 0.0;
+    _1_total = 0.0; _2_total = 0.0;_3_total = 0.0;_4_total = 0.0;_5_total = 0.0;_6_total = 0.0;_7_total = 0.0;_8_total = 0.0;
+
     if(interview['sections']['sec_15'] != null ){
       
       dataExist = true;
@@ -91,9 +100,9 @@ class _FifteenState extends State<Fifteen> {
         _input_index = interview['sections']['sec_15']['_input'][1];
         
         _1_1Controller..text = interview['sections']['sec_15']['_1']['_1'];
-        _1_2Controller..text = interview['sections']['sec_15']['_1']['_2'];
+        //_1_2Controller..text = interview['sections']['sec_15']['_1']['_2'];
         _1_3Controller..text = interview['sections']['sec_15']['_1']['_3'];
-        _1_4Controller..text = interview['sections']['sec_15']['_1']['_4'];
+        //_1_4Controller..text = interview['sections']['sec_15']['_1']['_4'];
         _1_5Controller..text = interview['sections']['sec_15']['_1']['_5'];
         _1_6Controller..text = interview['sections']['sec_15']['_1']['_6'];
         _1_7Controller..text = interview['sections']['sec_15']['_1']['_7'];
@@ -117,7 +126,7 @@ class _FifteenState extends State<Fifteen> {
         _6_1Controller..text = interview['sections']['sec_15']['_6']['_1'];
 
         _7_1Controller..text = interview['sections']['sec_15']['_7']['_1'];
-        _7_2Controller..text = interview['sections']['sec_15']['_7']['_2'];
+        //_7_2Controller..text = interview['sections']['sec_15']['_7']['_2'];
         _7_3Controller..text = interview['sections']['sec_15']['_7']['_3'];
 
         _8_otherController..text = interview['sections']['sec_15']['_8']['_2'][0];
@@ -141,9 +150,9 @@ class _FifteenState extends State<Fifteen> {
     q8 = questions['_8'][0]['_8'];
 
     q1_1 = questions['_1'][0]['_1options'][0];
-    q1_2 = questions['_1'][0]['_1options'][1];
+    //q1_2 = questions['_1'][0]['_1options'][1];
     q1_3 = questions['_1'][0]['_1options'][2];
-    q1_4 = questions['_1'][0]['_1options'][3];
+    //q1_4 = questions['_1'][0]['_1options'][3];
     q1_5 = questions['_1'][0]['_1options'][4];
     q1_6 = questions['_1'][0]['_1options'][5];
     q1_7 = questions['_1'][0]['_1options'][6];
@@ -162,7 +171,7 @@ class _FifteenState extends State<Fifteen> {
     q6_1 = questions['_6'][0]['_6options'][0];
 
     q7_1 = questions['_7'][0]['_7options'][0];
-    q7_2 = questions['_7'][0]['_7options'][1];
+    //q7_2 = questions['_7'][0]['_7options'][1];
 
     q8_1 = questions['_8'][0]['_8options'][0];
 
@@ -171,7 +180,7 @@ class _FifteenState extends State<Fifteen> {
       return Stack(
         children: <Widget>[
           Padding(
-              padding: const EdgeInsets.only(bottom: 50),
+              padding: const EdgeInsets.only(bottom: 50.0),
               child: SingleChildScrollView(
                   padding: const EdgeInsets.only(bottom: 38.0),
                   child: Column(
@@ -243,7 +252,7 @@ class _FifteenState extends State<Fifteen> {
                                           },
                                       ), ),
                                     SizedBox(height: 12),
-                                    Text('${q1_2}',
+                                   /* Text('${q1_2}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline5
@@ -261,7 +270,7 @@ class _FifteenState extends State<Fifteen> {
                                           else{ return null; }
                                           },
                                       ), ),
-                                    SizedBox(height: 12),
+                                    SizedBox(height: 12), */
                                      Text('${q1_3}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -281,6 +290,7 @@ class _FifteenState extends State<Fifteen> {
                                           },
                                       ), ),
                                     SizedBox(height: 12),
+                                    /*
                                      Text('${q1_4}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -300,6 +310,7 @@ class _FifteenState extends State<Fifteen> {
                                           },
                                       ), ),
                                     SizedBox(height: 12),
+                                    */
                                      Text('${q1_5}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -670,6 +681,7 @@ class _FifteenState extends State<Fifteen> {
                                           },
                                       ), ),
                                     SizedBox(height: 12),
+                                    /*
                                     Text('${q7_2}',
                                     style: Theme.of(context)
                                         .textTheme
@@ -688,7 +700,7 @@ class _FifteenState extends State<Fifteen> {
                                           else{ return null; }
                                           },
                                       ), ),
-                                    SizedBox(height: 12),
+                                    SizedBox(height: 12), */
                                     ]
                                     )
                                     ),
@@ -751,6 +763,206 @@ class _FifteenState extends State<Fifteen> {
                                     ]
                                     )
                                     ),
+                                    Divider(color: Colors.grey.shade700),
+                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q1} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_1_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q2} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_2_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q3} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_3_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q4} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_4_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q5} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_5_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q6} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_6_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q7} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_7_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                        Divider(color: Colors.grey.shade400),
+                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('${q8} : ',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline5
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_8_total.toString()} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                      Divider(color: Colors.grey.shade400),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: <Widget> [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.6, 
+                                              child: Text('Total / ${_input_answer}',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline6
+                                                            .copyWith()),
+                                              ),
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width * 0.2, 
+                                              child: Text('${_stringTotal} ',
+                                                          style: Theme.of(context)
+                                                          .textTheme
+                                                          .headline6
+                                                          .copyWith()),
+                                              ),  
+                                        ]),
+                                          
+                                          RaisedButton(
+
+                                              child: Text('Total',style: TextStyle(color: Colors.white)),
+                                              onPressed: () => _totalInput(),
+                                            ),        
+                                            ],
+                                    ),
                                             
                               
                               
@@ -774,6 +986,24 @@ class _FifteenState extends State<Fifteen> {
       );
   }
 
+  _totalInput() {
+      _1_total  = double.parse(_1_1Controller.text) + double.parse(_1_3Controller.text)+double.parse(_1_5Controller.text) + double.parse(_1_6Controller.text)+
+          double.parse(_1_7Controller.text) + double.parse(_1_8Controller.text)+double.parse(_1_9Controller.text);
+      _2_total  = double.parse(_2_2AmountOtherController.text) + double.parse(_2_1AmountOtherController.text);  
+      _3_total  = double.parse(_3_1Controller.text) + double.parse(_3_2Controller.text); 
+      _4_total  = double.parse(_4_1Controller.text) + double.parse(_4_2Controller.text); 
+      _5_total  = double.parse(_5_1Controller.text) + double.parse(_5_2Controller.text);
+      _6_total  = double.parse(_6_1Controller.text);
+      _7_total  = double.parse(_7_1Controller.text);
+
+      _8_total  = double.parse(_8_1Controller.text) + double.parse(_8_2Controller.text);  
+
+          setState(() {
+            _total = (_1_total +_2_total+_3_total+_4_total+_5_total+_6_total+_7_total+_8_total);
+            _stringTotal = _total.toStringAsFixed(2);
+          });
+  }
+
   void _submitForm(var states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
@@ -782,9 +1012,9 @@ class _FifteenState extends State<Fifteen> {
         '_input': [_input_answer, _input_index],
         '_1': {
           '_1':_1_1Controller.text,
-          '_2':_1_2Controller.text,
+          //'_2':_1_2Controller.text,
           '_3':_1_3Controller.text,
-          '_4':_1_4Controller.text,
+          //'_4':_1_4Controller.text,
           '_5':_1_5Controller.text,
           '_6':_1_6Controller.text,
           '_7':_1_7Controller.text,
@@ -812,7 +1042,7 @@ class _FifteenState extends State<Fifteen> {
           },
           '_7': {
             '_1': _7_1Controller.text,
-            '_2': _7_2Controller.text,
+            //'_2': _7_2Controller.text,
             '_3': _7_3Controller.text,
           },
           '_8': {
@@ -850,8 +1080,9 @@ class _FifteenState extends State<Fifteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1_1Controller.dispose();
-    _1_2Controller.dispose();
+    //_1_2Controller.dispose();
     _1_5Controller.dispose();
     super.dispose();
   }

@@ -31,12 +31,44 @@ class _EleventState extends State<Eleven> {
   List<bool> _1FundedBy = [false, false, false, false];
   List<bool> _2FundedBy = [false, false, false, false];
   List<bool> _3FundedBy = [false, false, false, false];
+  List<bool> _4FundedBy = [false, false, false, false];
+  List<bool> _5FundedBy = [false, false, false, false];
+  List<bool> _6FundedBy = [false, false, false, false];
+  List<bool> _7FundedBy = [false, false, false, false];
+  List<bool> _8FundedBy = [false, false, false, false];
+  List<bool> _9FundedBy = [false, false, false, false];
+  List<bool> _10FundedBy = [false, false, false, false];
+  List<bool> _11FundedBy = [false, false, false, false];
+  List<bool> _12FundedBy = [false, false, false, false];
+  List<bool> _13FundedBy = [false, false, false, false];
+  List<bool> _14FundedBy = [false, false, false, false];
+  List<bool> _15FundedBy = [false, false, false, false];
+  List<bool> _16FundedBy = [false, false, false, false];
+  List<bool> _17FundedBy = [false, false, false, false];
+  List<bool> _18FundedBy = [false, false, false, false];
+  List<bool> _19FundedBy = [false, false, false, false];
 
   final String interview_id;
 
   TextEditingController _1OtherController = TextEditingController();
   TextEditingController _2OtherController = TextEditingController();
   TextEditingController _3OtherController = TextEditingController();
+  TextEditingController _4OtherController = TextEditingController();
+  TextEditingController _5OtherController = TextEditingController();
+  TextEditingController _6OtherController = TextEditingController();
+  TextEditingController _7OtherController = TextEditingController();
+  TextEditingController _8OtherController = TextEditingController();
+  TextEditingController _9OtherController = TextEditingController();
+  TextEditingController _10OtherController = TextEditingController();
+  TextEditingController _11OtherController = TextEditingController();
+  TextEditingController _12OtherController = TextEditingController();
+  TextEditingController _13OtherController = TextEditingController();
+  TextEditingController _14OtherController = TextEditingController();
+  TextEditingController _15OtherController = TextEditingController();
+  TextEditingController _16OtherController = TextEditingController();
+  TextEditingController _17OtherController = TextEditingController();
+  TextEditingController _18OtherController = TextEditingController();
+  TextEditingController _19OtherController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
@@ -46,12 +78,16 @@ class _EleventState extends State<Eleven> {
 
   @override
   void initState() {
-    _listDemoPlots = [false, false, false, false, false];
-    _otherVisible = [false, false, false, false, false];
-    _fundedVisible = [false, false, false, false];
-    _listFunded = [_1FundedBy, _2FundedBy, _3FundedBy];
+    _listDemoPlots = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+    _otherVisible = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+    _fundedVisible = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
+    _listFunded = [_1FundedBy, _2FundedBy, _3FundedBy,_4FundedBy,_5FundedBy,_6FundedBy,
+            _7FundedBy,_8FundedBy,_9FundedBy,_10FundedBy,_11FundedBy,_12FundedBy,_13FundedBy,
+            _14FundedBy,_15FundedBy,_16FundedBy,_17FundedBy,_18FundedBy,_19FundedBy];
 
-    _listOther = [_1OtherController, _2OtherController, _3OtherController];
+    _listOther = [_1OtherController, _2OtherController, _3OtherController,_4OtherController,_5OtherController,_6OtherController,
+                _7OtherController,_8OtherController,_9OtherController,_10OtherController,_11OtherController,_12OtherController,
+                _13OtherController,_14OtherController,_15OtherController,_16OtherController,_17OtherController,_18OtherController,_19OtherController];
     if (interview['sections']['sec_11'] != null) {
       dataExist = true;
       _1answer = interview['sections']['sec_11']['_1'][0];
@@ -61,25 +97,108 @@ class _EleventState extends State<Eleven> {
         interview['sections']['sec_11']['_2'][0]['_demo_plots'],
         interview['sections']['sec_11']['_2'][1]['_demo_plots'],
         interview['sections']['sec_11']['_2'][2]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][3]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][4]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][5]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][6]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][7]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][8]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][9]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][10]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][11]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][12]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][13]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][14]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][15]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][16]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][17]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][18]['_demo_plots'],
       ];
       _fundedVisible = [
         interview['sections']['sec_11']['_2'][0]['_demo_plots'],
         interview['sections']['sec_11']['_2'][1]['_demo_plots'],
         interview['sections']['sec_11']['_2'][2]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][3]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][4]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][5]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][6]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][7]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][8]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][9]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][10]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][11]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][12]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][13]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][14]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][15]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][16]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][17]['_demo_plots'],
+        interview['sections']['sec_11']['_2'][18]['_demo_plots'],
+
       ];
       _otherVisible = [
         interview['sections']['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'][3],
         interview['sections']['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'][3],
         interview['sections']['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'][3],
+        interview['sections']['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'][3],
       ];
       _listFunded = [
         interview['sections']['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'],
         interview['sections']['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'],
         interview['sections']['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'],
+        interview['sections']['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'],
         ];
       _1OtherController..text = interview['sections']['sec_11']['_2'][0]['_funded_by'][1]['other'];
       _2OtherController..text = interview['sections']['sec_11']['_2'][1]['_funded_by'][1]['other'];
       _3OtherController..text = interview['sections']['sec_11']['_2'][2]['_funded_by'][1]['other'];
+      _4OtherController..text = interview['sections']['sec_11']['_2'][3]['_funded_by'][1]['other'];
+      _5OtherController..text = interview['sections']['sec_11']['_2'][4]['_funded_by'][1]['other'];
+      _6OtherController..text = interview['sections']['sec_11']['_2'][5]['_funded_by'][1]['other'];
+      _7OtherController..text = interview['sections']['sec_11']['_2'][6]['_funded_by'][1]['other'];
+      _8OtherController..text = interview['sections']['sec_11']['_2'][7]['_funded_by'][1]['other'];
+      _9OtherController..text = interview['sections']['sec_11']['_2'][8]['_funded_by'][1]['other'];
+      _10OtherController..text = interview['sections']['sec_11']['_2'][9]['_funded_by'][1]['other'];
+      _11OtherController..text = interview['sections']['sec_11']['_2'][10]['_funded_by'][1]['other'];
+      _12OtherController..text = interview['sections']['sec_11']['_2'][11]['_funded_by'][1]['other'];
+      _13OtherController..text = interview['sections']['sec_11']['_2'][12]['_funded_by'][1]['other'];
+      _14OtherController..text = interview['sections']['sec_11']['_2'][13]['_funded_by'][1]['other'];
+      _15OtherController..text = interview['sections']['sec_11']['_2'][14]['_funded_by'][1]['other'];
+      _16OtherController..text = interview['sections']['sec_11']['_2'][15]['_funded_by'][1]['other'];
+      _17OtherController..text = interview['sections']['sec_11']['_2'][16]['_funded_by'][1]['other'];
+      _18OtherController..text = interview['sections']['sec_11']['_2'][17]['_funded_by'][1]['other'];
+      _19OtherController..text = interview['sections']['sec_11']['_2'][18]['_funded_by'][1]['other'];
+
+
           
       //_3isChckList = interview['sections']['sec_8']['_3']['_3'];
       //_3OtherShow = _3isChckList[4] ? true : false;
@@ -102,7 +221,7 @@ class _EleventState extends State<Eleven> {
     return Stack(
       children: <Widget>[
         Padding(
-            padding: const EdgeInsets.only(bottom: 50),
+            padding: const EdgeInsets.only(bottom: 50.0),
             child: SingleChildScrollView(
                 padding: const EdgeInsets.only(bottom: 38.0),
                 child: Column(
@@ -142,7 +261,7 @@ class _EleventState extends State<Eleven> {
                                     onSelected: (bool selected) {
                                       setState(() {
                                         _1answer = _1options[index];
-                                        _1_index = selected ? index : null;
+                                        _1_index = selected?index:null;
                                         _demoVisible =  _1answer == 'Yes'? true: false;
                                       });
                                     },
@@ -263,7 +382,24 @@ class _EleventState extends State<Eleven> {
         '_2': [
             {'_demo_plots':_listDemoPlots[0],'_funded_by': [{'_funded_by':_listFunded[0]},{'other': _listOther[0].text} ]},
             {'_demo_plots':_listDemoPlots[1],'_funded_by': [{'_funded_by':_listFunded[1]},{'other': _listOther[1].text} ]},
-            {'_demo_plots':_listDemoPlots[2],'_funded_by': [{'_funded_by':_listFunded[2]},{'other': _listOther[2].text} ]}
+            {'_demo_plots':_listDemoPlots[2],'_funded_by': [{'_funded_by':_listFunded[2]},{'other': _listOther[2].text} ]},
+            {'_demo_plots':_listDemoPlots[3],'_funded_by': [{'_funded_by':_listFunded[3]},{'other': _listOther[3].text} ]},
+            {'_demo_plots':_listDemoPlots[4],'_funded_by': [{'_funded_by':_listFunded[4]},{'other': _listOther[4].text} ]},
+            {'_demo_plots':_listDemoPlots[5],'_funded_by': [{'_funded_by':_listFunded[5]},{'other': _listOther[5].text} ]},
+            {'_demo_plots':_listDemoPlots[6],'_funded_by': [{'_funded_by':_listFunded[6]},{'other': _listOther[6].text} ]},
+            {'_demo_plots':_listDemoPlots[7],'_funded_by': [{'_funded_by':_listFunded[7]},{'other': _listOther[7].text} ]},
+            {'_demo_plots':_listDemoPlots[8],'_funded_by': [{'_funded_by':_listFunded[8]},{'other': _listOther[8].text} ]},
+            {'_demo_plots':_listDemoPlots[9],'_funded_by': [{'_funded_by':_listFunded[9]},{'other': _listOther[9].text} ]},
+            {'_demo_plots':_listDemoPlots[10],'_funded_by': [{'_funded_by':_listFunded[10]},{'other': _listOther[10].text} ]},
+            {'_demo_plots':_listDemoPlots[11],'_funded_by': [{'_funded_by':_listFunded[11]},{'other': _listOther[11].text} ]},
+            {'_demo_plots':_listDemoPlots[12],'_funded_by': [{'_funded_by':_listFunded[12]},{'other': _listOther[12].text} ]},
+            {'_demo_plots':_listDemoPlots[13],'_funded_by': [{'_funded_by':_listFunded[13]},{'other': _listOther[13].text} ]},
+            {'_demo_plots':_listDemoPlots[14],'_funded_by': [{'_funded_by':_listFunded[14]},{'other': _listOther[14].text} ]},
+            {'_demo_plots':_listDemoPlots[15],'_funded_by': [{'_funded_by':_listFunded[15]},{'other': _listOther[15].text} ]},
+            {'_demo_plots':_listDemoPlots[16],'_funded_by': [{'_funded_by':_listFunded[16]},{'other': _listOther[16].text} ]},
+            {'_demo_plots':_listDemoPlots[17],'_funded_by': [{'_funded_by':_listFunded[17]},{'other': _listOther[17].text} ]},
+            {'_demo_plots':_listDemoPlots[18],'_funded_by': [{'_funded_by':_listFunded[18]},{'other': _listOther[18].text} ]},
+
           ],
       };
 
@@ -295,6 +431,7 @@ class _EleventState extends State<Eleven> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _3OtherController.dispose();
     super.dispose();
   }

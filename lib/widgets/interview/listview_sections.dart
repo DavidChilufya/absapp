@@ -15,59 +15,72 @@ class ListViewSections extends StatelessWidget {
   Widget build(BuildContext context) {
     final interviewBloc = BlocProvider.of<InterviewBloc>(context);
     interviewBloc.add(LoadInterviewEvent(interview['interview_id']));
-    var color = Theme.of(context).accentColor.withAlpha(30);
     return BlocBuilder<InterviewBloc, InterviewState>(
         builder: (context, state) {
       print(
-          'rrrrrrrrrrrrrrrrrrrrrrr${state}tttttttttttttttttttttttttttttttttt');
-      return Flexible(child: _myListView(context));
+          'rrrrrrrrrrrrrrrrrrrrrrrttttttttttttttttttttttttttttttttt');
+      return Flexible(
+        
+        child: _myListView(context, state.getInterview));
     });
   }
 
-  Widget _myListView(BuildContext context) {
+  Widget _myListView(BuildContext context, Map state ) {
     //List<Sections> myList = [this.section1, this.section2];
     Questionaire questionnaire = Questionaire();
+    Color sectionColor ;
 
     questionnaire.setSections();
     List myList = questionnaire.getSections();
 
     return ListView.builder(
-      padding: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.only(top: 1),
       itemCount: myList.length,
       itemBuilder: (context, index) {
         //String qNumber = index.toString()=='0'?'':index.toString()+'.';
-        return GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, SectionContainer.id,
-                arguments: [interview, myList[index]]);
-          },
-          child: Container(
+        if(state['sections'][myList[index]['sec']] != null){
+            sectionColor = Colors.greenAccent;
+        }else{
+          sectionColor = Theme.of(context).cardColor;
+        }
+          
+          return Container(
             child: Card(
-                //                           <-- Card widget
+                color: sectionColor,
+                //elevation: 5.5,
+                shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0)
+                      ),
                 child:
-                    Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-              ListTile(
-                title: Text(
-                    '${myList[index]['title']}',
-                    style: Theme.of(context).textTheme.subtitle2.copyWith()),
-                subtitle: Row(children: <Widget>[
-                  Padding(
-                      padding: EdgeInsets.only(left: 15.5, right: 4),
-                      child: Text(
-                          ((myList[index].length) - 2).toString() +
-                              ' questions',
-                          style: TextStyle(color: Colors.blue))),
-                  Icon(Icons.keyboard_arrow_right),
-                  Padding(
-                    padding: EdgeInsets.only(left: 4),
-                    child: Text('5 Answers',
-                        style: TextStyle(color: Colors.greenAccent)),
+                  InkWell(
+                    splashColor: Colors.blue.withAlpha(30),
+                    onTap: () {
+                      Navigator.pushNamed(context, SectionContainer.id,
+                          arguments: [interview, myList[index]]);
+                    },
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min, children: <Widget>[
+                        ListTile(
+                          title: Text(
+                              '${myList[index]['title']}',
+                              style: Theme.of(context).textTheme.subtitle2.copyWith()),
+                            subtitle: Row(children: <Widget>[
+                            /* 
+                            Padding(
+                              padding: EdgeInsets.only(left: 15.5, right: 4),
+                              child: Text(((myList[index].length) - 2).toString() +' questions',style: TextStyle(color: Colors.blue))),
+                            Icon(Icons.keyboard_arrow_right),
+                            Padding(
+                              padding: EdgeInsets.only(left: 4),
+                              child: Text('5 Answers',style: TextStyle(color: Colors.greenAccent)),
+                              ),*/
+                          ]),
+                        ),
+                    ])
                   ),
-                ]),
-              ),
-            ])),
-          ),
-        );
+                    
+            ),
+          );
       },
     );
   }

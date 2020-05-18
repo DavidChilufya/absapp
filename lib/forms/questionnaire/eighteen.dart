@@ -721,6 +721,7 @@ class _EighteenState extends State<Eighteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     //_1aController.dispose();
     super.dispose();
   }

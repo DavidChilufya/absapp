@@ -150,6 +150,9 @@ class _ThirtyThreeState extends State<ThirtyThree> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               SizedBox(height: 12),
+
+                              /*
+
                               Text('${q1}',
                                   style: Theme.of(context)
                                       .textTheme
@@ -575,6 +578,8 @@ class _ThirtyThreeState extends State<ThirtyThree> {
                                               ),
                                     ),),
                               SizedBox(height: 12),
+
+                              */
                               Text('${q2}',
                                   style: Theme.of(context)
                                       .textTheme
@@ -675,6 +680,7 @@ class _ThirtyThreeState extends State<ThirtyThree> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     super.dispose();
   }
 }

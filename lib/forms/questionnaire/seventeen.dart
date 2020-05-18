@@ -3,18 +3,18 @@ import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class TweentyTwo extends StatefulWidget {
+class Seventeen extends StatefulWidget {
   final String interview_id;
   final Map interview;
 
-  TweentyTwo(this.interview_id, this.interview);
+  Seventeen(this.interview_id, this.interview);
 
   @override
-  _TweentyTwoState createState() => _TweentyTwoState(interview_id, interview);
+  _SeventeenState createState() => _SeventeenState(interview_id, interview);
 }
 
-class _TweentyTwoState extends State<TweentyTwo> {
-  _TweentyTwoState(this.interview_id, this.interview);
+class _SeventeenState extends State<Seventeen> {
+  _SeventeenState(this.interview_id, this.interview);
   Map interview;
   InterviewDao _interviewDao = InterviewDao();
 
@@ -24,15 +24,12 @@ class _TweentyTwoState extends State<TweentyTwo> {
   String _title,q1,q2,q3,q4,q5,q6;//Questions
   List _1options,_2options,_3options,_4options,_5options;
   
-  String _1answer='Select',_2answer='Select',_3answer='Select',_4answer='Select';
+  String _1answer='Select',_2answer='Select',_3answer='Select',_4answer='Select',_5answer='Select';
 
-  List<bool> _1isChckList;
-  bool _otherShow = false;
+  
 
   final String interview_id;
   
-  //TextEditingController _otherController = TextEditingController();
-  //TextEditingController _6Controller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool dataExist = false;
@@ -41,39 +38,34 @@ class _TweentyTwoState extends State<TweentyTwo> {
 
   @override
   void initState() {
-    _1isChckList = [false, false, false, false, false];
    
-    if(interview['sections']['sec_22'] != null ){
+    if(interview['sections']['sec_17'] != null ){
       
       dataExist = true;
-      _1answer = interview['sections']['sec_22']['_1'];
-      _2answer = interview['sections']['sec_22']['_2'];
-      _3answer = interview['sections']['sec_22']['_3'];
-      //_4answer = interview['sections']['sec_22']['_4'];
-      //_1isChckList = interview['sections']['sec_22']['_5']['_5'];
-      //_otherController..text = interview['sections']['sec_22']['_5']['other'];
-      //_6Controller..text = interview['sections']['sec_22']['_6'];
-
-      //_otherShow = _1isChckList[4]?true:false;
+      _1answer = interview['sections']['sec_17']['_1'];
+      _2answer = interview['sections']['sec_17']['_2'];
+      _3answer = interview['sections']['sec_17']['_3'];
+      _4answer = interview['sections']['sec_17']['_4'];
+      _5answer = interview['sections']['sec_17']['_5'];
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    questions = questionaire.getSections()[21];
+    questions = questionaire.getSections()[16];
     _title = questions['title'];
     _1options = questions['_1'][2];
     _2options = questions['_2'][2];
     _3options = questions['_3'][2];
-    //_4options = questions['_4'][2];
-    //_5options = questions['_5'][2];
+    _4options = questions['_4'][2];
+    _5options = questions['_5'][2];
 
     q1 = questions['_1'][0];
     q2 = questions['_2'][0];
     q3 = questions['_3'][0];
-    //q4 = questions['_4'][0];
-    //q5 = questions['_5'][0];
+    q4 = questions['_4'][0];
+    q5 = questions['_5'][0];
     //q6 = questions['_6'][0];
     
     submitBtnTxt = dataExist?'Edit':'Submit';
@@ -172,7 +164,6 @@ class _TweentyTwoState extends State<TweentyTwo> {
                                 //isExpanded: true,
                               ),
                               SizedBox(height: 12),
-                              /*
                               Text('${q4}',
                                   style: Theme.of(context)
                                       .textTheme
@@ -196,62 +187,31 @@ class _TweentyTwoState extends State<TweentyTwo> {
                                 underline: SizedBox(),
                                 //isExpanded: true,
                               ),
-                              SizedBox(height: 12),
+                              SizedBox(height: 12),  
                               Text('${q5}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline5
                                       .copyWith()),
-                             Wrap(
-                                        children: List<Widget>.generate(
-                                            _5options.length, (int index) {
-                                      return Row(children: <Widget>[
-                                        Checkbox(
-                                          value: _1isChckList[index],
-                                          onChanged: (bool value) {
-                                            setState(() {
-                                              _1isChckList[index] = value;
-                                              _otherShow =
-                                                  _1isChckList[4] == true
-                                                      ? true
-                                                      : false;
-                                            });
-                                          },
-                                        ),
-                                        Text(_5options[index]),
-                                      ]);
-                                    })),
-                                    Visibility(
-                                      visible: _otherShow,
-                                      child: TextFormField(
-                                        controller: _otherController,
-                                        keyboardType: TextInputType.text,
-                                        decoration: InputDecoration(
-                                                  labelText: "Other",
-                                                ),
-                                        validator: (value) {
-                                          if (value.isEmpty){return 'Field cannot be blank';}
-                                          else{ return null; }
-                                        },
-                                      )
-                                      ),
-                              SizedBox(height: 12),
-                              Text('${q6}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      .copyWith()), 
-                              SizedBox(
-                                            width: MediaQuery.of(context).size.width * 0.25, 
-                                            child: TextFormField(
-                                                controller: _6Controller,
-                                                keyboardType: TextInputType.number,
-                                                decoration: InputDecoration(
-                                                          labelText: 'Kms',
-                                                        ),
-                                              ),
-                                          ),      
-                                          */         
+                              SizedBox(height: 6),
+                              DropdownButton(
+                                value: _5answer,
+                                items: _5options
+                                    .map<DropdownMenuItem<String>>((value) {
+                                  return DropdownMenuItem<String>(
+                                    value: value,
+                                    child: Text(value),
+                                  );
+                                }).toList(),
+                                onChanged: (String newValue) {
+                                  setState(() {
+                                    _5answer = newValue;
+                                  });
+                                },
+                                underline: SizedBox(),
+                                //isExpanded: true,
+                              ),
+                              SizedBox(height: 12), 
                               
                             ],
                           )),
@@ -280,12 +240,13 @@ class _TweentyTwoState extends State<TweentyTwo> {
         '_1': _1answer,
         '_2': _2answer,
         '_3': _3answer,
-        //'_4': _4answer,
+        '_4': _4answer,
+        '_5': _5answer,
         //'_5': {'_5': _1isChckList, 'other': _otherController.text},
         //'_6': _6Controller.text,
       };
 
-      states['sections']['sec_22'] = data;
+      states['sections']['sec_17'] = data;
       print('22222222222222222222222${states}444444444444444444444444444444444');
           
       await _interviewDao.updateHive(states, interview_id)

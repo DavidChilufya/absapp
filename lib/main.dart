@@ -17,6 +17,8 @@ void main() => runApp(App());
 class App extends StatelessWidget {
   final Color primaryColor = Color(0xff03da9d);
   final Color accentColor = Colors.orangeAccent;//Color(0xff333333);
+  //final Color primaryColor = Color(0xff00aeef);
+  //final Color accentColor = Color(0xfff9aa8f);
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class App extends StatelessWidget {
           SectionContainer.id : (context) => SectionContainer(),
           InterviewList.id : (context) => InterviewList()
         },
+        debugShowCheckedModeBanner: false,
         home: FutureBuilder<FirebaseUser>(
             future: Auth.getCurrentUser(),
             builder: (context, AsyncSnapshot<FirebaseUser> userSnapshot) {

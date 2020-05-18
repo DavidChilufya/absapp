@@ -54,7 +54,7 @@ class InterviewHeader extends StatelessWidget {
                   children: <Widget>[
                     Column(children: <Widget>[
                       Text(
-                        "Previous interview(s)",
+                        "First interview",
                         style: Theme.of(context).textTheme.caption,
                       ),
                       Text(

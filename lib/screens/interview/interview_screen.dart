@@ -37,7 +37,7 @@ class _InterviewState extends State<Interview> {
       //create: (BuildContext context) => InterviewBloc(),
       create: (BuildContext context) => InterviewBloc(),
       child: Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.grey.shade500,
         body: _interview == null
           ? Center(
               child: SpinKitDoubleBounce(
@@ -51,8 +51,35 @@ class _InterviewState extends State<Interview> {
                   height: 30,
                 ),
                 InterviewHeader(headerModel: _headerModel),
+                SizedBox(height: 12),
                 ListViewSections(interview: _interview)
               ],
+            ),
+
+            floatingActionButton: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children:<Widget>[
+                FloatingActionButton(
+                    child: Icon(
+                      Icons.refresh,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      setState(() {});
+                    }),
+                SizedBox(width:6.5),
+
+                /*
+                 * FloatingActionButton(
+                    child: Icon(
+                      Icons.home,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      
+                    }),
+               */
+            ]
             ),
       ),
     );

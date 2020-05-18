@@ -249,18 +249,36 @@ class _FiveState extends State<Five> {
       };
 
       states['sections']['sec_5'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
-        setState(() {
-          dataExist = true; 
+     // print('22222222222222222222222${states}444444444444444444444444444444444');
+      if(_3answer == 'No'){
+        states['question_number'] = '5';
+        states['completed'] = true;
+        await _interviewDao.updateHive(states, interview_id)
+        .then((value){
+          finishInterviewToast();
+          print('22222222222222222222222${states}444444444444444444444444444444444');
+          setState(() {
+            dataExist = true; 
+          });
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
+      }else{  
+        await _interviewDao.updateHive(states, interview_id)
+        .then((value){
+          dataExist?showTopShortToast():null;
+          setState(() {
+            dataExist = true; 
+          });
+        });
+      }
     }
+  }
+
+  void finishInterviewToast() {
+    Fluttertoast.showToast(
+        msg: "If doesnt wish to provide milk in the future, Thank them for their time and Stop Interview",
+        toastLength: Toast.LENGTH_LONG,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1);
   }
 
   void showTopShortToast() {
@@ -276,6 +294,7 @@ class _FiveState extends State<Five> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _4OtherController.dispose();
     super.dispose();
   }

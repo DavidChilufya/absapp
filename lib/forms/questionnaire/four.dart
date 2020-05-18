@@ -102,8 +102,8 @@ class _FourState extends State<Four> {
                               SizedBox(width: MediaQuery.of(context).size.width * 0.4, child:
                               TextFormField(
                                 controller: _1Controller,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(  
                                           labelText: "yrs",
                                         ),
                                 validator: (value) {
@@ -282,6 +282,7 @@ class _FourState extends State<Four> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

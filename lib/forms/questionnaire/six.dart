@@ -238,6 +238,7 @@ class _SixState extends State<Six> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

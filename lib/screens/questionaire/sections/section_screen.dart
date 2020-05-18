@@ -9,6 +9,7 @@ import 'package:absapp/forms/questionnaire/nine.dart';
 import 'package:absapp/forms/questionnaire/nineteen.dart';
 import 'package:absapp/forms/questionnaire/one.dart';
 import 'package:absapp/forms/questionnaire/seven.dart';
+import 'package:absapp/forms/questionnaire/seventeen.dart';
 import 'package:absapp/forms/questionnaire/six.dart';
 import 'package:absapp/forms/questionnaire/sixteen.dart';
 import 'package:absapp/forms/questionnaire/ten.dart';
@@ -107,7 +108,8 @@ class _SectionState extends State<Section> {
                     Four(interview_id,interview),
                     Five(interview_id,interview),
                     Six(interview_id,interview),
-                    Seven(interview_id,interview),
+                    Center(child: Text('Question 7 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
+                    //Seven(interview_id,interview),
                     Eight(interview_id,interview),
                     Nine(interview_id,interview),
                     Ten(interview_id,interview),
@@ -117,7 +119,7 @@ class _SectionState extends State<Section> {
                     Fourteen(interview_id, interview),
                     Fifteen(interview_id, interview),
                     Sixteen(interview_id, interview),
-                    Center(child: Text('Question 17 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
+                    Seventeen(interview_id, interview),
                     Eighteen(interview_id, interview),
                     Nineteen(interview_id, interview),
                     Tweenty(interview_id, interview),
@@ -133,7 +135,8 @@ class _SectionState extends State<Section> {
                     Thirty(interview_id, interview),
                     ThirtyOne(interview_id, interview),
                     ThirtyTwo(interview_id, interview),
-                    ThirtyThree(interview_id, interview),
+                    //ThirtyThree(interview_id, interview),
+                     Center(child: Text('Question 33 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     ThirtyFour(interview_id, interview)
 
                   ],

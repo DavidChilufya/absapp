@@ -315,6 +315,7 @@ class _TweentyNineState extends State<TweentyNine> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     super.dispose();
   }
 }

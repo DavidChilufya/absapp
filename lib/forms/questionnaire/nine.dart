@@ -166,6 +166,7 @@ class _NineState extends State<Nine> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1OtherController.dispose();
     super.dispose();
   }

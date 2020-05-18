@@ -38,6 +38,7 @@ class Questionaire {
   List getSections() {
     return [  
         {
+          'sec':'sec_1',
           'status':this.variables['active'], //means section is active
           'title': '1. General Information',
           'no' : '1',
@@ -48,6 +49,7 @@ class Questionaire {
           '_5': ['E. Contact phone(in case we need to arrange a re-visit)',[true], []],
         },
         {
+          'sec':'sec_2',
           'status':this.variables['active'], //means section is active
           'title': '2. Household Information',
           'no' : '2',
@@ -58,12 +60,14 @@ class Questionaire {
           '_5': ['E. Number of people older than 60 years',[true], []],
         },
         {
+          'sec':'sec_3',
           'status':this.variables['active'], //means section is active
           'title': '3. Household Nutrition - Only if selected. See separate sheet.',
           'no' : '3',
           '_1' : {'',[true],[]}
         },
         {
+          'sec':'sec_4',
           'status':this.variables['active'], //means section is active
           'title': '4. History of involvement in dairy farming - For the principal decision maker of dairy activities within the household',
           'no' : '4',
@@ -76,13 +80,20 @@ class Questionaire {
         }
         ,
         {
+          'sec':'sec_5',
           'status':this.variables['active'], //means section is active
           'title': '5. Coorperative Membership',
           'no' : '5',
           '_1': ['A. How long have you been a member of the coorperative?',[true], ['Select','Less than 6 months','6 months - 1 year','Between 1 and 5 years','More than 5 years']],
-          '_2': ['B. What is your membership status?',[true], ['Select','Currently providing milk','Recently received a dairy animal and planning to take milk to the MCC when the cow starts milking',
-                                                                'Not currently providing milk, but has provided milk within the last 6 months (Active)','Not currently providing milk, but has provided milk within last 2 years(i.e 6-24mths ago)',
-                                                                'Previously provided milk,but not within the last 2 years(inactive)']],
+          '_2': ['B. What is your membership status?',[true], 
+                ['Select',
+                  'Currently providing milk',
+                  'Recently received a dairy animal and planning to take milk to the MCC when the cow starts milking',
+                  'Not currently providing milk, but has provided milk within the last 6 months (Active)',
+                  'Not currently providing milk, but has provided milk within last 2 years(i.e 6-24mths ago)',
+                  'Previously provided milk,but not within the last 2 years(inactive)',
+                  'Does not have an animal/ waiting for a pass-on-on, but goes to ZDTP trainings'
+                  ]],
           '_3': ['C. If you havent provided milk within the last 2 years,do you intend to provide milk to the Dairy Coorperative Union within the next 6 months?',[true],
                 ['Yes','No']], 
           '_4': ['D. What is your role within the cooperative?',[true],
@@ -99,6 +110,7 @@ class Questionaire {
             ]
         },
         {
+          'sec':'sec_6',
           'status':this.variables['active'], //means section is active
           'title': '6. Land Ownership /use of farmer',
           'no' : '6',
@@ -109,6 +121,7 @@ class Questionaire {
           '_5': ['v. Other',[true],[]], 
         },
         {
+          'sec':'sec_7',
           'status':this.variables['active'], //means section is active
           'title': '7. Where do you graze your cattle',
           'no' : '7',
@@ -117,6 +130,7 @@ class Questionaire {
         }
         ,
         {
+          'sec':'sec_8',
           'status':this.variables['active'], //means section is active
           'title': '8. Farm information - Water for household and animals - Complete all that apply',
           'no' : '8',
@@ -125,12 +139,14 @@ class Questionaire {
           '_3': ['E. Methods of water conservation',[true],['Dams','Wells','Ponds','Rainwater tanks','Other']], 
         },
         {
+          'sec':'sec_9',
           'status':this.variables['active'], //means section is active
           'title': '9. Farm information - Which Energy sources do you use on your farm',
           'no' : '9',
           '_1': ['',[true],['Electricity','Solar','Charcoal','Improved Charcoal','Fireword','Bio-gas','Other']], 
         },
         {
+          'sec':'sec_10',
           'status':this.variables['active'], //means section is active
           'title': '10. Which fodder crops did you grow in the last 12 months(since May ${variables['year']} and what did you use them for?)',
           'no' : '10',
@@ -138,23 +154,63 @@ class Questionaire {
               ['A. Rhodes grass',[true],q10],
               ['B. Napier grass',[true],q10],
               ['C. Cow pea',[true],q10],
+              ['D. Pigeon pea',[true],q10],
+              ['E. Velvet beans',[true],q10],
+              ['F. Stylo',[true],q10],
+              ['G. Brachiaria',[true],q10],
+              ['H. Sorghum',[true],q10],
+              ['I. Sun-hemph',[true],q10],
+              ['J. Lablab',[true],q10],
+              ['K. Yellow maize',[true],q10],
+              ['L. White maize',[true],q10],
+              ['M. Soya beans',[true],q10],
+              ['N. Sunflower',[true],q10],
+              ['O. Cotton',[true],q10],
+              ['P. Sweet potatoes',[true],q10],
+              ['Q. Pumpkin',[true],q10],
+              ['R. Cassava',[true],q10],
+              ['S. Other',[true],q10],
               ],
         } ,
+         
         {
+          'sec':'sec_11',
           'status':this.variables['active'], //means section is active
           'title': '11. Demonstration plots',
           'no' : '11',
           '_1': ['A. Are any of the crops in question 10 demonstration plots',[true],['Yes','No']], 
-          '_2': ['B. Which crops are demonstration plots',[true],['Rhodes grass','Napier grass','Cow pea']],  
+          '_2': ['B. Which crops are demonstration plots',[true],
+                  ['Rhodes grass',
+                    'Napier grass',
+                    'Cow pea',
+                    'Pigeon pea',
+                    'Velvet beans',
+                    'Stylo' ,
+                    'Brachiaria' ,
+                    'Sorghum' ,
+                    'Sun-hemph' ,
+                    'Lablab',
+                    'Yellow maize',
+                    'White maize' ,
+                    'Soya beans',
+                    'Sunflower' ,
+                    'Cotton' ,
+                    'Sweet potatoes' ,
+                    'Pumpkin',
+                    'Cassava' ,
+                    'Other']],  
+
           '_3': ['C. Funded By',[true],['ZDTP','Heifer','MFL(IFAD - ESLIP)','Other']], 
         },
         {
+          'sec':'sec_12',
           'status':this.variables['active'], //means section is active
           'title': '12. Labour used on farm - NOT ACTIVE',
           'no' : '12',
           '_1' : {'',[true],[]}
         },
         {
+          'sec':'sec_13',
           'status':this.variables['active'], //means section is active
           'title': '13. income from dairy-related activities during previous 12 months(i.e since May ${variables['year']} )',
           'no' : '13',
@@ -170,8 +226,9 @@ class Questionaire {
           '_9': ['Total income of dairy-related activities',[true],[]], 
         },
         {
+          'sec':'sec_14',
           'status':this.variables['active'], //means section is active
-          'title': '14. income from non-dairy activities during previous 12 months(i.e since May ${variables['year']} )',
+          'title': '14. income from non dairy activities during previous 12 months(i.e since May ${variables['year']} )',
           'no' : '14',
           '_input': ['Data Input',[true],['Month(ZMW)','Year(ZMW)']],
           '_1': ['Income from labour hired out',[true],[]], 
@@ -189,6 +246,7 @@ class Questionaire {
           '_13': ['Total income of dairy-related activities',[true],[]], 
         },
         {
+          'sec':'sec_15',
           'status':this.variables['active'], //means section is active
           'title': '15. Smallholder Expenditure during the previous 12 months(i.e since May ${variables['year']} )',
           'no' : '15',
@@ -219,24 +277,51 @@ class Questionaire {
                 'Labour paid "in kind"(insert cash equivalent)']},[true],[]], 
           '_8': [{'_8':'Other','_8options':['Rental of land','Other']},[true],[]], 
         },{
+          'sec':'sec_16',
           'status':this.variables['active'], //means section is active
           'title': '16. Assets',
           'no' : '16',
+          '_1' : ['Do you have your own tractor?',[true],['Yes','No']],
+          '_2' : ['Do you have access to a tractor?',[true],['Yes','No']],
+          '_3' : ['Do you own a chopper?',[true],['Yes','No']],
+          '_4' : ['Do you get access to one?',[true],['Yes','No']],
           '_questions': [
               ['A. Tractor',[true],['New', 'Used','Not working']],
               ['B. Hand Tractor',[true],['New', 'Used','Not working']],
               ['C. Planter',[true],['New', 'Used','Not working']],
+              ['D. Plough/ Ox driven',[true],['New', 'Used','Not working']],
+              ['E. Bicycle',[true],['New', 'Used','Not working']],
+              ['F. Motor Bike',[true],['New', 'Used','Not working']],
+              ['G. Van',[true],['New', 'Used','Not working']],
+              ['H. Small truck',[true],['New', 'Used','Not working']],
+              ['I. Car',[true],['New', 'Used','Not working']],
+              ['J. Fridge or milk vat',[true],['New', 'Used','Not working']],
+              ['K. Small milking machine',[true],['New', 'Used','Not working']],
+              ['L. Stainless steel/ alloy milk can',[true],['New', 'Used','Not working']],
+              ['M. Stainless stell / alloy milk bucket',[true],['New', 'Used','Not working']],
+              ['N. Solar light',[true],['New', 'Used','Not working']],
+              ['O. Chopper / chaff cutter',[true],['New', 'Used','Not working']],
+              ['P. Other',[true],['New', 'Used','Not working']],
+
               ],
         },
          {
+          'sec':'sec_17',
           'status':this.variables['active'], //means section is active
           'title': '17. Milk quality',
           'no' : '17',
-          '_1' : {'',[true],[]}
+          '_1': ['A. Do you normally clean the cow teats with a clean cloth/ tissue before milking?',
+                [true], ['Select','Yes','No','Not applicable']],
+          '_2': ['B. Do you use any form of mastitis detection on your farm ?',[true], ['Select','Yes','No','Not applicable']],
+          '_3': ['C. Do you normally apply any teat salve/ lubricant to the cows teats?',[true], ['Select','Sunlight','Other RMT','No','Not applicable']],
+          '_4': ['D. Do you normally use teat dip after milking?',[true], ['Select','Yes','No','Not applicable']],
+          '_5': ['E. Have you had any cases of mastitis on yoour farm during the last 12 months?',[true], 
+                ['Select','Yes','No','Not applicable']],
         },
         {
+          'sec':'sec_18',
           'status':this.variables['active'], //means section is active
-          'title': '18. Household Information',
+          'title': '18. Herd data - cattle(at time of survey)',
           'no' : '18',
           '_1': ['A. Cows in milk',[true], []],
           '_2': ['B. Cows over 2 yrs not in milk',[false], []],
@@ -246,27 +331,31 @@ class Questionaire {
           '_6': ['F. Breeding bulls of any age',[true],[]],
         },
         {
+          'sec':'sec_19',
           'status':this.variables['active'], //means section is active
-          'title': '19. Silage which you fed to your cattle between May ${this.variables['year']} - May ${this.variables['year']}',
+          'title': '19. Silage which you fed to your cattle between May ${this.variables['year']} - April 2020',
           'no' : '19',
-          '_1': ['A. Did you make any grass silage for your cattle between May ${this.variables['year']} - May ${this.variables['year']} ',[true], ['Yes','No']],
-          '_2': ['B. Did you make any whole crop maize silage (cob in) for your cattle between May ${this.variables['year']} - May ${this.variables['year']} ',[true], ['Yes','No']],
-          '_3': ['C. Did you feed your cattle maize stover silage from your farm between May ${this.variables['year']} - May ${this.variables['year']} ',[true], ['Yes','No']],
+          '_1': ['A. Did you make any grass silage for your cattle between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
+          '_2': ['B. Did you make any whole crop maize silage (cob in) for your cattle between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
+          '_3': ['C. Did you feed your cattle maize stover silage from your farm between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
 
         },
         {
+          'sec':'sec_20',
           'status':this.variables['active'], //means section is active
-          'title': '20. Hay made and purchased during the previous 12 months(i.e before May ${this.variables['year']})',
+          'title': '20. Hay made and purchased during the previous 12 months(i.e since May ${this.variables['year']})',
           'no' : '20',
-          '_1': ['A. Hay made',[true], []],
-          '_2': ['B. Hay purchased',[true], []],
+          '_1': ['A. Hay bales made',[true], ['Yes','No']],
+          '_2': ['B. Hay bales purchased',[true], ['Yes','No']],
         },{
+          'sec':'sec_21',
           'status':this.variables['active'], //means section is active
           'title': '21. Concertrates bought during previous year(i.e since May ${this.variables['year']})',
           'no' : '21',
           '_1': ['Have you made any home-made concertrates in the last year',[true], ['Yes','No']],
           '_2': ['D19','D21','Meal No 3','Novamilk 35']
         },{
+          'sec':'sec_22',
           'status':this.variables['active'], //means section is active
           'title': '22. Milking routine',
           'no' : '22',
@@ -281,6 +370,7 @@ class Questionaire {
                 ['Tarred','Gravel','Seasonal(only passable when dry)','Path across fields','Other']],
           '_6': ['H. Approximately how many kilometers do you travel to get to the collection point/ MCC',[true],[]]
         },{
+          'sec':'sec_23',
           'status':this.variables['active'], //means section is active
           'title': '23. Milk hygiene',
           'no' : '23',
@@ -290,12 +380,14 @@ class Questionaire {
           '_4': ['D. Do you use a drying rack?',[true], ['Yes','No']],
         },
         {
+          'sec':'sec_24',
           'status':this.variables['active'], //means section is active
           'title': '24. Lactation length',
           'no' : '24',
           '_1': ['What is the average lactation length of your animals?',[true], []],
         },
         {
+          'sec':'sec_25',
           'status':this.variables['active'], //means section is active
           'title': '25. Milk Production',
           'no' : '25',
@@ -309,17 +401,20 @@ class Questionaire {
           '_7': ['G. Total milk to MCC',[true], []],
         },
          {
+           'sec':'sec_26',
           'status':this.variables['active'], //means section is active
           'title': '26. Not Active',
           'no' : '26',
           '_1' : {'',[true],[]}
         },{
+          'sec':'sec_27',
           'status':this.variables['active'], //means section is active
           'title': '27. Milk rejected by MCC during the previous 12 months(i.e since May ${this.variables['year']})',
           'no' : '27',
           '_1': ['Have you had any Milk rejected by the MCC during the previous 12 months(i.e since May ${this.variables['year']})',[true],['Yes','No']], 
           '_2': ['How many litres',[true],[]], 
         },{
+          'sec':'sec_28',
           'status':this.variables['active'], //means section is active
           'title': '28. Breeding method',
           'no' : '28',
@@ -327,8 +422,9 @@ class Questionaire {
                 ['Rent Dairy Bull/ Community bull','Rent Local Breed Bull/ Community bull','Use own Dairy Bull',
                 'Use own Local Breed Bull','AI(Artificial Insemination)']], 
         },{
+          'sec':'sec_29',
           'status':this.variables['active'], //means section is active
-          'title': '29. Reproduction problems during the previous 12 months(i.e ${this.variables['year']} - May ${this.variables['year']})',
+          'title': '29. Reproduction problems during the previous 12 months(i.e May ${this.variables['year']} - April 2020)',
           'no' : '29',
           '_1': ['A. Have you had any problems getting cows pregnant ',[true], ['Yes','No']],
           '_2': ['B. Have you had any still Births/Abortions ',[true], ['Yes','No']],
@@ -338,6 +434,7 @@ class Questionaire {
           '_6': ['F. How many other dairy .. ',[true], ['Yes','No']],
 
         },{
+          'sec':'sec_30',
           'status':this.variables['active'], //means section is active
           'title': '30. Identification and record keeping',
           'no' : '30',
@@ -347,6 +444,7 @@ class Questionaire {
           '_2': ['B. Do you keep records for your cattle? ',[true], ['Yes','No']],
           '_3': ['C. Do you keep records for your farm business accounts',[true], ['Yes','No']],      
         },{
+          'sec':'sec_31',
           'status':this.variables['active'], //means section is active
           'title': '31. Animal Health - Disease prevention and control',
           'no' : '31',
@@ -357,6 +455,7 @@ class Questionaire {
           '_3': ['C. Have your animals been tested against any disease within the last year? ',[true], ['Yes','No']], 
           '_4': ['D. Which disease',[true], ['Brucellosis','Tuberculosis','Other']],      
         },{
+          'sec':'sec_32',
           'status':this.variables['active'], //means section is active
           'title': '32. Which service providers do you have a relationship with?',
           'no' : '32',
@@ -368,6 +467,7 @@ class Questionaire {
                 ['Fertiliser','Seeds','Equipment supply(Specify)','Equipment maintenance']], 
           '_4': ['D. Others',[true], []],                 
         },{
+          'sec':'sec_33',
           'status':this.variables['active'], //means section is active
           'title': '33. Training, experiance and service provision in animal health/ animal production',
           'no' : '33',
@@ -392,31 +492,32 @@ class Questionaire {
                   'Other'
                 ]], 
         },{
+          'sec':'sec_34',
           'status':this.variables['active'], //means section is active
-          'title': '34. Extension advice, training and skills - between (May  ${this.variables['year']} - May ${this.variables['year']})',
+          'title': '34. Extension advice, training and skills - between (May  ${this.variables['year']} - April 2020)',
           'no' : '34',
           '_1': ['A. Have you received any farm extension advice or assistance from ZDTP,MFL or others in the last 12 Months ?',[true],['Yes','No']], 
-          '_2': ['B. If yes, What advice or assitance didi you receive?',[true],[
-                {'topic':'Fodder Crop production ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Cattle nutrition ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Milk hygiense ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Animal health, Management, Husbandry ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Farm record keeping ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Cattle breeding/ reproduction ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Accounting/Financial /business management ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Other ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+          '_2': ['B. If yes, What advice or assitance did you receive?',[true],[
+                {'topic':'Fodder Crop production ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Cattle nutrition ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Milk hygiense ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Animal health, Management, Husbandry ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Farm record keeping ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Cattle breeding/ reproduction ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Accounting/Financial /business management ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Other ','organisation':['Select Organisation','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
           ]], 
           '_3': ['C. Have you received any training in one, or more of the following topics in the last 12 Months (since May  ${this.variables['year']}). If yes, when and who provided the training ',
                   [true],['Yes','No']], 
           '_3_1': ['',[true],[
-                {'topic':'Fodder Crop production ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Cattle nutrition ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Milk hygiense ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Animal health, Management, Husbandry ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Farm record keeping ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Cattle breeding/ reproduction ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Accounting/Financial /business management ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
-                {'topic':'Other ','organisation':['','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Fodder Crop production ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Cattle nutrition ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Milk hygiense ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Animal health, Management, Husbandry ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Farm record keeping ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Cattle breeding/ reproduction ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Accounting/Financial /business management ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
+                {'topic':'Other ','organisation':['Who delivered','ZDTP','MFL','Heifer','DAZ','Pamalat','Zammilk','Other']},
           ]],
           '_4': ['D. How are you applying the skills you have learnt, and what benefits have you seen?',[true],[
                 {'topic':'Fodder Crop production '},

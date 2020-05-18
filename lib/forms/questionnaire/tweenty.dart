@@ -22,6 +22,9 @@ class _TweentyState extends State<Tweenty> {
   Map questions ;
 
   String _title,q1,q2;//Questions
+  List _1options,_2options;
+  int _1_index,_2_index ;
+  String _1answer,_2answer;
 
   final String interview_id;
   
@@ -38,8 +41,11 @@ class _TweentyState extends State<Tweenty> {
     if(interview['sections']['sec_20'] != null ){
       
       dataExist = true;
-        _1Controller..text = interview['sections']['sec_20']['_1'];
-        _2Controller..text = interview['sections']['sec_20']['_2'];
+        _1answer = interview['sections']['sec_20']['_1'][0];
+        _1_index = interview['sections']['sec_20']['_1'][1];
+
+        _2answer = interview['sections']['sec_20']['_2'][0];
+        _2_index = interview['sections']['sec_20']['_2'][1];
     }
     super.initState();
   }
@@ -50,6 +56,8 @@ class _TweentyState extends State<Tweenty> {
     _title = questions['title'];
     q1 = questions['_1'][0];
     q2 = questions['_2'][0];
+    _1options = questions['_1'][2];
+    _2options = questions['_2'][2];
     
     submitBtnTxt = dataExist?'Edit':'Submit';
    
@@ -80,18 +88,29 @@ class _TweentyState extends State<Tweenty> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child:
-                              TextFormField(
-                                controller: _1Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                          labelText: "Number of bales",
+                              Wrap(
+                                spacing: 8,
+                                children: List<Widget>.generate(
+                                  _1options.length,
+                                  (int index) {
+                                    return ChoiceChip(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
                                         ),
-                                validator: (value) {
-                                  if (value.isEmpty){return 'Field cannot be blank';}
-                                  else{ return null; }
+                                      ),
+                                      label: Text(_1options[index]),
+                                      selected: _1_index == index,
+                                      onSelected: (bool selected) {
+                                        setState(() {
+                                          _1answer = _1options[index];
+                                          _1_index = selected ? index : null;
+                                        });
+                                      },
+                                    );
                                   },
-                              ), ),
+                                ).toList(),
+                              ), 
                               
                               SizedBox(height: 12),
                               Text('${q2}',
@@ -100,18 +119,29 @@ class _TweentyState extends State<Tweenty> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
-                              TextFormField(
-                                controller: _2Controller,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                          labelText: "Number of bales",
+                              Wrap(
+                                spacing: 8,
+                                children: List<Widget>.generate(
+                                  _2options.length,
+                                  (int index) {
+                                    return ChoiceChip(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8),
                                         ),
-                                validator: (value) {
-                                  if (value.isEmpty){return 'Field cannot be blank';}
-                                  else{ return null; }
-                                },
-                              ),),
+                                      ),
+                                      label: Text(_2options[index]),
+                                      selected: _2_index == index,
+                                      onSelected: (bool selected) {
+                                        setState(() {
+                                          _2answer = _2options[index];
+                                          _2_index = selected ? index : null;
+                                        });
+                                      },
+                                    );
+                                  },
+                                ).toList(),
+                              ),  
                              
                               
                             ],
@@ -138,8 +168,8 @@ class _TweentyState extends State<Tweenty> {
       // If the form is valid, display a Snackbar.
       
       Map data = {
-        '_1': _1Controller.text,
-        '_2': _2Controller.text,
+        '_1': [_1answer, _1_index],
+        '_2': [_2answer, _2_index],
       };
 
       states['sections']['sec_20'] = data;
@@ -170,8 +200,9 @@ class _TweentyState extends State<Tweenty> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _1Controller.dispose();
-    _2Controller.dispose();
+    _interviewDao.closeHive();
+    //_1Controller.dispose();
+    //_2Controller.dispose();
     super.dispose();
   }
 }

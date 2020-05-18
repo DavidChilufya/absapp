@@ -33,8 +33,9 @@ class _TweentyFiveState extends State<TweentyFive> {
   TextEditingController _4Controller = TextEditingController();
   TextEditingController _5Controller = TextEditingController();
   TextEditingController _6Controller = TextEditingController();
+  TextEditingController _7Controller = TextEditingController();
  
-
+  double _total;
   final _formKey = GlobalKey<FormState>();
   bool dataExist = false;
   String submitBtnTxt;
@@ -46,7 +47,8 @@ class _TweentyFiveState extends State<TweentyFive> {
     _input_answer = questions['_input'][2][0];
     _title = questions['title'];
     _inputOptions = questions['_input'][2];
-
+    _6Controller..text = '0.0';
+    _total = 0.0;
     if(interview['sections']['sec_25'] != null ){
       
       dataExist = true;
@@ -58,6 +60,7 @@ class _TweentyFiveState extends State<TweentyFive> {
         _4Controller..text = interview['sections']['sec_25']['_4'];
         _5Controller..text = interview['sections']['sec_25']['_5'];
         _6Controller..text = interview['sections']['sec_25']['_6'];
+        _7Controller..text = interview['sections']['sec_25']['_7'];
     }
     super.initState();
   }
@@ -243,11 +246,33 @@ class _TweentyFiveState extends State<TweentyFive> {
                                       .copyWith()),
                               SizedBox(height: 6),
                               SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
-                              Text('0000',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      .copyWith()),),
+                              TextFormField(
+                                controller: _7Controller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                          labelText: _input_answer,
+                                        ),
+                                validator: (value) {
+                                  if (value.isEmpty){return 'Field cannot be blank';}
+                                  else{ return null; }
+                                },
+                              ),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                    Text('${_total.toString()} / ${_input_answer}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith()),
+                                            SizedBox(width: 6.0),
+                                    RaisedButton(
+
+                                        child: Text('Total',style: TextStyle(color: Colors.white)),
+                                        onPressed: () => _totalInput(),
+                                      ),        
+                                      ],
+                                    ),
                               
                             ],
                           )),
@@ -280,6 +305,7 @@ class _TweentyFiveState extends State<TweentyFive> {
         '_4': _4Controller.text,
         '_5': _5Controller.text,
         '_6': _6Controller.text,
+        '_7': _7Controller.text,
       };
 
       states['sections']['sec_25'] = data;
@@ -297,6 +323,15 @@ class _TweentyFiveState extends State<TweentyFive> {
     }
   }
 
+  _totalInput() {
+    double foo  = double.parse(_3Controller.text) + double.parse(_4Controller.text)+
+          double.parse(_5Controller.text) + double.parse(_6Controller.text)+ double.parse(_7Controller.text);
+
+          setState(() {
+            _total = foo;
+          });
+  }
+
   void showTopShortToast() {
     Fluttertoast.showToast(
         msg: "Edited",
@@ -310,6 +345,7 @@ class _TweentyFiveState extends State<TweentyFive> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

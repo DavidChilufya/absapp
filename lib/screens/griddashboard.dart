@@ -36,27 +36,26 @@ class _GridDashboardState extends State<GridDashboard> {
     {
       'title': "Pending",
       'total': "0",
-      'img': "assets/festival.png"
+      'img': "assets/pending_upload.png"
     },{
       'title': "Uploaded",
       'total': "0",
-      'img': "assets/todo.png"
+      'img': "assets/uploaded.png"
     },{
       'title': "All",
       'total': "0",
-      'img': "assets/setting.png"
+      'img': "assets/todo.png"
     },
   ];
   
 
   @override
   Widget build(BuildContext context) {
-    
     //myList[1]['total'] = getInterviews().length.toString() ;
-    print('${getInterviews()}');
+    //print('${getInterviews()}');
     var color = Theme.of(context).accentColor.withAlpha(30);
     return FutureBuilder(
-      future:  _interviewDao.getAllInterviews(),
+      future: _interviewDao.getAllInterviews(),
       builder: (context, dataSnap) {
       if(dataSnap.connectionState == ConnectionState.waiting){
 
@@ -77,7 +76,12 @@ class _GridDashboardState extends State<GridDashboard> {
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
           children: myList.map((data) {
-            myList[1]['total'] = dataSnap.data.length.toString();
+            myList[1]['total'] = getInterviewsDrafts(dataSnap.data, 'completed').length.toString();
+            myList[3]['total'] = getInterviews(dataSnap.data,'completed').length.toString();
+            myList[2]['total'] = getInterviews(dataSnap.data,'test').length.toString();
+
+            print('${getInterviewsDrafts(dataSnap.data, 'completed')}');
+
             return GestureDetector(
               child: Container(
                 decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(10)),
@@ -116,25 +120,47 @@ class _GridDashboardState extends State<GridDashboard> {
     }
     );
   } 
+
   void navigate(BuildContext context, Map data){
     if(data['title'] == 'New'){
                      Navigator.pushNamed(context, InterviewMetaData.id,arguments: _user);
                   }else if(data['title'] == 'Drafts')
                   {
-                    Navigator.pushNamed(context, InterviewList.id,arguments: _user);
+                    Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Drafts']);
                   }else if(data['title'] == 'Tests')
                   {
-                    print('Tests');
+                    Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Tests']);
                   }else if(data['title'] == 'Pending')
                   {
-                    print('Pending');
+                    Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Pending']);
                   }
   }
-  List getInterviews(){
-    List interviews;
-    _interviewDao.getAllInterviews().then((value) { interviews = value;});
-    return interviews;
+
+  List getInterviews(List allInterviews, String listType) {
+    List newList = [];
+    for (var i=0; i<allInterviews.length; i++) {
+      if(allInterviews[i][listType]){
+        newList.add(allInterviews[i]);
+
+        //print(allInterviews[i]);
+      }
+    }
+    return newList;
+  } 
+
+  List getInterviewsDrafts(List allInterviews, String listType) {
+    List newList = [];
+    for (var i=0; i<allInterviews.length; i++) {
+      if(!allInterviews[i][listType]){
+        newList.add(allInterviews[i]);
+
+        //print(allInterviews[i]);
+      }
+    }
+
+    return newList;
   }
+  
 
 }
 

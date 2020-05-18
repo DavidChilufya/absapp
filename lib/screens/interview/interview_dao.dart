@@ -10,6 +10,7 @@ class InterviewDao {
     //Hive.registerAdapter(ContactAdapter(), 0);
     var interviewsBox = await Hive.openBox(INTERVIEW_TABLE);
     await interviewsBox.put(interview_id, interview);
+    
   } 
 
   Future readHive(String interview_id) async {
@@ -33,4 +34,8 @@ class InterviewDao {
     return await interviewsBox.values.toList();
   } 
 
+  void closeHive(){
+    Hive.close();
+    print(Hive.close());
+  }
 }

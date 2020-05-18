@@ -26,6 +26,7 @@ class _FourteenState extends State<Fourteen> {
   String _input_answer;
   int _input_index = 0 ;
   final String interview_id;
+  double _total;
   
   TextEditingController _1Controller = TextEditingController();
   TextEditingController _2Controller = TextEditingController();
@@ -51,7 +52,9 @@ class _FourteenState extends State<Fourteen> {
     _input_answer = questions['_input'][2][0];
     _title = questions['title'];
     _inputOptions = questions['_input'][2];
-
+    _12Controller..text = '0.0';
+    _total = 0.0;
+    
     if(interview['sections']['sec_14'] != null ){
       
       dataExist = true;
@@ -373,12 +376,22 @@ class _FourteenState extends State<Fourteen> {
                                       .headline5
                                       .copyWith()),
                               SizedBox(height: 6),
-                              SizedBox(width: MediaQuery.of(context).size.width * 0.4, child: 
-                              Text('0000',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline5
-                                      .copyWith()),),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                    Text('ZMW ${_total.toString()} / ${_input_answer}',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6
+                                            .copyWith()),
+                                            SizedBox(width: 6.0),
+                                    RaisedButton(
+
+                                        child: Text('Total',style: TextStyle(color: Colors.white)),
+                                        onPressed: () => _totalInput(),
+                                      ),        
+                                      ],
+                                    ),
                               
                             ],
                           )),
@@ -397,6 +410,16 @@ class _FourteenState extends State<Fourteen> {
               ))
         ],
       );
+  }
+
+  _totalInput() {
+    double foo  = double.parse(_1Controller.text) + double.parse(_2Controller.text)+double.parse(_3Controller.text) + double.parse(_4Controller.text)+
+          double.parse(_5Controller.text) + double.parse(_6Controller.text)+double.parse(_7Controller.text) + double.parse(_8Controller.text)
+          +double.parse(_9Controller.text)+double.parse(_10Controller.text)+double.parse(_11Controller.text)+double.parse(_12Controller.text);
+
+          setState(() {
+            _total = foo;
+          });
   }
 
   void _submitForm(var states) async {
@@ -447,6 +470,7 @@ class _FourteenState extends State<Fourteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
+    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

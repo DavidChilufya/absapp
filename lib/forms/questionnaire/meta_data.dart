@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:absapp/resources/previous_data.dart';
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:search_widget/search_widget.dart';
 
 class MetaDataForm extends StatefulWidget {
   final String interview_id;
@@ -33,6 +35,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
   String latitude;
   String longitude;
   String _user_email, _user_id;
+  bool _test ;
 
   int _3_index;
   TextEditingController _householdIdController = TextEditingController();
@@ -42,9 +45,17 @@ class _MetaDataFormState extends State<MetaDataForm> {
   TextEditingController _timeController = TextEditingController();
 
   InterviewDao _metaDataDao = InterviewDao();
+  PreviousData previousData = PreviousData();
+  List previousDataList;
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   //Initial values
+
+  List<LeaderBoard> list = <LeaderBoard>[
+    
+  ];
+
+  LeaderBoard _selectedItem;
 
   @override
   void initState() {
@@ -52,19 +63,24 @@ class _MetaDataFormState extends State<MetaDataForm> {
     prime_coop_list = ['Select'];
     coop_union = 'Select';
     prime_coop = 'Select';
+    _test = false;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    this._user = ModalRoute.of(context).settings.arguments;
+    
 
+  bool _show = true;
+    this._user = ModalRoute.of(context).settings.arguments;
     
     _user_email = _user.email;
     _user_id = _user.uid;
     DateTime now = DateTime.now();
     _dateController.text = DateFormat('dd/MM/yyyy').format(now);
     _timeController.text = DateFormat('kk:mm').format(now);
+    _longitudeController..text = '28.3401225';
+    _latitudeController..text = '-15.4681359';
     Map questions = Questionaire.metaData[0];
     return SafeArea(
         child: SingleChildScrollView(
@@ -142,7 +158,6 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     underline: SizedBox(),
                     //isExpanded: true,
                   )),
-                
                 Text('${questions['_3'][0]}',
                     style: Theme.of(context).textTheme.headline5.copyWith()),
                 SizedBox(height: 6),
@@ -164,16 +179,53 @@ class _MetaDataFormState extends State<MetaDataForm> {
                           onSelected: (bool selected) {
                             setState(() {
                               firstInterview = questions['_3'][1][index];
-                              householdId = createHouseholdId(_user_email);
+                              
                               _3_index = selected ? index : null;
-                              _householdIdController..text = householdId;
+                              if(firstInterview == 'No'){
+                                _householdIdController.clear();
+                                  previousDataList= previousData.getData(coop_union); 
+                                  createSearchFormList(previousDataList);
+                              }else{
+                                householdId = createHouseholdId(_user_email);
+                                _householdIdController..text = householdId;
+                              }
+                              
                             });
                           },
                         );
                       },
                     ).toList(),
                   )),
-                
+                  if (firstInterview == 'No')
+                    SearchWidget<LeaderBoard>(
+                      dataList: list,
+                      hideSearchBoxWhenItemSelected: true,
+                      listContainerHeight: MediaQuery.of(context).size.height / 4,
+                      queryBuilder: (query, list) {
+                        return list
+                            .where((item) => item.username
+                                .toLowerCase()
+                                .contains(query.toLowerCase()))
+                            .toList();
+                      },
+                      popupListItemBuilder: (item) {
+                        return PopupListItemWidget(item);
+                      },
+                      selectedItemBuilder: (selectedItem, deleteSelectedItem) {
+                        return SelectedItemWidget(selectedItem, deleteSelectedItem);
+                      },
+                      // widget customization
+                      noItemsFoundWidget: NoItemsFound(),
+                      textFieldBuilder: (controller, focusNode) {
+                        return MyTextField(controller, focusNode);
+                      },
+                      onItemSelected: (item) {
+                        setState(() {
+                          _selectedItem = item;
+                          _householdIdController..text = _selectedItem.household_id;
+                        });
+                      },
+                    ),
                 SizedBox(height: 12),
                 Text('${questions['_4'][0]}',
                     style: Theme.of(context).textTheme.headline5.copyWith()),
@@ -252,10 +304,22 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     ),
                   ],
                 ),
+                Row(children: <Widget> [
+                  Text('Test',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+                  Switch(value: _test, onChanged:(value){
+                  setState(() {
+                    _test = value;
+                  });
+                  })
+                ])
+                
               ],
             )),
-        SizedBox(height: 14),
+            
+        SizedBox(height: 20),
         SizedBox(
+          
           width: 500,
           child: RaisedButton(
             child: Text("Submit"),
@@ -263,7 +327,27 @@ class _MetaDataFormState extends State<MetaDataForm> {
           ),
         )
       ],
-    )));
+    )
+    
+    ),
+    
+    );
+  }
+
+  void createSearchFormList(List dataList) {
+    List<LeaderBoard> list2 = [];
+    for (var i = 0; i < dataList.length; i++) {
+  // TO DO
+      var currentElement = dataList[i];
+      //print('QQQQQQQ${currentElement}QQQQ');
+      list2.insert(i, LeaderBoard(currentElement['sections']['sec_1']['_1'], 
+                                  currentElement['year_'].toString(), currentElement['meta_data']['prime_coop'], 
+                                  currentElement['interview_id'], currentElement['household_id']));
+    }
+    setState(() {
+      list = list2;
+    });
+    
   }
 
   void showTopShortToast() {
@@ -301,7 +385,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'question_number': '0',
           'year_': year_,
           'completed': false,
-          'test': false,
+          'test': _test,
           'meta_data': metaData,
           'sections': {}
         };
@@ -323,29 +407,168 @@ class _MetaDataFormState extends State<MetaDataForm> {
       }
       coop = coop_union.substring(0, 3).toUpperCase();
 
-      householdId = coop+randomNumber()+'-'+userNo;
+      //householdId = coop+randomNumber()+'-'+userNo;
+      householdId = coop+'-'+DateTime.now().millisecondsSinceEpoch.toString();
       return householdId;
   }
 
-  String randomNumber({int strlen}) {
-    const chars = "0123456789";
-    Random rnd = Random(DateTime.now().millisecondsSinceEpoch);
-    String result = "";
-    for (var i = 0; i < 3; i++) {
-      result += chars[rnd.nextInt(chars.length)];
-    }
-    return result;
-  }
 
   @override
   void dispose() {
     // Clean up the controller when the widget is removed from the
     // widget tree.
+    _metaDataDao.closeHive();
     _householdIdController.dispose();
     _latitudeController.dispose();
     _longitudeController.dispose();
     _dateController.dispose();
     _timeController.dispose();
     super.dispose();
+  }
+}
+
+class LeaderBoard {
+  LeaderBoard(this.username, this.year_, this.prime_coop, this.interview_id, this.household_id);
+
+  final String username;
+  final String year_;
+  final String prime_coop;
+  final String interview_id;
+  final String household_id;
+  
+}
+
+class SelectedItemWidget extends StatelessWidget {
+  const SelectedItemWidget(this.selectedItem, this.deleteSelectedItem);
+
+  final LeaderBoard selectedItem;
+  final VoidCallback deleteSelectedItem;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        vertical: 2,
+        horizontal: 14,
+      ),
+      child: Row(
+        
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+               // left: 16,
+                //right: 16,
+                top: 8,
+                bottom: 8,
+              ),
+              child: Text(
+                selectedItem.username,
+                style: const TextStyle(fontSize: 14.0),
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.delete_outline, size: 22),
+            color: Colors.grey[700],
+            onPressed: deleteSelectedItem,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MyTextField extends StatelessWidget {
+  const MyTextField(this.controller, this.focusNode);
+
+  final TextEditingController controller;
+  final FocusNode focusNode;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+        decoration: InputDecoration(
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0x4437474F),
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).primaryColor),
+          ),
+          suffixIcon: Icon(Icons.search),
+          border: InputBorder.none,
+          hintText: "Enter respondant name",
+          contentPadding: const EdgeInsets.only(
+            left: 16,
+            //right: 20,
+            top: 14,
+            //bottom: 14,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class NoItemsFound extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Icon(
+          Icons.folder_open,
+          size: 24,
+          color: Colors.grey[900].withOpacity(0.7),
+        ),
+        const SizedBox(width: 10),
+        Text(
+          "Respondant name not found, choose household unlisted",
+          style: TextStyle(
+            fontSize: 16,
+            color: Colors.grey[900].withOpacity(0.7),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class PopupListItemWidget extends StatelessWidget {
+  const PopupListItemWidget(this.item);
+
+  final LeaderBoard item;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget> [
+          Text(
+            item.username,
+            style: const TextStyle(fontSize: 16),
+            ),
+          Text(
+            item.prime_coop,
+            style: const TextStyle(fontSize: 16),
+            ),  
+          Text(
+            item.year_,
+            style: const TextStyle(fontSize: 16),
+            ),  
+        ]
+      ) 
+      
+      
+    );
   }
 }
