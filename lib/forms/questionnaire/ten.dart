@@ -330,7 +330,7 @@ class _TenState extends State<Ten> {
                                   SizedBox(width: MediaQuery.of(context).size.width * 0.4, child:
                                   TextFormField(
                                     controller: apControllersList[index],
-                                    keyboardType: TextInputType.text,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                               labelText: "Area planted(Ha)",
                                             ),
@@ -423,8 +423,9 @@ class _TenState extends State<Ten> {
       };
 
       states['sections']['sec_10'] = data;
-      print(
-          '22222222222222222222222${states}444444444444444444444444444444444');
+   
+           print(
+          '22222222222222222222222${data['_19']}2333333333333333333');
 
       await _interviewDao.updateHive(states, interview_id).then((value) {
         dataExist ? showTopShortToast() : null;

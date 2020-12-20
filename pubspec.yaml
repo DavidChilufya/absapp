@@ -14,7 +14,7 @@ description: An offline data collection app for ZDTP&#x27;s ABS project
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.8.0-dev.0 <2.8.0'
+  sdk: '>=2.8.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -31,13 +31,14 @@ dependencies:
   sembast: ^2.3.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  flutter_bloc: ^3.2.0
-  equatable: ^1.0.0
+  flutter_bloc: ^6.1.1
+  equatable: ^1.2.5
   rxdart: ^0.23.1
   intl: ^0.16.1
   fluttertoast: ^4.0.1
   geolocator: ^5.3.1  
   search_widget: ^1.0.2
+  http: ^0.12.1
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2

@@ -806,9 +806,9 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_1Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
-                                                            labelText: "When received33",
+                                                            labelText: "When received",
                                                           ),
                                                   
                                                 ),
@@ -876,7 +876,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_2Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -945,7 +945,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_3Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -1014,7 +1014,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_4Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -1083,7 +1083,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_5Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -1153,7 +1153,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_6Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -1224,7 +1224,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_7Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),
@@ -1294,7 +1294,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
                                                   TextFormField(
                                                   controller: _3b_8Controller,
-                                                  keyboardType: TextInputType.text,
+                                                  keyboardType: TextInputType.number,
                                                   decoration: InputDecoration(
                                                             labelText: "When received",
                                                           ),

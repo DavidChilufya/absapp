@@ -8,7 +8,6 @@ import 'package:absapp/forms/questionnaire/fourteen.dart';
 import 'package:absapp/forms/questionnaire/nine.dart';
 import 'package:absapp/forms/questionnaire/nineteen.dart';
 import 'package:absapp/forms/questionnaire/one.dart';
-import 'package:absapp/forms/questionnaire/seven.dart';
 import 'package:absapp/forms/questionnaire/seventeen.dart';
 import 'package:absapp/forms/questionnaire/six.dart';
 import 'package:absapp/forms/questionnaire/sixteen.dart';
@@ -17,7 +16,6 @@ import 'package:absapp/forms/questionnaire/thirteen.dart';
 import 'package:absapp/forms/questionnaire/thirty.dart';
 import 'package:absapp/forms/questionnaire/thirty_four.dart';
 import 'package:absapp/forms/questionnaire/thirty_one.dart';
-import 'package:absapp/forms/questionnaire/thirty_three.dart';
 import 'package:absapp/forms/questionnaire/thirty_two.dart';
 import 'package:absapp/forms/questionnaire/tweent_three.dart';
 import 'package:absapp/forms/questionnaire/tweenty.dart';
@@ -29,9 +27,6 @@ import 'package:absapp/forms/questionnaire/tweenty_one.dart';
 import 'package:absapp/forms/questionnaire/tweenty_seven.dart';
 import 'package:absapp/forms/questionnaire/tweenty_two.dart';
 import 'package:absapp/forms/questionnaire/two.dart';
-import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
-import 'package:absapp/screens/interview/bloc/interview_state.dart';
-import 'package:absapp/screens/interview/bloc/interview_event.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,15 +55,16 @@ class _SectionState extends State<Section> {
   @override
   void initState() {
     // TODO: implement initState
-    final interviewBloc = BlocProvider.of<InterviewBloc>(context);
-    interviewBloc.add(LoadInterviewEvent(interview_id));
+    //final interviewBloc = BlocProvider.of<InterviewBloc>(context);
+    //interviewBloc.add(LoadInterviewEvent(interview_id));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     List routeData = ModalRoute.of(context).settings.arguments;
-    Map interview ;
+    Map interview = routeData[0];
+        print('**CURRENT INTERVIEW *** ${routeData[0]}');
     
 
     var section = routeData[1];
@@ -80,13 +76,19 @@ class _SectionState extends State<Section> {
     _pageViewController = PageController(
       initialPage: sectionNo - 1,
     );
+    //if(state.getInterview != null){
+          //loading = false;
+        //}
 
-    return BlocBuilder<InterviewBloc, InterviewState>(
-        builder: (context, state) {
          // _interviewBloc.add(LoadInterviewEvent(interview_id));
-        interview = state.getInterview;
-        if(state.getInterview != null){
-          loading = false;
+        //interview = state.getInterview;
+        
+
+        var questionFour;
+        if(interview['meta_data']['first_interview'] == 'Yes') {
+          questionFour = Four(interview_id, interview);
+        }else{
+          questionFour = Center(child: Text('Question 4 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),);
         }
 
         return Scaffold(
@@ -105,7 +107,7 @@ class _SectionState extends State<Section> {
                     One(interview_id,interview),
                     Two(interview_id,interview),
                     Center(child: Text('Question 3 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    Four(interview_id,interview),
+                    questionFour,
                     Five(interview_id,interview),
                     Six(interview_id,interview),
                     Center(child: Text('Question 7 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
@@ -143,7 +145,6 @@ class _SectionState extends State<Section> {
                 )),
         
             );
-      });
   }
 
   void foo(pageIndex, interview,_pageViewController,endFloat) {

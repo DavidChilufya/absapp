@@ -1,8 +1,12 @@
 import 'package:absapp/resources/create_json.dart';
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'dart:io';
+
+import 'package:fluttertoast/fluttertoast.dart';
 
 class InterviewList extends StatefulWidget {
   static const String id = 'interview_list';
@@ -15,11 +19,14 @@ class InterviewList extends StatefulWidget {
 }
 
 class _InterviewListState extends State<InterviewList> {
+  final URL = 'https://abs.chilufyamedia.com/abs_api.php';
+
   final InterviewDao _interviewDao = InterviewDao();
   final CreateJson _createJson = CreateJson();
-
+  FirebaseUser _user;
   
   List list = [];
+  List _newList = [];
   List listRouteArguments;
   bool loading;
   String interviewListType;
@@ -37,9 +44,10 @@ class _InterviewListState extends State<InterviewList> {
   
   @override
   Widget build(BuildContext context) {
-    print(ModalRoute.of(context).settings.arguments);
+    //print(ModalRoute.of(context).settings.arguments);
     listRouteArguments = ModalRoute.of(context).settings.arguments;
     interviewListType = listRouteArguments[1];
+    _user = listRouteArguments[0];
     return Scaffold(
           //appBar: AppBar(title: Text('New Interview - ${_interview_id}')),
           body:   listViewWidget());
@@ -74,11 +82,12 @@ class _InterviewListState extends State<InterviewList> {
       }else if(dataSnap.connectionState == ConnectionState.done){
         if(interviewListType == 'Drafts'){
           interviewList = getInterviewsDrafts(dataSnap.data,'completed');
-        }else if(interviewListType == 'Pending'){
+        }else if(interviewListType == 'Upload'){
           interviewList = getInterviews(dataSnap.data,'completed');
         }else if(interviewListType == 'Tests'){
           interviewList = getInterviews(dataSnap.data,'test');
         }
+        
         return Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
@@ -138,20 +147,21 @@ class _InterviewListState extends State<InterviewList> {
                 )
               ),
               Visibility(
-                visible: interviewListType == 'Pending',
+                visible: interviewListType == 'Upload',
                 child: Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(
                   width: 500,
                   child: RaisedButton(
-                    child: Text('Process For Upload'),
+                    child: Text('Upload to server'),
                     //color: dataExist?Theme.of(context).accentColor:Theme.of(context).primaryColor,
-                    onPressed: () => _createJson.writeToFile(dataSnap.data),
+                    //onPressed: () => _createJson.writeToFile(dataSnap.data),
+                    onPressed: postToServer,
                   ),
                 )
               ))
               ,
-
+            SizedBox(height: 10.0)
             
           ]); 
       }
@@ -167,27 +177,58 @@ class _InterviewListState extends State<InterviewList> {
 }
 
 List getInterviews(List allInterviews, String listType) {
-    List newList = [];
+    
     for (var i=0; i<allInterviews.length; i++) {
       if(allInterviews[i][listType]){
-        newList.add(allInterviews[i]);
+        _newList.add(allInterviews[i]);
 
         //print(allInterviews[i]);
       }
     }
-    return newList;
+    return _newList;
   } 
 
   List getInterviewsDrafts(List allInterviews, String listType) {
-    List newList = [];
+    
     for (var i=0; i<allInterviews.length; i++) {
       if(!allInterviews[i][listType]){
-        newList.add(allInterviews[i]);
+        _newList.add(allInterviews[i]);
 
         //print(allInterviews[i]);
       }
     }
 
-    return newList;
+    return _newList;
+  }
+
+  void postToServer() async{
+    
+    //print(_newList);
+    try {
+      final result = await InternetAddress.lookup('abs.chilufyamedia.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+          await _createJson.postToServer(_newList,_user.uid);
+          dataUploadedToast();
+      }
+    } on SocketException catch (_) {
+        noNetToast();
+    }
+    
+  }
+
+  void noNetToast() {
+    Fluttertoast.showToast(
+        msg: "No Internet connectiion",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
+  }
+
+  void dataUploadedToast() {
+    Fluttertoast.showToast(
+        msg: "Data Uploaded",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
   }
 }

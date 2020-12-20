@@ -85,7 +85,8 @@ class _LoginState extends State<Login> {
           : Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          SafeArea(
+          SingleChildScrollView(
+            child: SafeArea(
             child: Padding(
               padding:
               const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
@@ -168,7 +169,7 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-          ),
+          )),
         ],
       ),
     );

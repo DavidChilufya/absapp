@@ -91,6 +91,7 @@ class _FifteenState extends State<Fifteen> {
     _2_1AmountOtherController..text = '0.0';
     _8_2Controller..text = '0.0';
     _total = 0.0;
+    _stringTotal = '0.0';
     _1_total = 0.0; _2_total = 0.0;_3_total = 0.0;_4_total = 0.0;_5_total = 0.0;_6_total = 0.0;_7_total = 0.0;_8_total = 0.0;
 
     if(interview['sections']['sec_15'] != null ){
@@ -127,7 +128,7 @@ class _FifteenState extends State<Fifteen> {
 
         _7_1Controller..text = interview['sections']['sec_15']['_7']['_1'];
         //_7_2Controller..text = interview['sections']['sec_15']['_7']['_2'];
-        _7_3Controller..text = interview['sections']['sec_15']['_7']['_3'];
+        //_7_3Controller..text = interview['sections']['sec_15']['_7']['_3'];
 
         _8_otherController..text = interview['sections']['sec_15']['_8']['_2'][0];
         _8_1Controller..text = interview['sections']['sec_15']['_8']['_1'];
@@ -780,7 +781,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_1_total.toString()} ',
+                                              child: Text('${_1_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -801,7 +802,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_2_total.toString()} ',
+                                              child: Text('${_2_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -822,7 +823,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_3_total.toString()} ',
+                                              child: Text('${_3_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -843,7 +844,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_4_total.toString()} ',
+                                              child: Text('${_4_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -864,7 +865,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_5_total.toString()} ',
+                                              child: Text('${_5_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -885,7 +886,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_6_total.toString()} ',
+                                              child: Text('${_6_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -906,7 +907,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_7_total.toString()} ',
+                                              child: Text('${_7_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -927,7 +928,7 @@ class _FifteenState extends State<Fifteen> {
                                               ),
                                             SizedBox(
                                               width: MediaQuery.of(context).size.width * 0.2, 
-                                              child: Text('${_8_total.toString()} ',
+                                              child: Text('${_8_total.toStringAsFixed(2)} ',
                                                           style: Theme.of(context)
                                                           .textTheme
                                                           .headline6
@@ -987,6 +988,7 @@ class _FifteenState extends State<Fifteen> {
   }
 
   _totalInput() {
+    if (_formKey.currentState.validate()) {
       _1_total  = double.parse(_1_1Controller.text) + double.parse(_1_3Controller.text)+double.parse(_1_5Controller.text) + double.parse(_1_6Controller.text)+
           double.parse(_1_7Controller.text) + double.parse(_1_8Controller.text)+double.parse(_1_9Controller.text);
       _2_total  = double.parse(_2_2AmountOtherController.text) + double.parse(_2_1AmountOtherController.text);  
@@ -1001,7 +1003,14 @@ class _FifteenState extends State<Fifteen> {
           setState(() {
             _total = (_1_total +_2_total+_3_total+_4_total+_5_total+_6_total+_7_total+_8_total);
             _stringTotal = _total.toStringAsFixed(2);
-          });
+          }); 
+    }else{
+      Fluttertoast.showToast(
+        msg: "Some inputs are blank",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP,
+        timeInSecForIosWeb: 1);
+    }
   }
 
   void _submitForm(var states) async {
@@ -1043,7 +1052,7 @@ class _FifteenState extends State<Fifteen> {
           '_7': {
             '_1': _7_1Controller.text,
             //'_2': _7_2Controller.text,
-            '_3': _7_3Controller.text,
+            //'_3': _7_3Controller.text,
           },
           '_8': {
             '_1': _8_1Controller.text,

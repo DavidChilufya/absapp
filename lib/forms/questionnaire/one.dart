@@ -1,7 +1,6 @@
 import 'package:absapp/screens/interview/interview_dao.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class One extends StatefulWidget {
@@ -41,26 +40,23 @@ class _OneState extends State<One> {
 
   @override
   void initState() {
-    
-      print('${interview}8888888888888888888888888888888888');
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     if(interview['sections']['sec_1'] != null){
-        loading = false;
+        dataExist = true;
        // print('${interview['sections']['sec_1']['_1']}88888888888888888888888888888888882');
         _1Controller..text = interview['sections']['sec_1']['_1'];
         _3Controller..text = interview['sections']['sec_1']['_3'];
         _5Controller..text = interview['sections']['sec_1']['_5'];
         _4answer = interview['sections']['sec_1']['_4'][0];
         _4_index = interview['sections']['sec_1']['_4'][1];
-        dataExist = true;
+        
 
-      }else{
-        loading = false;
       }
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    
     
     questions = questionaire.getSections()[0];
     _title = questions['title'];
@@ -74,14 +70,7 @@ class _OneState extends State<One> {
     submitBtnTxt = dataExist?'Edit':'Submit';
       
       return Scaffold(
-        body:  loading
-          ? Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
-                ),
-            )
-          :Stack(
+        body: Stack(
         children: <Widget>[
           Padding(
               padding: const EdgeInsets.only(bottom: 50),
@@ -125,7 +114,7 @@ class _OneState extends State<One> {
                               SizedBox(height: 6),
                                TextFormField(
                                 controller: _3Controller,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value.isEmpty){return 'Field cannot be blank';}
                                   else{ return null; }
@@ -170,7 +159,7 @@ class _OneState extends State<One> {
                               SizedBox(height: 6),
                               TextFormField(
                                 controller: _5Controller,
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
                                 validator: (value) {
                                   if (value.isEmpty){return 'Field cannot be blank';}
                                   else{ return null; }

@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:absapp/resources/previous_data.dart';
 import 'package:absapp/screens/interview/interview_dao.dart';
@@ -385,12 +384,17 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'question_number': '0',
           'year_': year_,
           'completed': false,
+          'uploaded': '',
           'test': _test,
           'meta_data': metaData,
           'sections': {}
         };
         await _metaDataDao.writeToHive(interview, interview_id).then((value) =>
-            {Navigator.pushNamed(context, Interview.id, arguments: interview)});
+            {
+             // Navigator.pushNamed(context, Interview.id, arguments: interview);
+              Navigator.popAndPushNamed(context, Interview.id, arguments: interview)
+              
+              });
     }else{
       showTopShortToast();
       print('Hello word ${firstInterview}');

@@ -66,6 +66,15 @@ class _Home extends State<Home>  {
 
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            
+          });
+        },
+        child: Icon(Icons.refresh),
+      
+    ),
     );
   }
 

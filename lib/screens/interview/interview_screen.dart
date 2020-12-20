@@ -1,9 +1,7 @@
-import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
 import 'package:absapp/widgets/interview/interview_header.dart';
 import 'package:absapp/widgets/interview/listview_sections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Interview extends StatefulWidget {
@@ -17,6 +15,7 @@ class _InterviewState extends State<Interview> {
 
   @override
   void initState() {
+    
     super.initState();
   }
 
@@ -30,15 +29,12 @@ class _InterviewState extends State<Interview> {
       'interview_id': _interview['interview_id'],
       'coop_union': _interview['meta_data']['coop_union'],
       'prime_coop': _interview['meta_data']['prime_coop'],
-      'status': null
+      'status': _interview['completed']
     };
     //print(_interview);
-    return BlocProvider(
-      //create: (BuildContext context) => InterviewBloc(),
-      create: (BuildContext context) => InterviewBloc(),
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: Colors.grey.shade500,
-        body: _interview == null
+        body: _headerModel == null
           ? Center(
               child: SpinKitDoubleBounce(
                 color: Theme.of(context).accentColor,
@@ -81,7 +77,6 @@ class _InterviewState extends State<Interview> {
                */
             ]
             ),
-      ),
-    );
+      );
   }
 }

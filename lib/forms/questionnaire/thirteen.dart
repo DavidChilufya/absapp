@@ -35,7 +35,7 @@ class _ThirteenState extends State<Thirteen> {
   TextEditingController _6Controller = TextEditingController();
   TextEditingController _7Controller = TextEditingController();
   TextEditingController _8Controller = TextEditingController();
-  TextEditingController _9Controller = TextEditingController();
+  //TextEditingController _9Controller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
   bool dataExist = false;
@@ -50,7 +50,7 @@ class _ThirteenState extends State<Thirteen> {
     _title = questions['title'];
     _inputOptions = questions['_input'][2];
     
-    _9Controller..text = '0.0';
+    _8Controller..text = '0.0';
     _total = 0.0;
 
     if(interview['sections']['sec_13'] != null ){
@@ -328,8 +328,8 @@ class _ThirteenState extends State<Thirteen> {
 
   _totalInput() {
     double foo  = double.parse(_1Controller.text) + double.parse(_2Controller.text)+double.parse(_3Controller.text) + double.parse(_4Controller.text)+
-          double.parse(_5Controller.text) + double.parse(_6Controller.text)+double.parse(_7Controller.text) + double.parse(_8Controller.text)
-          + double.parse(_9Controller.text);
+          double.parse(_5Controller.text) + double.parse(_6Controller.text)+double.parse(_7Controller.text) + double.parse(_8Controller.text);
+          //+ double.parse(_9Controller.text);
 
           setState(() {
             _total = foo;
@@ -349,7 +349,7 @@ class _ThirteenState extends State<Thirteen> {
         '_6': _6Controller.text,
         '_7': _7Controller.text,
         '_8': _8Controller.text,
-        '_9': _9Controller.text,
+        //'_9': _9Controller.text,
       };
 
       states['sections']['sec_13'] = data;

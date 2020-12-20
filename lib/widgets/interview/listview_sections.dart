@@ -1,10 +1,6 @@
-import 'package:absapp/screens/interview/bloc/interview_bloc.dart';
-import 'package:absapp/screens/interview/bloc/interview_event.dart';
-import 'package:absapp/screens/interview/bloc/interview_state.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListViewSections extends StatelessWidget {
   final Map interview;
@@ -13,16 +9,11 @@ class ListViewSections extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final interviewBloc = BlocProvider.of<InterviewBloc>(context);
-    interviewBloc.add(LoadInterviewEvent(interview['interview_id']));
-    return BlocBuilder<InterviewBloc, InterviewState>(
-        builder: (context, state) {
-      print(
-          'rrrrrrrrrrrrrrrrrrrrrrrttttttttttttttttttttttttttttttttt');
-      return Flexible(
+    //final interviewBloc = BlocProvider.of<InterviewBloc>(context);
+    //interviewBloc.add(LoadInterviewEvent(interview['interview_id']));
+    return Flexible(
         
-        child: _myListView(context, state.getInterview));
-    });
+        child: _myListView(context, this.interview));
   }
 
   Widget _myListView(BuildContext context, Map state ) {
@@ -38,7 +29,7 @@ class ListViewSections extends StatelessWidget {
       itemCount: myList.length,
       itemBuilder: (context, index) {
         //String qNumber = index.toString()=='0'?'':index.toString()+'.';
-        if(state['sections'][myList[index]['sec']] != null){
+        if(this.interview['sections'][myList[index]['sec']] != null){
             sectionColor = Colors.greenAccent;
         }else{
           sectionColor = Theme.of(context).cardColor;

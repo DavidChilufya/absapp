@@ -34,12 +34,12 @@ class _GridDashboardState extends State<GridDashboard> {
       'img': "assets/graphics/test_interview.png"
     },
     {
-      'title': "Pending",
+      'title': "Upload",
       'total': "0",
       'img': "assets/pending_upload.png"
     },{
       'title': "Uploaded",
-      'total': "0",
+      'total': "",
       'img': "assets/uploaded.png"
     },{
       'title': "All",
@@ -79,8 +79,6 @@ class _GridDashboardState extends State<GridDashboard> {
             myList[1]['total'] = getInterviewsDrafts(dataSnap.data, 'completed').length.toString();
             myList[3]['total'] = getInterviews(dataSnap.data,'completed').length.toString();
             myList[2]['total'] = getInterviews(dataSnap.data,'test').length.toString();
-
-            print('${getInterviewsDrafts(dataSnap.data, 'completed')}');
 
             return GestureDetector(
               child: Container(
@@ -130,9 +128,9 @@ class _GridDashboardState extends State<GridDashboard> {
                   }else if(data['title'] == 'Tests')
                   {
                     Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Tests']);
-                  }else if(data['title'] == 'Pending')
+                  }else if(data['title'] == 'Upload')
                   {
-                    Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Pending']);
+                    Navigator.pushNamed(context, InterviewList.id,arguments: [_user, 'Upload']);
                   }
   }
 
