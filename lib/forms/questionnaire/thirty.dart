@@ -1,11 +1,14 @@
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/services/interview_dao.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Thirty extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Thirty(this.interview_id, this.interview);
 
@@ -15,8 +18,7 @@ class Thirty extends StatefulWidget {
 
 class _ThirtyState extends State<Thirty> {
   _ThirtyState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -37,15 +39,15 @@ class _ThirtyState extends State<Thirty> {
   @override
   void initState() {
     _1isChckList = [false, false, false, false, false];
-    if(interview['sections']['sec_30'] != null ){
+    if(interview.sections['sec_30'] != null ){
       
       dataExist = true;
-        _1answer = interview['sections']['sec_30']['_1'];
-        _2answer = interview['sections']['sec_30']['_2'][0];
-        _2_index = interview['sections']['sec_30']['_2'][1];
+        _1answer = interview.sections['sec_30']['_1'];
+        _2answer = interview.sections['sec_30']['_2'][0];
+        _2_index = interview.sections['sec_30']['_2'][1];
 
-        _3answer = interview['sections']['sec_30']['_3'][0];
-        _3_index = interview['sections']['sec_30']['_3'][1];
+        _3answer = interview.sections['sec_30']['_3'][0];
+        _3_index = interview.sections['sec_30']['_3'][1];
     }
     super.initState();
   }
@@ -188,7 +190,7 @@ class _ThirtyState extends State<Thirty> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -198,18 +200,14 @@ class _ThirtyState extends State<Thirty> {
         '_3': [_3answer, _3_index],
       };
 
-      states['sections']['sec_30'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
+      states.sections['sec_30'] = data;
+      
           
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -226,7 +224,6 @@ class _ThirtyState extends State<Thirty> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     super.dispose();
   }
 }

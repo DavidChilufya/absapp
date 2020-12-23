@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Nine extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Nine(this.interview_id, this.interview);
 
@@ -15,11 +17,10 @@ class Nine extends StatefulWidget {
 
 class _NineState extends State<Nine> {
   _NineState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions;
-  Map interview;
+  Interview interview;
 
   String _title; //Questions
   List _1options;
@@ -39,10 +40,10 @@ class _NineState extends State<Nine> {
   @override
   void initState() {
     _1isChckList = [false, false, false, false, false, false, false];
-    if (interview['sections']['sec_9'] != null) {
+    if (interview.sections['sec_9'] != null) {
       dataExist = true;
-      _1isChckList = interview['sections']['sec_9']['_1']['_1'];
-      _1OtherController..text = interview['sections']['sec_9']['_1']['other'];
+      _1isChckList = interview.sections['sec_9']['_1']['_1'];
+      _1OtherController..text = interview.sections['sec_9']['_1']['other'];
       _1OtherShow = _1isChckList[6] ? true : false;
     }
     super.initState();
@@ -130,7 +131,7 @@ class _NineState extends State<Nine> {
     );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
 
@@ -138,18 +139,12 @@ class _NineState extends State<Nine> {
         '_1': {'_1': _1isChckList, 'other': _1OtherController.text},
       };
 
-      states['sections']['sec_9'] = data;
-      print(
-          '22222222222222222222222${states}444444444444444444444444444444444');
-
-      await _interviewDao.updateHive(states, interview_id).then((value) {
-        dataExist ? showTopShortToast() : null;
+      states.sections['sec_9'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
           dataExist = true;
         });
-
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-      });
     }
   }
 
@@ -166,7 +161,6 @@ class _NineState extends State<Nine> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1OtherController.dispose();
     super.dispose();
   }

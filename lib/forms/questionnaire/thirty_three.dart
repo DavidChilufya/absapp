@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ThirtyThree extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   ThirtyThree(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class ThirtyThree extends StatefulWidget {
 
 class _ThirtyThreeState extends State<ThirtyThree> {
   _ThirtyThreeState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -58,8 +59,8 @@ class _ThirtyThreeState extends State<ThirtyThree> {
   void initState() {
     _1isChckList = [false, false, false, false, false, false];
     _2isChckList = [false, false, false, false, false, false];
-    if(interview['sections']['sec_33'] != null ){
-      Map data = interview['sections']['sec_33'];
+    if(interview.sections['sec_33'] != null ){
+      Map data = interview.sections['sec_33'];
 
       
       dataExist = true;
@@ -636,7 +637,7 @@ class _ThirtyThreeState extends State<ThirtyThree> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -652,18 +653,12 @@ class _ThirtyThreeState extends State<ThirtyThree> {
         '_2': [_2isChckList,_2OtherController.text],
       };
 
-      states['sections']['sec_33'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_33'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -680,7 +675,6 @@ class _ThirtyThreeState extends State<ThirtyThree> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     super.dispose();
   }
 }

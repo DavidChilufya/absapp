@@ -104,7 +104,7 @@ class _SectionState extends State<Section> {
                     Center(child: Text('Question 3 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     questionFour,
                     Five(interview_id,interview),
-                    /*
+                    
                     Six(interview_id,interview),
                     Center(child: Text('Question 7 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     //Seven(interview_id,interview),
@@ -136,7 +136,6 @@ class _SectionState extends State<Section> {
                     //ThirtyThree(interview_id, interview),
                      Center(child: Text('Question 33 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     ThirtyFour(interview_id, interview)
-                    */
 
                   ],
                 )),

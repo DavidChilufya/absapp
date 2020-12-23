@@ -324,9 +324,7 @@ class _TwoState extends State<Two> {
       };
 
       states.sections['sec_2'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
       dataExist ? showTopShortToast() : null;
         setState(() {
           dataExist = true;

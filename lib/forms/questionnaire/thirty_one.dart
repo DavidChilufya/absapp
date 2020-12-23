@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ThirtyOne extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   ThirtyOne(this.interview_id, this.interview);
 
@@ -15,11 +17,10 @@ class ThirtyOne extends StatefulWidget {
 
 class _ThirtyOneState extends State<ThirtyOne> {
   _ThirtyOneState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions;
-  Map interview;
+  Interview interview;
 
   String _title, q1, q2, q3, q4; //Questions
   List _1options, _2options, _3options, _4options;
@@ -47,21 +48,21 @@ class _ThirtyOneState extends State<ThirtyOne> {
     _2isChckList = [false, false, false, false, false, false];
     _4isChckList = [false, false, false];
    
-    if (interview['sections']['sec_31'] != null) {
+    if (interview.sections['sec_31'] != null) {
       dataExist = true;
-      _1answer = interview['sections']['sec_31']['_1'][0];
-      _1_index = interview['sections']['sec_31']['_1'][1];
-      _3answer = interview['sections']['sec_31']['_3'][0];
-      _3_index = interview['sections']['sec_31']['_3'][1];
+      _1answer = interview.sections['sec_31']['_1'][0];
+      _1_index = interview.sections['sec_31']['_1'][1];
+      _3answer = interview.sections['sec_31']['_3'][0];
+      _3_index = interview.sections['sec_31']['_3'][1];
       _2show = _1answer == 'Yes' ? true: false;
       _4show = _3answer == 'Yes' ? true: false;
           
-      _2isChckList = interview['sections']['sec_31']['_2']['_2'];
-      _2OtherController..text = interview['sections']['sec_31']['_2']['other'];
+      _2isChckList = interview.sections['sec_31']['_2']['_2'];
+      _2OtherController..text = interview.sections['sec_31']['_2']['other'];
       _2OtherShow = _2isChckList[5];
 
-      _4isChckList = interview['sections']['sec_31']['_4']['_4'];
-      _4OtherController..text = interview['sections']['sec_31']['_4']['other'];
+      _4isChckList = interview.sections['sec_31']['_4']['_4'];
+      _4OtherController..text = interview.sections['sec_31']['_4']['other'];
       _4OtherShow = _4isChckList[2];
     }
     super.initState();
@@ -277,7 +278,7 @@ class _ThirtyOneState extends State<ThirtyOne> {
     );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
 
@@ -288,18 +289,12 @@ class _ThirtyOneState extends State<ThirtyOne> {
         '_4': {'_4': _4isChckList, 'other': _4OtherController.text},
       };
 
-      states['sections']['sec_31'] = data;
-      print(
-          '22222222222222222222222${states}444444444444444444444444444444444');
-
-      await _interviewDao.updateHive(states, interview_id).then((value) {
-        dataExist ? showTopShortToast() : null;
+      states.sections['sec_31'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
           dataExist = true;
         });
-
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-      });
     }
   }
 
@@ -316,7 +311,6 @@ class _ThirtyOneState extends State<ThirtyOne> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _4OtherController.dispose();
     super.dispose();
   }

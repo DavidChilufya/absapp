@@ -1,11 +1,14 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class ThirtyFour extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   ThirtyFour(this.interview_id, this.interview);
 
@@ -15,8 +18,7 @@ class ThirtyFour extends StatefulWidget {
 
 class _ThirtyFourState extends State<ThirtyFour> {
   _ThirtyFourState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -131,133 +133,133 @@ class _ThirtyFourState extends State<ThirtyFour> {
     _3b_1delivered_answer = 'Who delivered';_3b_2delivered_answer = 'Who delivered';_3b_3delivered_answer = 'Who delivered';_3b_4delivered_answer = 'Who delivered';
         _3b_5delivered_answer = 'Who delivered';_3b_6delivered_answer = 'Who delivered';_3b_7delivered_answer = 'Who delivered';_3b_8delivered_answer= 'Who delivered'; 
 
-    if(interview['sections']['sec_34'] != null ){
+    if(interview.sections['sec_34'] != null ){
       
       dataExist = true;
-        _1answer = interview['sections']['sec_34']['_1'][0];
-        _1_index = interview['sections']['sec_34']['_1'][1];
-        _2show = (interview['sections']['sec_34']['_1'][0]) == 'Yes'? true:false;
+        _1answer = interview.sections['sec_34']['_1'][0];
+        _1_index = interview.sections['sec_34']['_1'][1];
+        _2show = (interview.sections['sec_34']['_1'][0]) == 'Yes'? true:false;
 
-        _2_1Controller..text = interview['sections']['sec_34']['_2'][0][0]['advice'];
-        _2_1advice_answer =  interview['sections']['sec_34']['_2'][0][1][0]['organisation'];
-        _2_1otherController..text = interview['sections']['sec_34']['_2'][0][1][1]['organisation_other'];
-        _2_1otherOgranisationShow = interview['sections']['sec_34']['_2'][0][1][0]['organisation'] == 'Other'?true:false;
+        _2_1Controller..text = interview.sections['sec_34']['_2'][0][0]['advice'];
+        _2_1advice_answer =  interview.sections['sec_34']['_2'][0][1][0]['organisation'];
+        _2_1otherController..text = interview.sections['sec_34']['_2'][0][1][1]['organisation_other'];
+        _2_1otherOgranisationShow = interview.sections['sec_34']['_2'][0][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_2Controller..text = interview['sections']['sec_34']['_2'][1][0]['advice'];
-        _2_2advice_answer =  interview['sections']['sec_34']['_2'][1][1][0]['organisation'];
-        _2_2otherController..text = interview['sections']['sec_34']['_2'][1][1][1]['organisation_other'];
-        _2_2otherOgranisationShow = interview['sections']['sec_34']['_2'][1][1][0]['organisation'] == 'Other'?true:false;
+        _2_2Controller..text = interview.sections['sec_34']['_2'][1][0]['advice'];
+        _2_2advice_answer =  interview.sections['sec_34']['_2'][1][1][0]['organisation'];
+        _2_2otherController..text = interview.sections['sec_34']['_2'][1][1][1]['organisation_other'];
+        _2_2otherOgranisationShow = interview.sections['sec_34']['_2'][1][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_3Controller..text = interview['sections']['sec_34']['_2'][2][0]['advice'];
-        _2_3advice_answer =  interview['sections']['sec_34']['_2'][2][1][0]['organisation'];
-        _2_3otherController..text = interview['sections']['sec_34']['_2'][2][1][1]['organisation_other'];
-        _2_3otherOgranisationShow = interview['sections']['sec_34']['_2'][2][1][0]['organisation'] == 'Other'?true:false;
+        _2_3Controller..text = interview.sections['sec_34']['_2'][2][0]['advice'];
+        _2_3advice_answer =  interview.sections['sec_34']['_2'][2][1][0]['organisation'];
+        _2_3otherController..text = interview.sections['sec_34']['_2'][2][1][1]['organisation_other'];
+        _2_3otherOgranisationShow = interview.sections['sec_34']['_2'][2][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_4Controller..text = interview['sections']['sec_34']['_2'][3][0]['advice'];
-        _2_4advice_answer =  interview['sections']['sec_34']['_2'][3][1][0]['organisation'];
-        _2_4otherController..text = interview['sections']['sec_34']['_2'][3][1][1]['organisation_other'];
-        _2_4otherOgranisationShow = interview['sections']['sec_34']['_2'][3][1][0]['organisation'] == 'Other'?true:false;
+        _2_4Controller..text = interview.sections['sec_34']['_2'][3][0]['advice'];
+        _2_4advice_answer =  interview.sections['sec_34']['_2'][3][1][0]['organisation'];
+        _2_4otherController..text = interview.sections['sec_34']['_2'][3][1][1]['organisation_other'];
+        _2_4otherOgranisationShow = interview.sections['sec_34']['_2'][3][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_5Controller..text = interview['sections']['sec_34']['_2'][4][0]['advice'];
-        _2_5advice_answer =  interview['sections']['sec_34']['_2'][4][1][0]['organisation'];
-        _2_5otherController..text = interview['sections']['sec_34']['_2'][4][1][1]['organisation_other'];
-        _2_5otherOgranisationShow = interview['sections']['sec_34']['_2'][4][1][0]['organisation'] == 'Other'?true:false;
+        _2_5Controller..text = interview.sections['sec_34']['_2'][4][0]['advice'];
+        _2_5advice_answer =  interview.sections['sec_34']['_2'][4][1][0]['organisation'];
+        _2_5otherController..text = interview.sections['sec_34']['_2'][4][1][1]['organisation_other'];
+        _2_5otherOgranisationShow = interview.sections['sec_34']['_2'][4][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_6Controller..text = interview['sections']['sec_34']['_2'][5][0]['advice'];
-        _2_6advice_answer =  interview['sections']['sec_34']['_2'][5][1][0]['organisation'];
-        _2_6otherController..text = interview['sections']['sec_34']['_2'][5][1][1]['organisation_other'];
-        _2_6otherOgranisationShow = interview['sections']['sec_34']['_2'][5][1][0]['organisation'] == 'Other'?true:false;
+        _2_6Controller..text = interview.sections['sec_34']['_2'][5][0]['advice'];
+        _2_6advice_answer =  interview.sections['sec_34']['_2'][5][1][0]['organisation'];
+        _2_6otherController..text = interview.sections['sec_34']['_2'][5][1][1]['organisation_other'];
+        _2_6otherOgranisationShow = interview.sections['sec_34']['_2'][5][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_7Controller..text = interview['sections']['sec_34']['_2'][6][0]['advice'];
-        _2_7advice_answer =  interview['sections']['sec_34']['_2'][6][1][0]['organisation'];
-        _2_7otherController..text = interview['sections']['sec_34']['_2'][6][1][1]['organisation_other'];
-        _2_7otherOgranisationShow = interview['sections']['sec_34']['_2'][6][1][0]['organisation'] == 'Other'?true:false;
+        _2_7Controller..text = interview.sections['sec_34']['_2'][6][0]['advice'];
+        _2_7advice_answer =  interview.sections['sec_34']['_2'][6][1][0]['organisation'];
+        _2_7otherController..text = interview.sections['sec_34']['_2'][6][1][1]['organisation_other'];
+        _2_7otherOgranisationShow = interview.sections['sec_34']['_2'][6][1][0]['organisation'] == 'Other'?true:false;
 
-        _2_8Controller..text = interview['sections']['sec_34']['_2'][7][0]['advice'];
-        _2_8advice_answer =  interview['sections']['sec_34']['_2'][7][1][0]['organisation'];
-        _2_8otherController..text = interview['sections']['sec_34']['_2'][7][1][1]['organisation_other'];
-        _2_8otherOgranisationShow = interview['sections']['sec_34']['_2'][7][1][0]['organisation'] == 'Other'?true:false;
+        _2_8Controller..text = interview.sections['sec_34']['_2'][7][0]['advice'];
+        _2_8advice_answer =  interview.sections['sec_34']['_2'][7][1][0]['organisation'];
+        _2_8otherController..text = interview.sections['sec_34']['_2'][7][1][1]['organisation_other'];
+        _2_8otherOgranisationShow = interview.sections['sec_34']['_2'][7][1][0]['organisation'] == 'Other'?true:false;
 
 
-        _3answer = interview['sections']['sec_34']['_3'][0];
-        _3_index = interview['sections']['sec_34']['_3'][1];
-        _3bshow = (interview['sections']['sec_34']['_3'][0]) == 'Yes'? true:false;
+        _3answer = interview.sections['sec_34']['_3'][0];
+        _3_index = interview.sections['sec_34']['_3'][1];
+        _3bshow = (interview.sections['sec_34']['_3'][0]) == 'Yes'? true:false;
 
-        _3b_1Controller..text = interview['sections']['sec_34']['_3_1'][0][0]['when'];
-        _3b_1delivered_answer = interview['sections']['sec_34']['_3_1'][0][1][0]['organisation'];
-        _3b_1otherController..text = interview['sections']['sec_34']['_3_1'][0][1][1]['organisation_other'];
-        _3bComment_1Controller..text = interview['sections']['sec_34']['_3_1'][0][2]['comment'];
+        _3b_1Controller..text = interview.sections['sec_34']['_3_1'][0][0]['when'];
+        _3b_1delivered_answer = interview.sections['sec_34']['_3_1'][0][1][0]['organisation'];
+        _3b_1otherController..text = interview.sections['sec_34']['_3_1'][0][1][1]['organisation_other'];
+        _3bComment_1Controller..text = interview.sections['sec_34']['_3_1'][0][2]['comment'];
        _3b_1otherOgranisationShow = _3b_1delivered_answer == 'Other'?true:false;
 
-       _3b_2Controller..text = interview['sections']['sec_34']['_3_1'][1][0]['when'];
-        _3b_2delivered_answer = interview['sections']['sec_34']['_3_1'][1][1][0]['organisation'];
-        _3b_2otherController..text = interview['sections']['sec_34']['_3_1'][1][1][1]['organisation_other'];
-        _3bComment_2Controller..text = interview['sections']['sec_34']['_3_1'][1][2]['comment'];
+       _3b_2Controller..text = interview.sections['sec_34']['_3_1'][1][0]['when'];
+        _3b_2delivered_answer = interview.sections['sec_34']['_3_1'][1][1][0]['organisation'];
+        _3b_2otherController..text = interview.sections['sec_34']['_3_1'][1][1][1]['organisation_other'];
+        _3bComment_2Controller..text = interview.sections['sec_34']['_3_1'][1][2]['comment'];
        _3b_2otherOgranisationShow = _3b_2delivered_answer == 'Other'?true:false;
 
-        _3b_3Controller..text = interview['sections']['sec_34']['_3_1'][2][0]['when'];
-        _3b_3delivered_answer = interview['sections']['sec_34']['_3_1'][2][1][0]['organisation'];
-        _3b_3otherController..text = interview['sections']['sec_34']['_3_1'][2][1][1]['organisation_other'];
-        _3bComment_3Controller..text = interview['sections']['sec_34']['_3_1'][2][2]['comment'];
+        _3b_3Controller..text = interview.sections['sec_34']['_3_1'][2][0]['when'];
+        _3b_3delivered_answer = interview.sections['sec_34']['_3_1'][2][1][0]['organisation'];
+        _3b_3otherController..text = interview.sections['sec_34']['_3_1'][2][1][1]['organisation_other'];
+        _3bComment_3Controller..text = interview.sections['sec_34']['_3_1'][2][2]['comment'];
         _3b_3otherOgranisationShow = _3b_3delivered_answer == 'Other'?true:false;
 
-        _3b_4Controller..text = interview['sections']['sec_34']['_3_1'][3][0]['when'];
-        _3b_4delivered_answer = interview['sections']['sec_34']['_3_1'][3][1][0]['organisation'];
-        _3b_4otherController..text = interview['sections']['sec_34']['_3_1'][3][1][1]['organisation_other'];
-        _3bComment_4Controller..text = interview['sections']['sec_34']['_3_1'][3][2]['comment'];
+        _3b_4Controller..text = interview.sections['sec_34']['_3_1'][3][0]['when'];
+        _3b_4delivered_answer = interview.sections['sec_34']['_3_1'][3][1][0]['organisation'];
+        _3b_4otherController..text = interview.sections['sec_34']['_3_1'][3][1][1]['organisation_other'];
+        _3bComment_4Controller..text = interview.sections['sec_34']['_3_1'][3][2]['comment'];
         _3b_4otherOgranisationShow = _3b_4delivered_answer == 'Other'?true:false;
 
-        _3b_5Controller..text = interview['sections']['sec_34']['_3_1'][4][0]['when'];
-        _3b_5delivered_answer = interview['sections']['sec_34']['_3_1'][4][1][0]['organisation'];
-        _3b_5otherController..text = interview['sections']['sec_34']['_3_1'][4][1][1]['organisation_other'];
-        _3bComment_5Controller..text = interview['sections']['sec_34']['_3_1'][4][2]['comment'];
+        _3b_5Controller..text = interview.sections['sec_34']['_3_1'][4][0]['when'];
+        _3b_5delivered_answer = interview.sections['sec_34']['_3_1'][4][1][0]['organisation'];
+        _3b_5otherController..text = interview.sections['sec_34']['_3_1'][4][1][1]['organisation_other'];
+        _3bComment_5Controller..text = interview.sections['sec_34']['_3_1'][4][2]['comment'];
         _3b_5otherOgranisationShow = _3b_5delivered_answer == 'Other'?true:false;
 
-        _3b_6Controller..text = interview['sections']['sec_34']['_3_1'][5][0]['when'];
-        _3b_6delivered_answer = interview['sections']['sec_34']['_3_1'][5][1][0]['organisation'];
-        _3b_6otherController..text = interview['sections']['sec_34']['_3_1'][5][1][1]['organisation_other'];
-        _3bComment_6Controller..text = interview['sections']['sec_34']['_3_1'][5][2]['comment'];
+        _3b_6Controller..text = interview.sections['sec_34']['_3_1'][5][0]['when'];
+        _3b_6delivered_answer = interview.sections['sec_34']['_3_1'][5][1][0]['organisation'];
+        _3b_6otherController..text = interview.sections['sec_34']['_3_1'][5][1][1]['organisation_other'];
+        _3bComment_6Controller..text = interview.sections['sec_34']['_3_1'][5][2]['comment'];
         _3b_6otherOgranisationShow = _3b_6delivered_answer == 'Other'?true:false;
 
-        _3b_7Controller..text = interview['sections']['sec_34']['_3_1'][6][0]['when'];
-        _3b_7delivered_answer = interview['sections']['sec_34']['_3_1'][6][1][0]['organisation'];
-        _3b_7otherController..text = interview['sections']['sec_34']['_3_1'][6][1][1]['organisation_other'];
-        _3bComment_7Controller..text = interview['sections']['sec_34']['_3_1'][6][2]['comment'];
+        _3b_7Controller..text = interview.sections['sec_34']['_3_1'][6][0]['when'];
+        _3b_7delivered_answer = interview.sections['sec_34']['_3_1'][6][1][0]['organisation'];
+        _3b_7otherController..text = interview.sections['sec_34']['_3_1'][6][1][1]['organisation_other'];
+        _3bComment_7Controller..text = interview.sections['sec_34']['_3_1'][6][2]['comment'];
         _3b_7otherOgranisationShow = _3b_7delivered_answer == 'Other'?true:false;
 
-        _3b_8Controller..text = interview['sections']['sec_34']['_3_1'][7][0]['when'];
-        _3b_8delivered_answer = interview['sections']['sec_34']['_3_1'][7][1][0]['organisation'];
-        _3b_8otherController..text = interview['sections']['sec_34']['_3_1'][7][1][1]['organisation_other'];
-        _3bComment_8Controller..text = interview['sections']['sec_34']['_3_1'][7][2]['comment'];
+        _3b_8Controller..text = interview.sections['sec_34']['_3_1'][7][0]['when'];
+        _3b_8delivered_answer = interview.sections['sec_34']['_3_1'][7][1][0]['organisation'];
+        _3b_8otherController..text = interview.sections['sec_34']['_3_1'][7][1][1]['organisation_other'];
+        _3bComment_8Controller..text = interview.sections['sec_34']['_3_1'][7][2]['comment'];
         _3b_8otherOgranisationShow = _3b_8delivered_answer == 'Other'?true:false;
 
-        _4_1Controller..text = interview['sections']['sec_34']['_4'][0][0]['applying'];
-        _4_1benefitsController..text = interview['sections']['sec_34']['_4'][0][1]['benefits'];
+        _4_1Controller..text = interview.sections['sec_34']['_4'][0][0]['applying'];
+        _4_1benefitsController..text = interview.sections['sec_34']['_4'][0][1]['benefits'];
 
-        _4_2Controller..text = interview['sections']['sec_34']['_4'][1][0]['applying'];
-        _4_2benefitsController..text = interview['sections']['sec_34']['_4'][1][1]['benefits'];
+        _4_2Controller..text = interview.sections['sec_34']['_4'][1][0]['applying'];
+        _4_2benefitsController..text = interview.sections['sec_34']['_4'][1][1]['benefits'];
 
-        _4_3Controller..text = interview['sections']['sec_34']['_4'][2][0]['applying'];
-        _4_3benefitsController..text = interview['sections']['sec_34']['_4'][2][1]['benefits'];
+        _4_3Controller..text = interview.sections['sec_34']['_4'][2][0]['applying'];
+        _4_3benefitsController..text = interview.sections['sec_34']['_4'][2][1]['benefits'];
 
-        _4_4Controller..text = interview['sections']['sec_34']['_4'][3][0]['applying'];
-        _4_4benefitsController..text = interview['sections']['sec_34']['_4'][3][1]['benefits'];
+        _4_4Controller..text = interview.sections['sec_34']['_4'][3][0]['applying'];
+        _4_4benefitsController..text = interview.sections['sec_34']['_4'][3][1]['benefits'];
 
-        _4_5Controller..text = interview['sections']['sec_34']['_4'][4][0]['applying'];
-        _4_5benefitsController..text = interview['sections']['sec_34']['_4'][4][1]['benefits'];
+        _4_5Controller..text = interview.sections['sec_34']['_4'][4][0]['applying'];
+        _4_5benefitsController..text = interview.sections['sec_34']['_4'][4][1]['benefits'];
 
-        _4_6Controller..text = interview['sections']['sec_34']['_4'][5][0]['applying'];
-        _4_6benefitsController..text = interview['sections']['sec_34']['_4'][5][1]['benefits'];
+        _4_6Controller..text = interview.sections['sec_34']['_4'][5][0]['applying'];
+        _4_6benefitsController..text = interview.sections['sec_34']['_4'][5][1]['benefits'];
 
-        _4_7Controller..text = interview['sections']['sec_34']['_4'][6][0]['applying'];
-        _4_7benefitsController..text = interview['sections']['sec_34']['_4'][6][1]['benefits'];
+        _4_7Controller..text = interview.sections['sec_34']['_4'][6][0]['applying'];
+        _4_7benefitsController..text = interview.sections['sec_34']['_4'][6][1]['benefits'];
 
-        _4_8Controller..text = interview['sections']['sec_34']['_4'][6][0]['applying'];
-        _4_8benefitsController..text = interview['sections']['sec_34']['_4'][6][1]['benefits'];
+        _4_8Controller..text = interview.sections['sec_34']['_4'][6][0]['applying'];
+        _4_8benefitsController..text = interview.sections['sec_34']['_4'][6][1]['benefits'];
 
-        _5isChckList = interview['sections']['sec_34']['_5'];
+        _5isChckList = interview.sections['sec_34']['_5'];
 
-        _commenOsuggestionController..text = interview['sections']['sec_34']['comment'];
+        _commenOsuggestionController..text = interview.sections['sec_34']['comment'];
     }
     super.initState();
   }
@@ -1591,7 +1593,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -1632,22 +1634,19 @@ class _ThirtyFourState extends State<ThirtyFour> {
         'comment': _commenOsuggestionController.text
       };
 
-      states['sections']['sec_34'] = data;
-      if(!states['completed']) {
-        states['question_number'] = '34';
-        states['completed'] = true;
+      states.sections['sec_34'] = data;
+      if(!states.completed) {
+        states.question_number = '34';
+        states.completed = true;
       }
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():finishInterviewToast();
-        setState(() {
-          dataExist = true; 
-        });
+        await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+        await Provider.of<InterviewListModel>(context, listen: false).setAllInterviews();
+        finishInterviewToast();
+          setState(() {
+            dataExist = true; 
+          });
         
         //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -1672,7 +1671,6 @@ class _ThirtyFourState extends State<ThirtyFour> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     super.dispose();
   }
 }

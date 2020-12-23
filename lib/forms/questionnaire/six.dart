@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Six extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Six(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class Six extends StatefulWidget {
 
 class _SixState extends State<Six> {
   _SixState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -38,14 +39,14 @@ class _SixState extends State<Six> {
 
   @override
   void initState() {
-    if(interview['sections']['sec_6'] != null ){
+    if(interview.sections['sec_6'] != null ){
       
       dataExist = true;
-        _1Controller..text = interview['sections']['sec_6']['_1'];
-        _2Controller..text = interview['sections']['sec_6']['_2'];
-        _3Controller..text = interview['sections']['sec_6']['_3'];
-        _4Controller..text = interview['sections']['sec_6']['_4'];
-        _5Controller..text = interview['sections']['sec_6']['_5'];
+        _1Controller..text = interview.sections['sec_6']['_1'];
+        _2Controller..text = interview.sections['sec_6']['_2'];
+        _3Controller..text = interview.sections['sec_6']['_3'];
+        _4Controller..text = interview.sections['sec_6']['_4'];
+        _5Controller..text = interview.sections['sec_6']['_5'];
     }
     super.initState();
   }
@@ -198,7 +199,7 @@ class _SixState extends State<Six> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -210,18 +211,12 @@ class _SixState extends State<Six> {
         '_5': _5Controller.text,
       };
 
-      states['sections']['sec_6'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_6'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -238,7 +233,6 @@ class _SixState extends State<Six> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

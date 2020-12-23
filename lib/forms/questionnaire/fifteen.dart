@@ -1,12 +1,14 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 
 class Fifteen extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Fifteen(this.interview_id, this.interview);
 
@@ -16,8 +18,7 @@ class Fifteen extends StatefulWidget {
 
 class _FifteenState extends State<Fifteen> {
   _FifteenState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -94,45 +95,45 @@ class _FifteenState extends State<Fifteen> {
     _stringTotal = '0.0';
     _1_total = 0.0; _2_total = 0.0;_3_total = 0.0;_4_total = 0.0;_5_total = 0.0;_6_total = 0.0;_7_total = 0.0;_8_total = 0.0;
 
-    if(interview['sections']['sec_15'] != null ){
+    if(interview.sections['sec_15'] != null ){
       
       dataExist = true;
-        _input_answer = interview['sections']['sec_15']['_input'][0];
-        _input_index = interview['sections']['sec_15']['_input'][1];
+        _input_answer = interview.sections['sec_15']['_input'][0];
+        _input_index = interview.sections['sec_15']['_input'][1];
         
-        _1_1Controller..text = interview['sections']['sec_15']['_1']['_1'];
-        //_1_2Controller..text = interview['sections']['sec_15']['_1']['_2'];
-        _1_3Controller..text = interview['sections']['sec_15']['_1']['_3'];
-        //_1_4Controller..text = interview['sections']['sec_15']['_1']['_4'];
-        _1_5Controller..text = interview['sections']['sec_15']['_1']['_5'];
-        _1_6Controller..text = interview['sections']['sec_15']['_1']['_6'];
-        _1_7Controller..text = interview['sections']['sec_15']['_1']['_7'];
-        _1_8Controller..text = interview['sections']['sec_15']['_1']['_8'];
-        _1_9Controller..text = interview['sections']['sec_15']['_1']['_9'];
+        _1_1Controller..text = interview.sections['sec_15']['_1']['_1'];
+        //_1_2Controller..text = interview.sections['sec_15']['_1']['_2'];
+        _1_3Controller..text = interview.sections['sec_15']['_1']['_3'];
+        //_1_4Controller..text = interview.sections['sec_15']['_1']['_4'];
+        _1_5Controller..text = interview.sections['sec_15']['_1']['_5'];
+        _1_6Controller..text = interview.sections['sec_15']['_1']['_6'];
+        _1_7Controller..text = interview.sections['sec_15']['_1']['_7'];
+        _1_8Controller..text = interview.sections['sec_15']['_1']['_8'];
+        _1_9Controller..text = interview.sections['sec_15']['_1']['_9'];
 
-        _2_1OtherController..text = interview['sections']['sec_15']['_2']['_1'][0];
-        _2_2OtherController..text = interview['sections']['sec_15']['_2']['_2'][0];
-        _2_1AmountOtherController..text = interview['sections']['sec_15']['_2']['_1'][1];
-        _2_2AmountOtherController..text = interview['sections']['sec_15']['_2']['_2'][1];
+        _2_1OtherController..text = interview.sections['sec_15']['_2']['_1'][0];
+        _2_2OtherController..text = interview.sections['sec_15']['_2']['_2'][0];
+        _2_1AmountOtherController..text = interview.sections['sec_15']['_2']['_1'][1];
+        _2_2AmountOtherController..text = interview.sections['sec_15']['_2']['_2'][1];
 
-        _3_1Controller..text = interview['sections']['sec_15']['_3']['_1'];
-        _3_2Controller..text = interview['sections']['sec_15']['_3']['_2'];
+        _3_1Controller..text = interview.sections['sec_15']['_3']['_1'];
+        _3_2Controller..text = interview.sections['sec_15']['_3']['_2'];
 
-        _4_1Controller..text = interview['sections']['sec_15']['_4']['_1'];
-        _4_2Controller..text = interview['sections']['sec_15']['_4']['_2'];
+        _4_1Controller..text = interview.sections['sec_15']['_4']['_1'];
+        _4_2Controller..text = interview.sections['sec_15']['_4']['_2'];
 
-        _5_1Controller..text = interview['sections']['sec_15']['_5']['_1'];
-        _5_2Controller..text = interview['sections']['sec_15']['_5']['_2'];
+        _5_1Controller..text = interview.sections['sec_15']['_5']['_1'];
+        _5_2Controller..text = interview.sections['sec_15']['_5']['_2'];
 
-        _6_1Controller..text = interview['sections']['sec_15']['_6']['_1'];
+        _6_1Controller..text = interview.sections['sec_15']['_6']['_1'];
 
-        _7_1Controller..text = interview['sections']['sec_15']['_7']['_1'];
-        //_7_2Controller..text = interview['sections']['sec_15']['_7']['_2'];
-        //_7_3Controller..text = interview['sections']['sec_15']['_7']['_3'];
+        _7_1Controller..text = interview.sections['sec_15']['_7']['_1'];
+        //_7_2Controller..text = interview.sections['sec_15']['_7']['_2'];
+        //_7_3Controller..text = interview.sections['sec_15']['_7']['_3'];
 
-        _8_otherController..text = interview['sections']['sec_15']['_8']['_2'][0];
-        _8_1Controller..text = interview['sections']['sec_15']['_8']['_1'];
-        _8_2Controller..text = interview['sections']['sec_15']['_8']['_2'][1];
+        _8_otherController..text = interview.sections['sec_15']['_8']['_2'][0];
+        _8_1Controller..text = interview.sections['sec_15']['_8']['_1'];
+        _8_2Controller..text = interview.sections['sec_15']['_8']['_2'][1];
         
     }
     super.initState();
@@ -1013,7 +1014,7 @@ class _FifteenState extends State<Fifteen> {
     }
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
      
@@ -1061,18 +1062,12 @@ class _FifteenState extends State<Fifteen> {
       
       };
 
-      states['sections']['sec_15'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_15'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -1089,7 +1084,6 @@ class _FifteenState extends State<Fifteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1_1Controller.dispose();
     //_1_2Controller.dispose();
     _1_5Controller.dispose();

@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Sixteen extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Sixteen(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class Sixteen extends StatefulWidget {
 
 class _SixteenState extends State<Sixteen> {
   _SixteenState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -92,104 +93,104 @@ class _SixteenState extends State<Sixteen> {
 
     _title = questions['title'];
 
-    if(interview['sections']['sec_16'] != null ){
+    if(interview.sections['sec_16'] != null ){
      
       dataExist = true;
-      _1input_answer = interview['sections']['sec_16']['_1_1'][0];
-      _1input_index = interview['sections']['sec_16']['_1_1'][1];
-      _2input_answer = interview['sections']['sec_16']['_1_2'][0];
-      _2input_index = interview['sections']['sec_16']['_1_2'][1];
-      _3input_answer = interview['sections']['sec_16']['_1_3'][0];
-      _3input_index = interview['sections']['sec_16']['_1_3'][1];
-      _4input_answer = interview['sections']['sec_16']['_1_4'][0];
-      _4input_index = interview['sections']['sec_16']['_1_4'][1];
+      _1input_answer = interview.sections['sec_16']['_1_1'][0];
+      _1input_index = interview.sections['sec_16']['_1_1'][1];
+      _2input_answer = interview.sections['sec_16']['_1_2'][0];
+      _2input_index = interview.sections['sec_16']['_1_2'][1];
+      _3input_answer = interview.sections['sec_16']['_1_3'][0];
+      _3input_index = interview.sections['sec_16']['_1_3'][1];
+      _4input_answer = interview.sections['sec_16']['_1_4'][0];
+      _4input_index = interview.sections['sec_16']['_1_4'][1];
 
 
-      _1Controller..text = interview['sections']['sec_16']['_1']['_number'];
-      _1_2Controller..text = interview['sections']['sec_16']['_1']['_comment'];
-      _1Answer = interview['sections']['sec_16']['_1']['_condition'][0];
-      _1_index = interview['sections']['sec_16']['_1']['_condition'][1];
+      _1Controller..text = interview.sections['sec_16']['_1']['_number'];
+      _1_2Controller..text = interview.sections['sec_16']['_1']['_comment'];
+      _1Answer = interview.sections['sec_16']['_1']['_condition'][0];
+      _1_index = interview.sections['sec_16']['_1']['_condition'][1];
 
-      _2Controller..text = interview['sections']['sec_16']['_2']['_number'];
-      _2_2Controller..text = interview['sections']['sec_16']['_2']['_comment'];
-      _2Answer = interview['sections']['sec_16']['_2']['_condition'][0];
-      _2_index = interview['sections']['sec_16']['_2']['_condition'][1];
+      _2Controller..text = interview.sections['sec_16']['_2']['_number'];
+      _2_2Controller..text = interview.sections['sec_16']['_2']['_comment'];
+      _2Answer = interview.sections['sec_16']['_2']['_condition'][0];
+      _2_index = interview.sections['sec_16']['_2']['_condition'][1];
 
-      _3Controller..text = interview['sections']['sec_16']['_3']['_number'];
-      _3_2Controller..text = interview['sections']['sec_16']['_3']['_comment'];
-      _3Answer = interview['sections']['sec_16']['_3']['_condition'][0];
-      _3_index = interview['sections']['sec_16']['_3']['_condition'][1];
+      _3Controller..text = interview.sections['sec_16']['_3']['_number'];
+      _3_2Controller..text = interview.sections['sec_16']['_3']['_comment'];
+      _3Answer = interview.sections['sec_16']['_3']['_condition'][0];
+      _3_index = interview.sections['sec_16']['_3']['_condition'][1];
 
-      _4Controller..text = interview['sections']['sec_16']['_4']['_number'];
-      _4_2Controller..text = interview['sections']['sec_16']['_4']['_comment'];
-      _4Answer = interview['sections']['sec_16']['_4']['_condition'][0];
-      _4_index = interview['sections']['sec_16']['_4']['_condition'][1];
+      _4Controller..text = interview.sections['sec_16']['_4']['_number'];
+      _4_2Controller..text = interview.sections['sec_16']['_4']['_comment'];
+      _4Answer = interview.sections['sec_16']['_4']['_condition'][0];
+      _4_index = interview.sections['sec_16']['_4']['_condition'][1];
 
-            _5Controller..text = interview['sections']['sec_16']['_5']['_number'];
-      _5_2Controller..text = interview['sections']['sec_16']['_5']['_comment'];
-      _5Answer = interview['sections']['sec_16']['_5']['_condition'][0];
-      _5_index = interview['sections']['sec_16']['_5']['_condition'][1];
+            _5Controller..text = interview.sections['sec_16']['_5']['_number'];
+      _5_2Controller..text = interview.sections['sec_16']['_5']['_comment'];
+      _5Answer = interview.sections['sec_16']['_5']['_condition'][0];
+      _5_index = interview.sections['sec_16']['_5']['_condition'][1];
 
-      _6Controller..text = interview['sections']['sec_16']['_6']['_number'];
-      _6_2Controller..text = interview['sections']['sec_16']['_6']['_comment'];
-      _6Answer = interview['sections']['sec_16']['_6']['_condition'][0];
-      _6_index = interview['sections']['sec_16']['_6']['_condition'][1];
+      _6Controller..text = interview.sections['sec_16']['_6']['_number'];
+      _6_2Controller..text = interview.sections['sec_16']['_6']['_comment'];
+      _6Answer = interview.sections['sec_16']['_6']['_condition'][0];
+      _6_index = interview.sections['sec_16']['_6']['_condition'][1];
 
-      _7Controller..text = interview['sections']['sec_16']['_7']['_number'];
-      _7_2Controller..text = interview['sections']['sec_16']['_7']['_comment'];
-      _7Answer = interview['sections']['sec_16']['_7']['_condition'][0];
-      _7_index = interview['sections']['sec_16']['_7']['_condition'][1];
+      _7Controller..text = interview.sections['sec_16']['_7']['_number'];
+      _7_2Controller..text = interview.sections['sec_16']['_7']['_comment'];
+      _7Answer = interview.sections['sec_16']['_7']['_condition'][0];
+      _7_index = interview.sections['sec_16']['_7']['_condition'][1];
 
-      _8Controller..text = interview['sections']['sec_16']['_8']['_number'];
-      _8_2Controller..text = interview['sections']['sec_16']['_8']['_comment'];
-      _8Answer = interview['sections']['sec_16']['_8']['_condition'][0];
-      _8_index = interview['sections']['sec_16']['_8']['_condition'][1];
+      _8Controller..text = interview.sections['sec_16']['_8']['_number'];
+      _8_2Controller..text = interview.sections['sec_16']['_8']['_comment'];
+      _8Answer = interview.sections['sec_16']['_8']['_condition'][0];
+      _8_index = interview.sections['sec_16']['_8']['_condition'][1];
 
-      _9Controller..text = interview['sections']['sec_16']['_9']['_number'];
-      _9_2Controller..text = interview['sections']['sec_16']['_9']['_comment'];
-      _9Answer = interview['sections']['sec_16']['_9']['_condition'][0];
-      _9_index = interview['sections']['sec_16']['_9']['_condition'][1];
+      _9Controller..text = interview.sections['sec_16']['_9']['_number'];
+      _9_2Controller..text = interview.sections['sec_16']['_9']['_comment'];
+      _9Answer = interview.sections['sec_16']['_9']['_condition'][0];
+      _9_index = interview.sections['sec_16']['_9']['_condition'][1];
 
-      _10Controller..text = interview['sections']['sec_16']['_10']['_number'];
-      _10_2Controller..text = interview['sections']['sec_16']['_10']['_comment'];
-      _10Answer = interview['sections']['sec_16']['_10']['_condition'][0];
-      _10_index = interview['sections']['sec_16']['_10']['_condition'][1];
+      _10Controller..text = interview.sections['sec_16']['_10']['_number'];
+      _10_2Controller..text = interview.sections['sec_16']['_10']['_comment'];
+      _10Answer = interview.sections['sec_16']['_10']['_condition'][0];
+      _10_index = interview.sections['sec_16']['_10']['_condition'][1];
 
-      _11Controller..text = interview['sections']['sec_16']['_11']['_number'];
-      _11_2Controller..text = interview['sections']['sec_16']['_11']['_comment'];
-      _11Answer = interview['sections']['sec_16']['_11']['_condition'][0];
-      _11_index = interview['sections']['sec_16']['_11']['_condition'][1];
+      _11Controller..text = interview.sections['sec_16']['_11']['_number'];
+      _11_2Controller..text = interview.sections['sec_16']['_11']['_comment'];
+      _11Answer = interview.sections['sec_16']['_11']['_condition'][0];
+      _11_index = interview.sections['sec_16']['_11']['_condition'][1];
 
-      _12Controller..text = interview['sections']['sec_16']['_12']['_number'];
-      _12_2Controller..text = interview['sections']['sec_16']['_12']['_comment'];
-      _12Answer = interview['sections']['sec_16']['_12']['_condition'][0];
-      _12_index = interview['sections']['sec_16']['_12']['_condition'][1];
+      _12Controller..text = interview.sections['sec_16']['_12']['_number'];
+      _12_2Controller..text = interview.sections['sec_16']['_12']['_comment'];
+      _12Answer = interview.sections['sec_16']['_12']['_condition'][0];
+      _12_index = interview.sections['sec_16']['_12']['_condition'][1];
 
-      _13Controller..text = interview['sections']['sec_16']['_13']['_number'];
-      _13_2Controller..text = interview['sections']['sec_16']['_13']['_comment'];
-      _13Answer = interview['sections']['sec_16']['_13']['_condition'][0];
-      _13_index = interview['sections']['sec_16']['_13']['_condition'][1];
+      _13Controller..text = interview.sections['sec_16']['_13']['_number'];
+      _13_2Controller..text = interview.sections['sec_16']['_13']['_comment'];
+      _13Answer = interview.sections['sec_16']['_13']['_condition'][0];
+      _13_index = interview.sections['sec_16']['_13']['_condition'][1];
 
-      _14Controller..text = interview['sections']['sec_16']['_14']['_number'];
-      _14_2Controller..text = interview['sections']['sec_16']['_14']['_comment'];
-      _14Answer = interview['sections']['sec_16']['_14']['_condition'][0];
-      _14_index = interview['sections']['sec_16']['_14']['_condition'][1];
+      _14Controller..text = interview.sections['sec_16']['_14']['_number'];
+      _14_2Controller..text = interview.sections['sec_16']['_14']['_comment'];
+      _14Answer = interview.sections['sec_16']['_14']['_condition'][0];
+      _14_index = interview.sections['sec_16']['_14']['_condition'][1];
 
-      _15Controller..text = interview['sections']['sec_16']['_15']['_number'];
-      _15_2Controller..text = interview['sections']['sec_16']['_15']['_comment'];
-      _15Answer = interview['sections']['sec_16']['_15']['_condition'][0];
-      _15_index = interview['sections']['sec_16']['_15']['_condition'][1];
+      _15Controller..text = interview.sections['sec_16']['_15']['_number'];
+      _15_2Controller..text = interview.sections['sec_16']['_15']['_comment'];
+      _15Answer = interview.sections['sec_16']['_15']['_condition'][0];
+      _15_index = interview.sections['sec_16']['_15']['_condition'][1];
 
-      _16Controller..text = interview['sections']['sec_16']['_16']['_number'];
-      _16_2Controller..text = interview['sections']['sec_16']['_16']['_comment'];
-      _16Answer = interview['sections']['sec_16']['_16']['_condition'][0];
-      _16_index = interview['sections']['sec_16']['_6']['_condition'][1];
+      _16Controller..text = interview.sections['sec_16']['_16']['_number'];
+      _16_2Controller..text = interview.sections['sec_16']['_16']['_comment'];
+      _16Answer = interview.sections['sec_16']['_16']['_condition'][0];
+      _16_index = interview.sections['sec_16']['_6']['_condition'][1];
 
 
    
 
-       // _1_index = interview['sections']['sec_7']['_1'][1];
-        //_2Controller..text = interview['sections']['sec_7']['_2'];
+       // _1_index = interview.sections['sec_7']['_1'][1];
+        //_2Controller..text = interview.sections['sec_7']['_2'];
     }
     _questionnaireList = questions['_questions'];
     _numberInputControllersList = [_1Controller,_2Controller,_3Controller,_4Controller,_5Controller,_6Controller,
@@ -455,7 +456,7 @@ class _SixteenState extends State<Sixteen> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -484,18 +485,12 @@ class _SixteenState extends State<Sixteen> {
         
       };
 
-      states['sections']['sec_16'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_16'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -512,7 +507,6 @@ class _SixteenState extends State<Sixteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
    // _2Controller.dispose();
     super.dispose();
   }

@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Ten extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Ten(this.interview_id, this.interview);
 
@@ -15,11 +17,10 @@ class Ten extends StatefulWidget {
 
 class _TenState extends State<Ten> {
   _TenState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions;
-  Map interview;
+  Interview interview;
 
   String _title,q1; //Questions
   List questionsList,_cropUseList,apControllersList,otherControllersList;
@@ -115,96 +116,96 @@ class _TenState extends State<Ten> {
     _cropChckList = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     _cropChckListShow = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     _otherListShow = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
-    if (interview['sections']['sec_10'] != null) {
+    if (interview.sections['sec_10'] != null) {
       dataExist = true;
-      Map data1 = interview['sections']['sec_10']['_1'];
-      Map data2 = interview['sections']['sec_10']['_2'];
-      Map data3 = interview['sections']['sec_10']['_3'];
+      Map data1 = interview.sections['sec_10']['_1'];
+      Map data2 = interview.sections['sec_10']['_2'];
+      Map data3 = interview.sections['sec_10']['_3'];
       _cropChckList = [
           data1['_planted'],
           data2['_planted'],
           data3['_planted'],
-          interview['sections']['sec_10']['_4']['_planted'],
-          interview['sections']['sec_10']['_5']['_planted'],
-          interview['sections']['sec_10']['_6']['_planted'],
-          interview['sections']['sec_10']['_7']['_planted'],
-          interview['sections']['sec_10']['_8']['_planted'],
-          interview['sections']['sec_10']['_9']['_planted'],
-          interview['sections']['sec_10']['_10']['_planted'],
-          interview['sections']['sec_10']['_11']['_planted'],
-          interview['sections']['sec_10']['_12']['_planted'],
-          interview['sections']['sec_10']['_13']['_planted'],
-          interview['sections']['sec_10']['_14']['_planted'],
-          interview['sections']['sec_10']['_15']['_planted'],
-          interview['sections']['sec_10']['_16']['_planted'],
-          interview['sections']['sec_10']['_17']['_planted'],
-          interview['sections']['sec_10']['_18']['_planted'],
-          interview['sections']['sec_10']['_19']['_planted'],
+          interview.sections['sec_10']['_4']['_planted'],
+          interview.sections['sec_10']['_5']['_planted'],
+          interview.sections['sec_10']['_6']['_planted'],
+          interview.sections['sec_10']['_7']['_planted'],
+          interview.sections['sec_10']['_8']['_planted'],
+          interview.sections['sec_10']['_9']['_planted'],
+          interview.sections['sec_10']['_10']['_planted'],
+          interview.sections['sec_10']['_11']['_planted'],
+          interview.sections['sec_10']['_12']['_planted'],
+          interview.sections['sec_10']['_13']['_planted'],
+          interview.sections['sec_10']['_14']['_planted'],
+          interview.sections['sec_10']['_15']['_planted'],
+          interview.sections['sec_10']['_16']['_planted'],
+          interview.sections['sec_10']['_17']['_planted'],
+          interview.sections['sec_10']['_18']['_planted'],
+          interview.sections['sec_10']['_19']['_planted'],
           
           ];
       _cropChckListShow = [
         data1['_planted'],
         data2['_planted'],
         data3['_planted'],
-        interview['sections']['sec_10']['_4']['_planted'],
-          interview['sections']['sec_10']['_5']['_planted'],
-          interview['sections']['sec_10']['_6']['_planted'],
-          interview['sections']['sec_10']['_7']['_planted'],
-          interview['sections']['sec_10']['_8']['_planted'],
-          interview['sections']['sec_10']['_9']['_planted'],
-          interview['sections']['sec_10']['_10']['_planted'],
-          interview['sections']['sec_10']['_11']['_planted'],
-          interview['sections']['sec_10']['_12']['_planted'],
-          interview['sections']['sec_10']['_13']['_planted'],
-          interview['sections']['sec_10']['_14']['_planted'],
-          interview['sections']['sec_10']['_15']['_planted'],
-          interview['sections']['sec_10']['_16']['_planted'],
-          interview['sections']['sec_10']['_17']['_planted'],
-          interview['sections']['sec_10']['_18']['_planted'],
-          interview['sections']['sec_10']['_19']['_planted'],
+        interview.sections['sec_10']['_4']['_planted'],
+          interview.sections['sec_10']['_5']['_planted'],
+          interview.sections['sec_10']['_6']['_planted'],
+          interview.sections['sec_10']['_7']['_planted'],
+          interview.sections['sec_10']['_8']['_planted'],
+          interview.sections['sec_10']['_9']['_planted'],
+          interview.sections['sec_10']['_10']['_planted'],
+          interview.sections['sec_10']['_11']['_planted'],
+          interview.sections['sec_10']['_12']['_planted'],
+          interview.sections['sec_10']['_13']['_planted'],
+          interview.sections['sec_10']['_14']['_planted'],
+          interview.sections['sec_10']['_15']['_planted'],
+          interview.sections['sec_10']['_16']['_planted'],
+          interview.sections['sec_10']['_17']['_planted'],
+          interview.sections['sec_10']['_18']['_planted'],
+          interview.sections['sec_10']['_19']['_planted'],
         ];
       _cropUseList = [
         data1['_use'][0]['_use'],
         data2['_use'][0]['_use'],
         data3['_use'][0]['_use'],
-        interview['sections']['sec_10']['_4']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_5']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_6']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_7']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_8']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_9']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_10']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_11']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_12']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_13']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_14']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_15']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_16']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_17']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_18']['_use'][0]['_use'],
-        interview['sections']['sec_10']['_19']['_use'][0]['_use'],
+        interview.sections['sec_10']['_4']['_use'][0]['_use'],
+        interview.sections['sec_10']['_5']['_use'][0]['_use'],
+        interview.sections['sec_10']['_6']['_use'][0]['_use'],
+        interview.sections['sec_10']['_7']['_use'][0]['_use'],
+        interview.sections['sec_10']['_8']['_use'][0]['_use'],
+        interview.sections['sec_10']['_9']['_use'][0]['_use'],
+        interview.sections['sec_10']['_10']['_use'][0]['_use'],
+        interview.sections['sec_10']['_11']['_use'][0]['_use'],
+        interview.sections['sec_10']['_12']['_use'][0]['_use'],
+        interview.sections['sec_10']['_13']['_use'][0]['_use'],
+        interview.sections['sec_10']['_14']['_use'][0]['_use'],
+        interview.sections['sec_10']['_15']['_use'][0]['_use'],
+        interview.sections['sec_10']['_16']['_use'][0]['_use'],
+        interview.sections['sec_10']['_17']['_use'][0]['_use'],
+        interview.sections['sec_10']['_18']['_use'][0]['_use'],
+        interview.sections['sec_10']['_19']['_use'][0]['_use'],
         ];
 
       _otherListShow = [
         data1['_use'][0]['_use'][3], 
         data2['_use'][0]['_use'][3],
         data3['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_4']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_5']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_6']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_7']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_8']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_9']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_10']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_11']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_12']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_13']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_14']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_15']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_16']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_17']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_18']['_use'][0]['_use'][3],
-        interview['sections']['sec_10']['_19']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_4']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_5']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_6']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_7']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_8']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_9']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_10']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_11']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_12']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_13']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_14']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_15']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_16']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_17']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_18']['_use'][0]['_use'][3],
+        interview.sections['sec_10']['_19']['_use'][0]['_use'][3],
         ];
       _1APController..text = data1['area_planted'];
       _1OtherController..text = data1['_use'][1]['other'];
@@ -213,53 +214,53 @@ class _TenState extends State<Ten> {
       _3APController..text = data3['area_planted'];
       _3OtherController..text = data3['_use'][1]['other'];
 
-      _4APController..text = interview['sections']['sec_10']['_4']['area_planted'];
-      _4OtherController..text = interview['sections']['sec_10']['_4']['_use'][1]['other'];
+      _4APController..text = interview.sections['sec_10']['_4']['area_planted'];
+      _4OtherController..text = interview.sections['sec_10']['_4']['_use'][1]['other'];
 
-      _5APController..text = interview['sections']['sec_10']['_5']['area_planted'];
-      _5OtherController..text = interview['sections']['sec_10']['_5']['_use'][1]['other'];
+      _5APController..text = interview.sections['sec_10']['_5']['area_planted'];
+      _5OtherController..text = interview.sections['sec_10']['_5']['_use'][1]['other'];
 
-      _6APController..text = interview['sections']['sec_10']['_6']['area_planted'];
-      _6OtherController..text = interview['sections']['sec_10']['_6']['_use'][1]['other'];
+      _6APController..text = interview.sections['sec_10']['_6']['area_planted'];
+      _6OtherController..text = interview.sections['sec_10']['_6']['_use'][1]['other'];
 
-      _7APController..text = interview['sections']['sec_10']['_7']['area_planted'];
-      _7OtherController..text = interview['sections']['sec_10']['_7']['_use'][1]['other'];
+      _7APController..text = interview.sections['sec_10']['_7']['area_planted'];
+      _7OtherController..text = interview.sections['sec_10']['_7']['_use'][1]['other'];
 
-      _8APController..text = interview['sections']['sec_10']['_8']['area_planted'];
-      _8OtherController..text = interview['sections']['sec_10']['_8']['_use'][1]['other'];
+      _8APController..text = interview.sections['sec_10']['_8']['area_planted'];
+      _8OtherController..text = interview.sections['sec_10']['_8']['_use'][1]['other'];
 
-      _9APController..text = interview['sections']['sec_10']['_9']['area_planted'];
-      _9OtherController..text = interview['sections']['sec_10']['_9']['_use'][1]['other'];
+      _9APController..text = interview.sections['sec_10']['_9']['area_planted'];
+      _9OtherController..text = interview.sections['sec_10']['_9']['_use'][1]['other'];
 
-      _10APController..text = interview['sections']['sec_10']['_10']['area_planted'];
-      _10OtherController..text = interview['sections']['sec_10']['_10']['_use'][1]['other'];
+      _10APController..text = interview.sections['sec_10']['_10']['area_planted'];
+      _10OtherController..text = interview.sections['sec_10']['_10']['_use'][1]['other'];
 
-      _11APController..text = interview['sections']['sec_10']['_11']['area_planted'];
-      _11OtherController..text = interview['sections']['sec_10']['_11']['_use'][1]['other'];
+      _11APController..text = interview.sections['sec_10']['_11']['area_planted'];
+      _11OtherController..text = interview.sections['sec_10']['_11']['_use'][1]['other'];
 
-      _12APController..text = interview['sections']['sec_10']['_12']['area_planted'];
-      _12OtherController..text = interview['sections']['sec_10']['_12']['_use'][1]['other'];
+      _12APController..text = interview.sections['sec_10']['_12']['area_planted'];
+      _12OtherController..text = interview.sections['sec_10']['_12']['_use'][1]['other'];
 
-      _13APController..text = interview['sections']['sec_10']['_13']['area_planted'];
-      _13OtherController..text = interview['sections']['sec_10']['_13']['_use'][1]['other'];
+      _13APController..text = interview.sections['sec_10']['_13']['area_planted'];
+      _13OtherController..text = interview.sections['sec_10']['_13']['_use'][1]['other'];
 
-      _14APController..text = interview['sections']['sec_10']['_14']['area_planted'];
-      _14OtherController..text = interview['sections']['sec_10']['_14']['_use'][1]['other'];
+      _14APController..text = interview.sections['sec_10']['_14']['area_planted'];
+      _14OtherController..text = interview.sections['sec_10']['_14']['_use'][1]['other'];
 
-      _15APController..text = interview['sections']['sec_10']['_15']['area_planted'];
-      _15OtherController..text = interview['sections']['sec_10']['_15']['_use'][1]['other'];
+      _15APController..text = interview.sections['sec_10']['_15']['area_planted'];
+      _15OtherController..text = interview.sections['sec_10']['_15']['_use'][1]['other'];
 
-      _16APController..text = interview['sections']['sec_10']['_16']['area_planted'];
-      _16OtherController..text = interview['sections']['sec_10']['_16']['_use'][1]['other'];
+      _16APController..text = interview.sections['sec_10']['_16']['area_planted'];
+      _16OtherController..text = interview.sections['sec_10']['_16']['_use'][1]['other'];
 
-      _17APController..text = interview['sections']['sec_10']['_17']['area_planted'];
-      _17OtherController..text = interview['sections']['sec_10']['_17']['_use'][1]['other'];
+      _17APController..text = interview.sections['sec_10']['_17']['area_planted'];
+      _17OtherController..text = interview.sections['sec_10']['_17']['_use'][1]['other'];
 
-      _18APController..text = interview['sections']['sec_10']['_18']['area_planted'];
-      _18OtherController..text = interview['sections']['sec_10']['_18']['_use'][1]['other'];
+      _18APController..text = interview.sections['sec_10']['_18']['area_planted'];
+      _18OtherController..text = interview.sections['sec_10']['_18']['_use'][1]['other'];
 
-      _19APController..text = interview['sections']['sec_10']['_19']['area_planted'];
-      _19OtherController..text = interview['sections']['sec_10']['_19']['_use'][1]['other'];
+      _19APController..text = interview.sections['sec_10']['_19']['area_planted'];
+      _19OtherController..text = interview.sections['sec_10']['_19']['_use'][1]['other'];
 
       //_1OtherShow = _cropUseList[6] ? true : false;
     }
@@ -395,7 +396,7 @@ class _TenState extends State<Ten> {
     );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
 
@@ -422,20 +423,13 @@ class _TenState extends State<Ten> {
         '_19': {'_planted':_cropChckList[18], 'area_planted':_19APController.text,'_use': [{'_use':_cropUseList[18]},{'other': _19OtherController.text}]},
       };
 
-      states['sections']['sec_10'] = data;
-   
-           print(
-          '22222222222222222222222${data['_19']}2333333333333333333');
-
-      await _interviewDao.updateHive(states, interview_id).then((value) {
-        dataExist ? showTopShortToast() : null;
-        setState(() {
-          dataExist = true;
-        });
-
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-      });
-    }
+      states.sections['sec_10'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+          dataExist ? showTopShortToast() : null;
+            setState(() {
+              dataExist = true;
+            });
+        }
   }
 
   void showTopShortToast() {
@@ -451,7 +445,6 @@ class _TenState extends State<Ten> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1OtherController.dispose();
     super.dispose();
   }

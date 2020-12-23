@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class TweentySeven extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   TweentySeven(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class TweentySeven extends StatefulWidget {
 
 class _TweentySevenState extends State<TweentySeven> {
   _TweentySevenState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -38,13 +39,13 @@ class _TweentySevenState extends State<TweentySeven> {
 
   @override
   void initState() {
-    if(interview['sections']['sec_27'] != null ){
+    if(interview.sections['sec_27'] != null ){
       
       dataExist = true;
-        _1answer = interview['sections']['sec_27']['_1'][0];
-        _1_index = interview['sections']['sec_27']['_1'][1];
-        _2Controller..text = interview['sections']['sec_27']['_2'];
-        _2show = (interview['sections']['sec_27']['_1'][0]) == 'Yes'? true:false;
+        _1answer = interview.sections['sec_27']['_1'][0];
+        _1_index = interview.sections['sec_27']['_1'][1];
+        _2Controller..text = interview.sections['sec_27']['_2'];
+        _2show = (interview.sections['sec_27']['_1'][0]) == 'Yes'? true:false;
     }
     super.initState();
   }
@@ -156,7 +157,7 @@ class _TweentySevenState extends State<TweentySeven> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -165,18 +166,14 @@ class _TweentySevenState extends State<TweentySeven> {
         '_2': _2Controller.text,
       };
 
-      states['sections']['sec_27'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
+      states.sections['sec_27'] = data;
+     
           
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -193,7 +190,6 @@ class _TweentySevenState extends State<TweentySeven> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _2Controller.dispose();
     super.dispose();
   }

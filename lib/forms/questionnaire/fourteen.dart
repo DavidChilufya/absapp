@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Fourteen extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Fourteen(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class Fourteen extends StatefulWidget {
 
 class _FourteenState extends State<Fourteen> {
   _FourteenState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -55,23 +56,23 @@ class _FourteenState extends State<Fourteen> {
     _12Controller..text = '0.0';
     _total = 0.0;
     
-    if(interview['sections']['sec_14'] != null ){
+    if(interview.sections['sec_14'] != null ){
       
       dataExist = true;
-        _input_answer = interview['sections']['sec_14']['_input'][0];
-        _input_index = interview['sections']['sec_14']['_input'][1];
-        _1Controller..text = interview['sections']['sec_14']['_1'];
-        _2Controller..text = interview['sections']['sec_14']['_2'];
-        _3Controller..text = interview['sections']['sec_14']['_3'];
-        _4Controller..text = interview['sections']['sec_14']['_4'];
-        _5Controller..text = interview['sections']['sec_14']['_5'];
-        _6Controller..text = interview['sections']['sec_14']['_6'];
-        _7Controller..text = interview['sections']['sec_14']['_7'];
-        _8Controller..text = interview['sections']['sec_14']['_8'];
-        _9Controller..text = interview['sections']['sec_14']['_9'];
-        _10Controller..text = interview['sections']['sec_14']['_10'];
-        _11Controller..text = interview['sections']['sec_14']['_11'];
-        _12Controller..text = interview['sections']['sec_14']['_12'];
+        _input_answer = interview.sections['sec_14']['_input'][0];
+        _input_index = interview.sections['sec_14']['_input'][1];
+        _1Controller..text = interview.sections['sec_14']['_1'];
+        _2Controller..text = interview.sections['sec_14']['_2'];
+        _3Controller..text = interview.sections['sec_14']['_3'];
+        _4Controller..text = interview.sections['sec_14']['_4'];
+        _5Controller..text = interview.sections['sec_14']['_5'];
+        _6Controller..text = interview.sections['sec_14']['_6'];
+        _7Controller..text = interview.sections['sec_14']['_7'];
+        _8Controller..text = interview.sections['sec_14']['_8'];
+        _9Controller..text = interview.sections['sec_14']['_9'];
+        _10Controller..text = interview.sections['sec_14']['_10'];
+        _11Controller..text = interview.sections['sec_14']['_11'];
+        _12Controller..text = interview.sections['sec_14']['_12'];
     }
     super.initState();
   }
@@ -422,7 +423,7 @@ class _FourteenState extends State<Fourteen> {
           });
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -442,18 +443,12 @@ class _FourteenState extends State<Fourteen> {
         '_12': _12Controller.text,
       };
 
-      states['sections']['sec_14'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_14'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -470,7 +465,6 @@ class _FourteenState extends State<Fourteen> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1Controller.dispose();
     _2Controller.dispose();
     _5Controller.dispose();

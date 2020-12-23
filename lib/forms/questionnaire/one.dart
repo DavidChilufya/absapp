@@ -206,10 +206,8 @@ class _OneState extends State<One> {
       };
 
       states.sections['sec_1'] = data;
-      print(
-          '22222222222222222222222${states.toJson()}444444444444444444444444444444444');
       //inter
-      Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
       dataExist ? showTopShortToast() : null;
         setState(() {
           dataExist = true;

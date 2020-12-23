@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Eleven extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Eleven(this.interview_id, this.interview);
 
@@ -15,11 +17,10 @@ class Eleven extends StatefulWidget {
 
 class _EleventState extends State<Eleven> {
   _EleventState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions;
-  Map interview;
+  Interview interview;
 
   String _title, q1, q2, q3, q4, q5; //Questions
   List _1options,_optionsDemoPlots,_optionsFunded,_listFunded,_listOther;
@@ -88,119 +89,119 @@ class _EleventState extends State<Eleven> {
     _listOther = [_1OtherController, _2OtherController, _3OtherController,_4OtherController,_5OtherController,_6OtherController,
                 _7OtherController,_8OtherController,_9OtherController,_10OtherController,_11OtherController,_12OtherController,
                 _13OtherController,_14OtherController,_15OtherController,_16OtherController,_17OtherController,_18OtherController,_19OtherController];
-    if (interview['sections']['sec_11'] != null) {
+    if (interview.sections['sec_11'] != null) {
       dataExist = true;
-      _1answer = interview['sections']['sec_11']['_1'][0];
-      _1_index = interview['sections']['sec_11']['_1'][1];
+      _1answer = interview.sections['sec_11']['_1'][0];
+      _1_index = interview.sections['sec_11']['_1'][1];
       _demoVisible = _1answer == 'Yes'?true:false;
       _listDemoPlots = [
-        interview['sections']['sec_11']['_2'][0]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][1]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][2]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][3]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][4]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][5]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][6]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][7]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][8]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][9]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][10]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][11]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][12]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][13]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][14]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][15]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][16]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][17]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][18]['_demo_plots'],
+        interview.sections['sec_11']['_2'][0]['_demo_plots'],
+        interview.sections['sec_11']['_2'][1]['_demo_plots'],
+        interview.sections['sec_11']['_2'][2]['_demo_plots'],
+        interview.sections['sec_11']['_2'][3]['_demo_plots'],
+        interview.sections['sec_11']['_2'][4]['_demo_plots'],
+        interview.sections['sec_11']['_2'][5]['_demo_plots'],
+        interview.sections['sec_11']['_2'][6]['_demo_plots'],
+        interview.sections['sec_11']['_2'][7]['_demo_plots'],
+        interview.sections['sec_11']['_2'][8]['_demo_plots'],
+        interview.sections['sec_11']['_2'][9]['_demo_plots'],
+        interview.sections['sec_11']['_2'][10]['_demo_plots'],
+        interview.sections['sec_11']['_2'][11]['_demo_plots'],
+        interview.sections['sec_11']['_2'][12]['_demo_plots'],
+        interview.sections['sec_11']['_2'][13]['_demo_plots'],
+        interview.sections['sec_11']['_2'][14]['_demo_plots'],
+        interview.sections['sec_11']['_2'][15]['_demo_plots'],
+        interview.sections['sec_11']['_2'][16]['_demo_plots'],
+        interview.sections['sec_11']['_2'][17]['_demo_plots'],
+        interview.sections['sec_11']['_2'][18]['_demo_plots'],
       ];
       _fundedVisible = [
-        interview['sections']['sec_11']['_2'][0]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][1]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][2]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][3]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][4]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][5]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][6]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][7]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][8]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][9]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][10]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][11]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][12]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][13]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][14]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][15]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][16]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][17]['_demo_plots'],
-        interview['sections']['sec_11']['_2'][18]['_demo_plots'],
+        interview.sections['sec_11']['_2'][0]['_demo_plots'],
+        interview.sections['sec_11']['_2'][1]['_demo_plots'],
+        interview.sections['sec_11']['_2'][2]['_demo_plots'],
+        interview.sections['sec_11']['_2'][3]['_demo_plots'],
+        interview.sections['sec_11']['_2'][4]['_demo_plots'],
+        interview.sections['sec_11']['_2'][5]['_demo_plots'],
+        interview.sections['sec_11']['_2'][6]['_demo_plots'],
+        interview.sections['sec_11']['_2'][7]['_demo_plots'],
+        interview.sections['sec_11']['_2'][8]['_demo_plots'],
+        interview.sections['sec_11']['_2'][9]['_demo_plots'],
+        interview.sections['sec_11']['_2'][10]['_demo_plots'],
+        interview.sections['sec_11']['_2'][11]['_demo_plots'],
+        interview.sections['sec_11']['_2'][12]['_demo_plots'],
+        interview.sections['sec_11']['_2'][13]['_demo_plots'],
+        interview.sections['sec_11']['_2'][14]['_demo_plots'],
+        interview.sections['sec_11']['_2'][15]['_demo_plots'],
+        interview.sections['sec_11']['_2'][16]['_demo_plots'],
+        interview.sections['sec_11']['_2'][17]['_demo_plots'],
+        interview.sections['sec_11']['_2'][18]['_demo_plots'],
 
       ];
       _otherVisible = [
-        interview['sections']['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'][3],
-        interview['sections']['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'][3],
       ];
       _listFunded = [
-        interview['sections']['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'],
-        interview['sections']['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][1]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][2]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][3]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][4]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][5]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][6]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'],
+        interview.sections['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'],
         ];
-      _1OtherController..text = interview['sections']['sec_11']['_2'][0]['_funded_by'][1]['other'];
-      _2OtherController..text = interview['sections']['sec_11']['_2'][1]['_funded_by'][1]['other'];
-      _3OtherController..text = interview['sections']['sec_11']['_2'][2]['_funded_by'][1]['other'];
-      _4OtherController..text = interview['sections']['sec_11']['_2'][3]['_funded_by'][1]['other'];
-      _5OtherController..text = interview['sections']['sec_11']['_2'][4]['_funded_by'][1]['other'];
-      _6OtherController..text = interview['sections']['sec_11']['_2'][5]['_funded_by'][1]['other'];
-      _7OtherController..text = interview['sections']['sec_11']['_2'][6]['_funded_by'][1]['other'];
-      _8OtherController..text = interview['sections']['sec_11']['_2'][7]['_funded_by'][1]['other'];
-      _9OtherController..text = interview['sections']['sec_11']['_2'][8]['_funded_by'][1]['other'];
-      _10OtherController..text = interview['sections']['sec_11']['_2'][9]['_funded_by'][1]['other'];
-      _11OtherController..text = interview['sections']['sec_11']['_2'][10]['_funded_by'][1]['other'];
-      _12OtherController..text = interview['sections']['sec_11']['_2'][11]['_funded_by'][1]['other'];
-      _13OtherController..text = interview['sections']['sec_11']['_2'][12]['_funded_by'][1]['other'];
-      _14OtherController..text = interview['sections']['sec_11']['_2'][13]['_funded_by'][1]['other'];
-      _15OtherController..text = interview['sections']['sec_11']['_2'][14]['_funded_by'][1]['other'];
-      _16OtherController..text = interview['sections']['sec_11']['_2'][15]['_funded_by'][1]['other'];
-      _17OtherController..text = interview['sections']['sec_11']['_2'][16]['_funded_by'][1]['other'];
-      _18OtherController..text = interview['sections']['sec_11']['_2'][17]['_funded_by'][1]['other'];
-      _19OtherController..text = interview['sections']['sec_11']['_2'][18]['_funded_by'][1]['other'];
+      _1OtherController..text = interview.sections['sec_11']['_2'][0]['_funded_by'][1]['other'];
+      _2OtherController..text = interview.sections['sec_11']['_2'][1]['_funded_by'][1]['other'];
+      _3OtherController..text = interview.sections['sec_11']['_2'][2]['_funded_by'][1]['other'];
+      _4OtherController..text = interview.sections['sec_11']['_2'][3]['_funded_by'][1]['other'];
+      _5OtherController..text = interview.sections['sec_11']['_2'][4]['_funded_by'][1]['other'];
+      _6OtherController..text = interview.sections['sec_11']['_2'][5]['_funded_by'][1]['other'];
+      _7OtherController..text = interview.sections['sec_11']['_2'][6]['_funded_by'][1]['other'];
+      _8OtherController..text = interview.sections['sec_11']['_2'][7]['_funded_by'][1]['other'];
+      _9OtherController..text = interview.sections['sec_11']['_2'][8]['_funded_by'][1]['other'];
+      _10OtherController..text = interview.sections['sec_11']['_2'][9]['_funded_by'][1]['other'];
+      _11OtherController..text = interview.sections['sec_11']['_2'][10]['_funded_by'][1]['other'];
+      _12OtherController..text = interview.sections['sec_11']['_2'][11]['_funded_by'][1]['other'];
+      _13OtherController..text = interview.sections['sec_11']['_2'][12]['_funded_by'][1]['other'];
+      _14OtherController..text = interview.sections['sec_11']['_2'][13]['_funded_by'][1]['other'];
+      _15OtherController..text = interview.sections['sec_11']['_2'][14]['_funded_by'][1]['other'];
+      _16OtherController..text = interview.sections['sec_11']['_2'][15]['_funded_by'][1]['other'];
+      _17OtherController..text = interview.sections['sec_11']['_2'][16]['_funded_by'][1]['other'];
+      _18OtherController..text = interview.sections['sec_11']['_2'][17]['_funded_by'][1]['other'];
+      _19OtherController..text = interview.sections['sec_11']['_2'][18]['_funded_by'][1]['other'];
 
 
           
-      //_3isChckList = interview['sections']['sec_8']['_3']['_3'];
+      //_3isChckList = interview.sections['sec_8']['_3']['_3'];
       //_3OtherShow = _3isChckList[4] ? true : false;
     }
     super.initState();
@@ -372,7 +373,7 @@ class _EleventState extends State<Eleven> {
     );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
 
@@ -403,18 +404,12 @@ class _EleventState extends State<Eleven> {
           ],
       };
 
-      states['sections']['sec_11'] = data;
-      print(
-          '22222222222222222222222${states}444444444444444444444444444444444');
-
-      await _interviewDao.updateHive(states, interview_id).then((value) {
-        dataExist ? showTopShortToast() : null;
+      states.sections['sec_11'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
           dataExist = true;
         });
-
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-      });
     }
   }
 
@@ -431,7 +426,6 @@ class _EleventState extends State<Eleven> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _3OtherController.dispose();
     super.dispose();
   }

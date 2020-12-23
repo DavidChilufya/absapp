@@ -1,11 +1,13 @@
-import 'package:absapp/services/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class TweentyFour extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   TweentyFour(this.interview_id, this.interview);
 
@@ -15,8 +17,7 @@ class TweentyFour extends StatefulWidget {
 
 class _TweentyFourState extends State<TweentyFour> {
   _TweentyFourState(this.interview_id, this.interview);
-  Map interview;
-  InterviewDao _interviewDao = InterviewDao();
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -34,10 +35,10 @@ class _TweentyFourState extends State<TweentyFour> {
 
   @override
   void initState() {
-    if(interview['sections']['sec_24'] != null ){
+    if(interview.sections['sec_24'] != null ){
       
       dataExist = true;
-        _1Controller..text = interview['sections']['sec_24']['_1'];
+        _1Controller..text = interview.sections['sec_24']['_1'];
     }
     super.initState();
   }
@@ -110,7 +111,7 @@ class _TweentyFourState extends State<TweentyFour> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -118,18 +119,12 @@ class _TweentyFourState extends State<TweentyFour> {
         '_1': _1Controller.text,
       };
 
-      states['sections']['sec_24'] = data;
-      print('22222222222222222222222${states}444444444444444444444444444444444');
-          
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      states.sections['sec_24'] = data;
+      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -146,7 +141,6 @@ class _TweentyFourState extends State<TweentyFour> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _1Controller.dispose();
     super.dispose();
   }
