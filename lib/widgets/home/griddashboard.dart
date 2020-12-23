@@ -1,4 +1,4 @@
-import 'package:absapp/providers/interview.dart';
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/interview_list/interview_list.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,10 +33,10 @@ class GridDashboard extends StatelessWidget {
     //myList[1]['total'] = getInterviews().length.toString() ;
     //print('${getInterviews()}');
     var color = Theme.of(context).accentColor.withAlpha(30);
-    return Consumer<InterviewModel>(
-      builder: (context, interview, child) {
+    return Consumer<InterviewListModel>(
+      builder: (context, interview_list, child) {
         return Flexible(
-          child: interview.interviewsLoaded
+          child: interview_list.data_loading
               ? SpinKitDoubleBounce(
                   color: Theme.of(context).accentColor,
                   size: 50.0,
@@ -49,11 +49,11 @@ class GridDashboard extends StatelessWidget {
                   mainAxisSpacing: 10,
                   children: myList.map((data) {
                     myList[1]['total'] = //Drafts
-                        interview.interviewsDrafts.length.toString();
+                        interview_list.drafts.length.toString();
                     myList[2]['total'] = //Tests
-                      interview.interviewsTests.length.toString();
+                      interview_list.tests.length.toString();
                     myList[3]['total'] = //Pending Upload
-                      interview.interviewsPendingUpload.length.toString();
+                      interview_list.pending_upload.length.toString();
                     myList[5]['total'] = //All
                     '5';
                     

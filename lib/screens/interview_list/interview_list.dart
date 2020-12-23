@@ -1,7 +1,7 @@
 import 'package:absapp/providers/interview.dart';
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/resources/create_json.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
-
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,114 +54,125 @@ class _InterviewListState extends State<InterviewList> {
   }
 
   Widget listViewWidget() {
-    return Consumer<InterviewModel>(
+    return Consumer<InterviewListModel>(
       builder: (context, state, child) {
         //print('INTERVIEW LIST ${state.interviewList}');
         if (interviewListType == 'Drafts') {
-          interviewList = state.interviewsDrafts;
+          interviewList = state.drafts;
         } else if (interviewListType == 'Upload') {
-          interviewList = state.interviewsPendingUpload;
+          interviewList = state.pending_upload;
         } else if (interviewListType == 'Tests') {
-          interviewList = state.interviewsTests;
+          interviewList = state.tests;
         }
-        
-        return state.interviewsLoaded ? 
-          Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
+
+        return state.data_loading
+            ? Center(
+                child: SpinKitDoubleBounce(
+                  color: Theme.of(context).primaryColor,
+                  size: 50.0,
                 ),
-            ) : 
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start, 
-            children: <Widget>[
-          Expanded(
-              //height: MediaQuery.of(context).size.height * 0.9,
-              child: ListView.builder(
-                itemCount: interviewList.length,
-                itemBuilder: (context, index) {
-                  // ProjectModel project = projectSnap.data[index];
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, Interview.id,
-                          arguments: interviewList[index]['interview_id']);
-                      //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
-                      //print('project snapshot data is: ${interviewList[index]['interview_id']}sssssssssssssssss');
-                    },
-                    child: Container(
-                      child: Card(
-                          //                           <-- Card widget
-                          child: Column(mainAxisSize: MainAxisSize.min, children: <
-                              Widget>[
-                        ListTile(
-                          //title:
-                          subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Row(children: <Widget>[
-                                  Text('${index + 1}',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          .copyWith()),
-                                  SizedBox(
-                                      width:
-                                          MediaQuery.of(context).size.width * 0.3,
-                                      child: Padding(
-                                          padding:
-                                              EdgeInsets.only(left: 10.5, right: 4),
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                    '${interviewList[index]['meta_data']['coop_union']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle2
-                                                        .copyWith()),
-                                                Text(
-                                                    '${interviewList[index]['meta_data']['prime_coop']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1
-                                                        .copyWith()),
-                                              ]))),
-                                ]),
-                                Text(
-                                    '${interviewList[index]['meta_data']['date_']}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .caption
-                                        .copyWith()),
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.18,
-                                  child: Text(
-                                      '${interviewList[index]['interview_id']}',
-                                      style: TextStyle(color: Colors.green)),
-                                ),
-                              ]),
-                        ),
-                      ])),
-                    ),
-                  );
-                },
-              )),
-          Visibility(
-              visible: interviewListType == 'Upload',
-              child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: SizedBox(
-                    width: 500,
-                    child: RaisedButton(
-                      child: Text('Upload to server'),
-                      //color: dataExist?Theme.of(context).accentColor:Theme.of(context).primaryColor,
-                      //onPressed: () => _createJson.writeToFile(dataSnap.data),
-                      onPressed: postToServer,
-                    ),
-                  ))),
-          SizedBox(height: 10.0)
-        ]);
+              )
+            : Column(mainAxisAlignment: MainAxisAlignment.start, children: <
+                Widget>[
+                Expanded(
+                    //height: MediaQuery.of(context).size.height * 0.9,
+                    child: ListView.builder(
+                  itemCount: interviewList.length,
+                  itemBuilder: (context, index) {
+                    // ProjectModel project = projectSnap.data[index];
+                    return GestureDetector(
+                      onTap: () async{
+                        await Provider.of<InterviewModel>(context, listen: false)
+                            .getInterviewByID(
+                                interviewList[index]['interview_id']);
+                        await Navigator.pushNamed(context, Interview.id);
+                        //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
+                        //print('project snapshot data is: ${interviewList[index]['interview_id']}sssssssssssssssss');
+                      },
+                      child: Container(
+                        child: Card(
+                            //                           <-- Card widget
+                            child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                              ListTile(
+                                //title:
+                                subtitle: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Row(children: <Widget>[
+                                        Text('${index + 1}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption
+                                                .copyWith()),
+                                        SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: Padding(
+                                                padding: EdgeInsets.only(
+                                                    left: 10.5, right: 4),
+                                                child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: <Widget>[
+                                                      Text(
+                                                          '${interviewList[index]['meta_data']['coop_union']}',
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .subtitle2
+                                                                  .copyWith()),
+                                                      Text(
+                                                          '${interviewList[index]['meta_data']['prime_coop']}',
+                                                          style:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .subtitle1
+                                                                  .copyWith()),
+                                                    ]))),
+                                      ]),
+                                      Text(
+                                          '${interviewList[index]['meta_data']['date_']}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .caption
+                                              .copyWith()),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.18,
+                                        child: Text(
+                                            '${interviewList[index]['interview_id']}',
+                                            style:
+                                                TextStyle(color: Colors.green)),
+                                      ),
+                                    ]),
+                              ),
+                            ])),
+                      ),
+                    );
+                  },
+                )),
+                Visibility(
+                    visible: interviewListType == 'Upload',
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: SizedBox(
+                          width: 500,
+                          child: RaisedButton(
+                            child: Text('Upload to server'),
+                            //color: dataExist?Theme.of(context).accentColor:Theme.of(context).primaryColor,
+                            //onPressed: () => _createJson.writeToFile(dataSnap.data),
+                            onPressed: postToServer,
+                          ),
+                        ))),
+                SizedBox(height: 10.0)
+              ]);
       },
     );
     /* FutureBuilder(

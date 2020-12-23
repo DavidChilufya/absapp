@@ -1,35 +1,18 @@
 import 'package:absapp/models/interview.dart';
-import 'package:absapp/providers/interview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 
 class InterviewHeader extends StatelessWidget {
-  final String interview_id;
+  final Interview interview;
   
-  InterviewHeader({this.interview_id});
-  /*
-   Map _headerModel = {
-      'year_': interview.year_,
-      'previous_interviews': interview.meta_data['first_interview'],
-      'household_id': interview.household_id,
-      'interview_id': interview.interview_id,
-      'coop_union': interview.meta_data['coop_union'],
-      'prime_coop': interview.meta_data['prime_coop'],
-      'status': interview.completed,
-    }; */
+  InterviewHeader({this.interview});
+  
   @override
   Widget build(BuildContext context) {
-    print("HEADER : ${ModalRoute.of(context).settings.arguments}");
-    Provider.of<InterviewModel>(context, listen: false).getInterviewByID(this.interview_id);
-    Interview interview =
-        Provider.of<InterviewModel>(context, listen: false)
-           .getInterview();
-  
 
-    String year = interview.year_;
-    String previous_interviews = interview.meta_data['first_interview'];
+      String year = interview.year_;
+      String previous_interviews = interview.meta_data['first_interview'];
           //state.getInterview['meta_data']['first_interview'];
       String household_id = interview.household_id;
       String interview_id = interview.interview_id;

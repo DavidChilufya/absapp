@@ -1,3 +1,4 @@
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/resources/previous_data.dart';
 import 'package:absapp/services/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
@@ -396,7 +397,8 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'sections': {}
         };
         await Provider.of<InterviewModel>(context, listen: false).createInterview(interview);
-        await Navigator.popAndPushNamed(context, Interview.id, arguments: interview_id);
+        await Provider.of<InterviewListModel>(context, listen: false).setAllInterviews();
+        await Navigator.popAndPushNamed(context, Interview.id);
         
       } else {
         showTopShortToast();

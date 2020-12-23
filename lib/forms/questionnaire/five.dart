@@ -1,5 +1,6 @@
 import 'package:absapp/models/interview.dart';
 import 'package:absapp/providers/interview.dart';
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -255,7 +256,7 @@ class _FiveState extends State<Five> {
         states.question_number = '5';
         states.completed = true;
         await Provider.of<InterviewModel>(context, listen: false).addSection(states);
-        await Provider.of<InterviewModel>(context, listen: false).setAllInterviews();
+        await Provider.of<InterviewListModel>(context, listen: false).setAllInterviews();
         finishInterviewToast();
           setState(() {
             dataExist = true; 

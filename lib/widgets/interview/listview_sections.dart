@@ -1,28 +1,21 @@
 import 'package:absapp/models/interview.dart';
-import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ListViewSections extends StatelessWidget {
-  //final Interview interview;
+  final Interview interview;
 
-  //const ListViewSections({this.interview});
+  ListViewSections({this.interview});
 
   @override
   Widget build(BuildContext context) {
     //final interviewBloc = BlocProvider.of<InterviewBloc>(context);
     //interviewBloc.add(LoadInterviewEvent(interview['interview_id']));
-    return Consumer<InterviewModel>(
-      
-      builder: (context, state, child) {
-        return Flexible(child: _myListView(context, state.interview));
-      },
-    );
+    return _myListView(context);
   }
 
-  Widget _myListView(BuildContext context, Interview state) {
+  Widget _myListView(BuildContext context) {
     //List<Sections> myList = [this.section1, this.section2];
     Questionaire questionnaire = Questionaire();
     Color sectionColor;
@@ -35,7 +28,7 @@ class ListViewSections extends StatelessWidget {
       itemCount: myList.length,
       itemBuilder: (context, index) {
         //String qNumber = index.toString()=='0'?'':index.toString()+'.';
-        if (state.sections[myList[index]['sec']] != null) {
+        if (interview.sections[myList[index]['sec']] != null) {
           sectionColor = Colors.greenAccent;
         } else {
           sectionColor = Theme.of(context).cardColor;
@@ -51,7 +44,7 @@ class ListViewSections extends StatelessWidget {
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
                   Navigator.pushNamed(context, SectionContainer.id,
-                      arguments: [state, myList[index]]);
+                      arguments: [interview, myList[index]]);
                 },
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -60,15 +53,7 @@ class ListViewSections extends StatelessWidget {
                         style:
                             Theme.of(context).textTheme.subtitle2.copyWith()),
                     subtitle: Row(children: <Widget>[
-                      /* 
-                            Padding(
-                              padding: EdgeInsets.only(left: 15.5, right: 4),
-                              child: Text(((myList[index].length) - 2).toString() +' questions',style: TextStyle(color: Colors.blue))),
-                            Icon(Icons.keyboard_arrow_right),
-                            Padding(
-                              padding: EdgeInsets.only(left: 4),
-                              child: Text('5 Answers',style: TextStyle(color: Colors.greenAccent)),
-                              ),*/
+                      
                     ]),
                   ),
                 ])),
