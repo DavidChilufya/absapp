@@ -27,10 +27,12 @@ import 'package:absapp/forms/questionnaire/tweenty_one.dart';
 import 'package:absapp/forms/questionnaire/tweenty_seven.dart';
 import 'package:absapp/forms/questionnaire/tweenty_two.dart';
 import 'package:absapp/forms/questionnaire/two.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
+import 'package:absapp/models/interview.dart' as interview_item;
 
 class Section extends StatefulWidget {
   final String interview_id;
@@ -63,9 +65,8 @@ class _SectionState extends State<Section> {
   @override
   Widget build(BuildContext context) {
     List routeData = ModalRoute.of(context).settings.arguments;
-    Map interview = routeData[0];
-        print('**CURRENT INTERVIEW *** ${routeData[0]}');
-    
+    interview_item.Interview interview =
+        Provider.of<InterviewModel>(context, listen: false).getInterview();
 
     var section = routeData[1];
 
@@ -85,30 +86,25 @@ class _SectionState extends State<Section> {
         
 
         var questionFour;
-        if(interview['meta_data']['first_interview'] == 'Yes') {
+        if(interview.meta_data['first_interview'] == 'Yes') {
           questionFour = Four(interview_id, interview);
         }else{
           questionFour = Center(child: Text('Question 4 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),);
         }
 
         return Scaffold(
-            body: loading
-          ? Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
-                ),
-            )
-          :Padding(
+            body: Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
                 child: PageView(
                   controller: _pageViewController,
                   children: [
                     One(interview_id,interview),
+                    
                     Two(interview_id,interview),
                     Center(child: Text('Question 3 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     questionFour,
                     Five(interview_id,interview),
+                    /*
                     Six(interview_id,interview),
                     Center(child: Text('Question 7 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     //Seven(interview_id,interview),
@@ -140,6 +136,7 @@ class _SectionState extends State<Section> {
                     //ThirtyThree(interview_id, interview),
                      Center(child: Text('Question 33 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
                     ThirtyFour(interview_id, interview)
+                    */
 
                   ],
                 )),

@@ -1,4 +1,4 @@
-import 'package:absapp/screens/interview/interview_dao.dart';
+import 'package:absapp/services/interview_dao.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';

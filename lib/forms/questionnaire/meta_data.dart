@@ -1,12 +1,13 @@
-
 import 'package:absapp/resources/previous_data.dart';
-import 'package:absapp/screens/interview/interview_dao.dart';
+import 'package:absapp/services/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:search_widget/search_widget.dart';
 
 class MetaDataForm extends StatefulWidget {
@@ -19,14 +20,13 @@ class MetaDataForm extends StatefulWidget {
 }
 
 class _MetaDataFormState extends State<MetaDataForm> {
-  
   _MetaDataFormState(this.interview_id);
   var year = DateTime.now().year;
   final String interview_id;
   FirebaseUser _user;
   String coop_union;
-  String prime_coop ;
-  dynamic prime_coop_list ;
+  String prime_coop;
+  dynamic prime_coop_list;
   bool prime_coop_show = false;
   bool first_interview_show = false;
   String householdId;
@@ -34,7 +34,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
   String latitude;
   String longitude;
   String _user_email, _user_id;
-  bool _test ;
+  bool _test;
 
   int _3_index;
   TextEditingController _householdIdController = TextEditingController();
@@ -50,9 +50,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
   bool loading = false;
   //Initial values
 
-  List<LeaderBoard> list = <LeaderBoard>[
-    
-  ];
+  List<LeaderBoard> list = <LeaderBoard>[];
 
   LeaderBoard _selectedItem;
 
@@ -68,11 +66,9 @@ class _MetaDataFormState extends State<MetaDataForm> {
 
   @override
   Widget build(BuildContext context) {
-    
-
-  bool _show = true;
+    bool _show = true;
     this._user = ModalRoute.of(context).settings.arguments;
-    
+
     _user_email = _user.email;
     _user_id = _user.uid;
     DateTime now = DateTime.now();
@@ -82,64 +78,24 @@ class _MetaDataFormState extends State<MetaDataForm> {
     _latitudeController..text = '-15.4681359';
     Map questions = Questionaire.metaData[0];
     return SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-      children: <Widget>[
-        Text('START INTERVIEW',
-            style:
-                Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 26)),
-        Form(
-            key: _formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(height: 12),
-                Text('${questions['_1'][0]}',
-                    style: Theme.of(context).textTheme.headline5.copyWith()),
-                SizedBox(height: 6),
-                DropdownButton(
-                  value: coop_union,
-                  items: questions['_1'][1]
-                      .map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                  onChanged: (String newValue) {
-                    setState(() {
-                      coop_union = newValue;
-                      prime_coop = 'Select';
-                      if(coop_union == 'Balaka'){
-                        prime_coop_list = questions['_2'][1][0]['Balaka'];
-                      }if(coop_union == 'Fisenge'){
-                        prime_coop_list = questions['_2'][1][2]['Fisenge'];
-                      }if(coop_union == 'Chibombo'){
-                        prime_coop_list = questions['_2'][1][1]['Chibombo'];
-                      }if(coop_union == 'Kwanshama'){
-                        prime_coop_list = questions['_2'][1][3]['Kwanshama'];
-                      }if(coop_union == 'Liteta'){
-                        prime_coop_list = questions['_2'][1][4]['Liteta'];
-                      }if(coop_union == 'Mufulira'){
-                        prime_coop_list = questions['_2'][1][5]['Mufulira'];
-                      }
-                      prime_coop_show = true;
-                      _householdIdController.clear();
-                      _3_index = -1;
-                      first_interview_show = false;
-                    });
-                  },
-                  underline: SizedBox(),
-                  //isExpanded: true,
-                ),
-                Text('${questions['_2'][0]}',
-                    style: Theme.of(context).textTheme.headline5.copyWith()),
-                SizedBox(height: 6),
-                Visibility(
-                  visible: prime_coop_show,
-                  child: DropdownButton(
-                    value: prime_coop,
-                    items: prime_coop_list
+      child: SingleChildScrollView(
+          child: Column(
+        children: <Widget>[
+          Text('START INTERVIEW',
+              style:
+                  Theme.of(context).textTheme.subtitle2.copyWith(fontSize: 26)),
+          Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(height: 12),
+                  Text('${questions['_1'][0]}',
+                      style: Theme.of(context).textTheme.headline5.copyWith()),
+                  SizedBox(height: 6),
+                  DropdownButton(
+                    value: coop_union,
+                    items: questions['_1'][1]
                         .map<DropdownMenuItem<String>>((String value) {
                       return DropdownMenuItem<String>(
                         value: value,
@@ -148,58 +104,105 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     }).toList(),
                     onChanged: (String newValue) {
                       setState(() {
-                        prime_coop = newValue;
-                        first_interview_show = true;
-                        print('${_user.email} === ${createHouseholdId(_user_email)}');
-
+                        coop_union = newValue;
+                        prime_coop = 'Select';
+                        if (coop_union == 'Balaka') {
+                          prime_coop_list = questions['_2'][1][0]['Balaka'];
+                        }
+                        if (coop_union == 'Fisenge') {
+                          prime_coop_list = questions['_2'][1][2]['Fisenge'];
+                        }
+                        if (coop_union == 'Chibombo') {
+                          prime_coop_list = questions['_2'][1][1]['Chibombo'];
+                        }
+                        if (coop_union == 'Kwanshama') {
+                          prime_coop_list = questions['_2'][1][3]['Kwanshama'];
+                        }
+                        if (coop_union == 'Liteta') {
+                          prime_coop_list = questions['_2'][1][4]['Liteta'];
+                        }
+                        if (coop_union == 'Mufulira') {
+                          prime_coop_list = questions['_2'][1][5]['Mufulira'];
+                        }
+                        prime_coop_show = true;
+                        _householdIdController.clear();
+                        _3_index = -1;
+                        first_interview_show = false;
                       });
                     },
                     underline: SizedBox(),
                     //isExpanded: true,
-                  )),
-                Text('${questions['_3'][0]}',
-                    style: Theme.of(context).textTheme.headline5.copyWith()),
-                SizedBox(height: 6),
-                Visibility(
-                  visible: first_interview_show,
-                  child: Wrap(
-                    spacing: 8,
-                    children: List<Widget>.generate(
-                      questions['_3'][1].length,
-                      (int index) {
-                        return ChoiceChip(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8),
-                            ),
-                          ),
-                          label: Text(questions['_3'][1][index]),
-                          selected: _3_index == index,
-                          onSelected: (bool selected) {
-                            setState(() {
-                              firstInterview = questions['_3'][1][index];
-                              
-                              _3_index = selected ? index : null;
-                              if(firstInterview == 'No'){
-                                _householdIdController.clear();
-                                  previousDataList= previousData.getData(coop_union); 
-                                  createSearchFormList(previousDataList);
-                              }else{
-                                householdId = createHouseholdId(_user_email);
-                                _householdIdController..text = householdId;
-                              }
-                              
-                            });
+                  ),
+                  Text('${questions['_2'][0]}',
+                      style: Theme.of(context).textTheme.headline5.copyWith()),
+                  SizedBox(height: 6),
+                  Visibility(
+                      visible: prime_coop_show,
+                      child: DropdownButton(
+                        value: prime_coop,
+                        items: prime_coop_list
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                        onChanged: (String newValue) {
+                          setState(() {
+                            prime_coop = newValue;
+                            first_interview_show = true;
+                            print(
+                                '${_user.email} === ${createHouseholdId(_user_email)}');
+                          });
+                        },
+                        underline: SizedBox(),
+                        //isExpanded: true,
+                      )),
+                  Text('${questions['_3'][0]}',
+                      style: Theme.of(context).textTheme.headline5.copyWith()),
+                  SizedBox(height: 6),
+                  Visibility(
+                      visible: first_interview_show,
+                      child: Wrap(
+                        spacing: 8,
+                        children: List<Widget>.generate(
+                          questions['_3'][1].length,
+                          (int index) {
+                            return ChoiceChip(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              label: Text(questions['_3'][1][index]),
+                              selected: _3_index == index,
+                              onSelected: (bool selected) {
+                                setState(() {
+                                  firstInterview = questions['_3'][1][index];
+
+                                  _3_index = selected ? index : null;
+                                  if (firstInterview == 'No') {
+                                    _householdIdController.clear();
+                                    previousDataList =
+                                        previousData.getData(coop_union);
+                                    createSearchFormList(previousDataList);
+                                  } else {
+                                    householdId =
+                                        createHouseholdId(_user_email);
+                                    _householdIdController..text = householdId;
+                                  }
+                                });
+                              },
+                            );
                           },
-                        );
-                      },
-                    ).toList(),
-                  )),
+                        ).toList(),
+                      )),
                   if (firstInterview == 'No')
                     SearchWidget<LeaderBoard>(
                       dataList: list,
                       hideSearchBoxWhenItemSelected: true,
-                      listContainerHeight: MediaQuery.of(context).size.height / 4,
+                      listContainerHeight:
+                          MediaQuery.of(context).size.height / 4,
                       queryBuilder: (query, list) {
                         return list
                             .where((item) => item.username
@@ -211,7 +214,8 @@ class _MetaDataFormState extends State<MetaDataForm> {
                         return PopupListItemWidget(item);
                       },
                       selectedItemBuilder: (selectedItem, deleteSelectedItem) {
-                        return SelectedItemWidget(selectedItem, deleteSelectedItem);
+                        return SelectedItemWidget(
+                            selectedItem, deleteSelectedItem);
                       },
                       // widget customization
                       noItemsFoundWidget: NoItemsFound(),
@@ -221,132 +225,134 @@ class _MetaDataFormState extends State<MetaDataForm> {
                       onItemSelected: (item) {
                         setState(() {
                           _selectedItem = item;
-                          _householdIdController..text = _selectedItem.household_id;
+                          _householdIdController
+                            ..text = _selectedItem.household_id;
                         });
                       },
                     ),
-                SizedBox(height: 12),
-                Text('${questions['_4'][0]}',
-                    style: Theme.of(context).textTheme.headline5.copyWith()),
-                SizedBox(height: 6),
-                TextFormField(
-                  controller: _householdIdController,
-                  keyboardType: TextInputType.text,
-                  validator: (value) {
-                    if (value.isEmpty) return 'Field cannot be blank';
-                    return null;
-                  },
-                ),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: TextFormField(
-                        controller: _latitudeController,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Field cannot be blank';
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Latitude",
+                  SizedBox(height: 12),
+                  Text('${questions['_4'][0]}',
+                      style: Theme.of(context).textTheme.headline5.copyWith()),
+                  SizedBox(height: 6),
+                  TextFormField(
+                    controller: _householdIdController,
+                    keyboardType: TextInputType.text,
+                    validator: (value) {
+                      if (value.isEmpty) return 'Field cannot be blank';
+                      return null;
+                    },
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: TextFormField(
+                          controller: _latitudeController,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Field cannot be blank';
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Latitude",
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 6),
-                    Flexible(
-                      child: TextFormField(
-                        controller: _longitudeController,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Field cannot be blank';
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Longitude",
+                      SizedBox(width: 6),
+                      Flexible(
+                        child: TextFormField(
+                          controller: _longitudeController,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Field cannot be blank';
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Longitude",
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 12),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Flexible(
-                      child: TextFormField(
-                        controller: _dateController,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Field cannot be blank';
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Date",
+                    ],
+                  ),
+                  SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Flexible(
+                        child: TextFormField(
+                          controller: _dateController,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Field cannot be blank';
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Date",
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(width: 6),
-                    Flexible(
-                      child: TextFormField(
-                        controller: _timeController,
-                        keyboardType: TextInputType.text,
-                        validator: (value) {
-                          if (value.isEmpty) return 'Field cannot be blank';
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          labelText: "Time",
+                      SizedBox(width: 6),
+                      Flexible(
+                        child: TextFormField(
+                          controller: _timeController,
+                          keyboardType: TextInputType.text,
+                          validator: (value) {
+                            if (value.isEmpty) return 'Field cannot be blank';
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            labelText: "Time",
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                Row(children: <Widget> [
-                  Text('Test',
-                    style: Theme.of(context).textTheme.headline5.copyWith()),
-                  Switch(value: _test, onChanged:(value){
-                  setState(() {
-                    _test = value;
-                  });
-                  })
-                ])
-                
-              ],
-            )),
-            
-        SizedBox(height: 20),
-        SizedBox(
-          
-          width: 500,
-          child: RaisedButton(
-            child: Text("Submit"),
-            onPressed: _submitForm,
-          ),
-        )
-      ],
-    )
-    
-    ),
-    
+                    ],
+                  ),
+                  Row(children: <Widget>[
+                    Text('Test',
+                        style:
+                            Theme.of(context).textTheme.headline5.copyWith()),
+                    Switch(
+                        value: _test,
+                        onChanged: (value) {
+                          setState(() {
+                            _test = value;
+                          });
+                        })
+                  ])
+                ],
+              )),
+          SizedBox(height: 20),
+          SizedBox(
+            width: 500,
+            child: RaisedButton(
+              child: Text("Submit"),
+              onPressed: _submitForm,
+            ),
+          )
+        ],
+      )),
     );
   }
 
   void createSearchFormList(List dataList) {
     List<LeaderBoard> list2 = [];
     for (var i = 0; i < dataList.length; i++) {
-  // TO DO
+      // TO DO
       var currentElement = dataList[i];
       //print('QQQQQQQ${currentElement}QQQQ');
-      list2.insert(i, LeaderBoard(currentElement['sections']['sec_1']['_1'], 
-                                  currentElement['year_'].toString(), currentElement['meta_data']['prime_coop'], 
-                                  currentElement['interview_id'], currentElement['household_id']));
+      list2.insert(
+          i,
+          LeaderBoard(
+              currentElement['sections']['sec_1']['_1'],
+              currentElement['year_'].toString(),
+              currentElement['meta_data']['prime_coop'],
+              currentElement['interview_id'],
+              currentElement['household_id']));
     }
     setState(() {
       list = list2;
     });
-    
   }
 
   void showTopShortToast() {
@@ -356,12 +362,12 @@ class _MetaDataFormState extends State<MetaDataForm> {
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1);
   }
-  
+
   void _submitForm() async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       String year_ = DateTime.now().year.toString();
-      if(firstInterview != null){
+      if (firstInterview != null) {
         Map metaData = {
           'interview_id': interview_id,
           'houshold_id': _householdIdController.text,
@@ -389,33 +395,28 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'meta_data': metaData,
           'sections': {}
         };
-        await _metaDataDao.writeToHive(interview, interview_id).then((value) =>
-            {
-             // Navigator.pushNamed(context, Interview.id, arguments: interview);
-              Navigator.popAndPushNamed(context, Interview.id, arguments: interview)
-              
-              });
-    }else{
-      showTopShortToast();
-      print('Hello word ${firstInterview}');
-    }
-    }
-  }
-
-  String createHouseholdId(String email){
-      String userNo;
-      String householdId;
-      String coop;
-      if(email == 'david@gmail.com'){
-        userNo = '14';
+        await Provider.of<InterviewModel>(context, listen: false).createInterview(interview);
+        await Navigator.popAndPushNamed(context, Interview.id, arguments: interview_id);
+        
+      } else {
+        showTopShortToast();
       }
-      coop = coop_union.substring(0, 3).toUpperCase();
-
-      //householdId = coop+randomNumber()+'-'+userNo;
-      householdId = coop+'-'+DateTime.now().millisecondsSinceEpoch.toString();
-      return householdId;
+    }
   }
 
+  String createHouseholdId(String email) {
+    String userNo;
+    String householdId;
+    String coop;
+    if (email == 'david@gmail.com') {
+      userNo = '14';
+    }
+    coop = coop_union.substring(0, 3).toUpperCase();
+
+    //householdId = coop+randomNumber()+'-'+userNo;
+    householdId = coop + '-' + DateTime.now().millisecondsSinceEpoch.toString();
+    return householdId;
+  }
 
   @override
   void dispose() {
@@ -432,14 +433,14 @@ class _MetaDataFormState extends State<MetaDataForm> {
 }
 
 class LeaderBoard {
-  LeaderBoard(this.username, this.year_, this.prime_coop, this.interview_id, this.household_id);
+  LeaderBoard(this.username, this.year_, this.prime_coop, this.interview_id,
+      this.household_id);
 
   final String username;
   final String year_;
   final String prime_coop;
   final String interview_id;
   final String household_id;
-  
 }
 
 class SelectedItemWidget extends StatelessWidget {
@@ -456,12 +457,11 @@ class SelectedItemWidget extends StatelessWidget {
         horizontal: 14,
       ),
       child: Row(
-        
         children: <Widget>[
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(
-               // left: 16,
+                // left: 16,
                 //right: 16,
                 top: 8,
                 bottom: 8,
@@ -553,26 +553,22 @@ class PopupListItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget> [
-          Text(
-            item.username,
-            style: const TextStyle(fontSize: 16),
-            ),
-          Text(
-            item.prime_coop,
-            style: const TextStyle(fontSize: 16),
-            ),  
-          Text(
-            item.year_,
-            style: const TextStyle(fontSize: 16),
-            ),  
-        ]
-      ) 
-      
-      
-    );
+        padding: const EdgeInsets.all(12),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                item.username,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                item.prime_coop,
+                style: const TextStyle(fontSize: 16),
+              ),
+              Text(
+                item.year_,
+                style: const TextStyle(fontSize: 16),
+              ),
+            ]));
   }
 }

@@ -20,7 +20,7 @@ abstract class Auth {
 
   static Future<void> sendEmailVerification() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
-    user.sendEmailVerification();
+    return user.sendEmailVerification();
   }
 
   static Future<bool> isEmailVerified() async {

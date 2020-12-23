@@ -1,11 +1,13 @@
-import 'package:absapp/screens/interview/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Five extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Five(this.interview_id, this.interview);
 
@@ -15,11 +17,10 @@ class Five extends StatefulWidget {
 
 class _FiveState extends State<Five> {
   _FiveState(this.interview_id,this.interview);
-  InterviewDao _interviewDao = InterviewDao();
 
   Questionaire questionaire = Questionaire();
   Map questions ;
-  Map interview;
+  Interview interview;
 
   String _title,q1,q2,q3,q4,q5;//Questions
   List _1options,_2options,_3options,_4options;
@@ -42,15 +43,15 @@ class _FiveState extends State<Five> {
   @override
   void initState() {
     _4isChckList = [false, false, false, false, false, false, false];
-    if(interview['sections']['sec_5'] != null ){
+    if(interview.sections['sec_5'] != null ){
     dataExist = true;
-        _1answer = interview['sections']['sec_5']['_1'];
-        _2answer = interview['sections']['sec_5']['_2'];
-        _3answer = interview['sections']['sec_5']['_3'][0];
-        _3_index = interview['sections']['sec_5']['_3'][1];
+        _1answer = interview.sections['sec_5']['_1'];
+        _2answer = interview.sections['sec_5']['_2'];
+        _3answer = interview.sections['sec_5']['_3'][0];
+        _3_index = interview.sections['sec_5']['_3'][1];
         _3show = _2answer=='Previously provided milk,but not within the last 2 years(inactive)'?true:false;
-        _4isChckList = interview['sections']['sec_5']['_4']['_4'];
-        _4OtherController..text = interview['sections']['sec_5']['_4']['other'];
+        _4isChckList = interview.sections['sec_5']['_4']['_4'];
+        _4OtherController..text = interview.sections['sec_5']['_4']['other'];
         _4OtherShow = _4isChckList[6]?true:false;
 
     }
@@ -237,7 +238,7 @@ class _FiveState extends State<Five> {
       );
   }
 
-  void _submitForm(var states) async {
+  Future<void> _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -248,27 +249,23 @@ class _FiveState extends State<Five> {
         '_4':  {'_4':_4isChckList,'other':_4OtherController.text},
       };
 
-      states['sections']['sec_5'] = data;
+      states.sections['sec_5'] = data;
      // print('22222222222222222222222${states}444444444444444444444444444444444');
       if(_3answer == 'No'){
-        states['question_number'] = '5';
-        states['completed'] = true;
-        await _interviewDao.updateHive(states, interview_id)
-        .then((value){
-          finishInterviewToast();
-          print('22222222222222222222222${states}444444444444444444444444444444444');
+        states.question_number = '5';
+        states.completed = true;
+        await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+        await Provider.of<InterviewModel>(context, listen: false).setAllInterviews();
+        finishInterviewToast();
           setState(() {
             dataExist = true; 
           });
-        });
       }else{  
-        await _interviewDao.updateHive(states, interview_id)
-        .then((value){
-          dataExist?showTopShortToast():null;
+        await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+        //finishInterviewToast();
           setState(() {
             dataExist = true; 
           });
-        });
       }
     }
   }
@@ -294,7 +291,6 @@ class _FiveState extends State<Five> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
     _4OtherController.dispose();
     super.dispose();
   }

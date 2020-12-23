@@ -2,7 +2,7 @@ import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:absapp/screens/griddashboard.dart';
+import 'package:absapp/widgets/home/griddashboard.dart';
 
 class Home extends StatefulWidget {
   static const String id = 'home';
@@ -62,19 +62,9 @@ class _Home extends State<Home>  {
               ),
           ),
           SizedBox(height: 4,),
-          GridDashboard(_user)
-
+          GridDashboard(_user) 
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            
-          });
-        },
-        child: Icon(Icons.refresh),
-      
-    ),
     );
   }
 

@@ -1,11 +1,14 @@
-import 'package:absapp/screens/interview/interview_dao.dart';
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
+
 import 'package:absapp/screens/questionaire/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class Two extends StatefulWidget {
   final String interview_id;
-  final Map interview;
+  final Interview interview;
 
   Two(this.interview_id, this.interview);
 
@@ -15,8 +18,8 @@ class Two extends StatefulWidget {
 
 class _TwoState extends State<Two> {
   _TwoState(this.interview_id, this.interview);
-  InterviewDao _interviewDao = InterviewDao();
-  Map interview;
+
+  Interview interview;
 
   Questionaire questionaire = Questionaire();
   Map questions ;
@@ -43,18 +46,18 @@ class _TwoState extends State<Two> {
 
   @override
   void initState() {
-     if(interview['sections']['sec_2'] != null){
+     if(interview.sections['sec_2'] != null){
         dataExist = true;
-        _1aController..text = interview['sections']['sec_2']['_1'][0]['_1a'];
-        _1bController..text = interview['sections']['sec_2']['_1'][1]['_1b'];
-        _2aController..text = interview['sections']['sec_2']['_2'][0]['_2a'];
-        _2bController..text = interview['sections']['sec_2']['_2'][1]['_2b'];
-        _3aController..text = interview['sections']['sec_2']['_3'][0]['_3a'];
-        _3bController..text = interview['sections']['sec_2']['_3'][1]['_3b'];
-        _4aController..text = interview['sections']['sec_2']['_4'][0]['_4a'];
-        _4bController..text = interview['sections']['sec_2']['_4'][1]['_4b'];
-        _5aController..text = interview['sections']['sec_2']['_5'][0]['_5a'];
-        _5bController..text = interview['sections']['sec_2']['_5'][1]['_5b'];
+        _1aController..text = interview.sections['sec_2']['_1'][0]['_1a'];
+        _1bController..text = interview.sections['sec_2']['_1'][1]['_1b'];
+        _2aController..text = interview.sections['sec_2']['_2'][0]['_2a'];
+        _2bController..text = interview.sections['sec_2']['_2'][1]['_2b'];
+        _3aController..text = interview.sections['sec_2']['_3'][0]['_3a'];
+        _3bController..text = interview.sections['sec_2']['_3'][1]['_3b'];
+        _4aController..text = interview.sections['sec_2']['_4'][0]['_4a'];
+        _4bController..text = interview.sections['sec_2']['_4'][1]['_4b'];
+        _5aController..text = interview.sections['sec_2']['_5'][0]['_5a'];
+        _5bController..text = interview.sections['sec_2']['_5'][1]['_5b'];
       }
     super.initState();
   }
@@ -308,7 +311,7 @@ class _TwoState extends State<Two> {
       );
   }
 
-  void _submitForm(var states) async {
+  void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       
@@ -320,18 +323,14 @@ class _TwoState extends State<Two> {
         '_5': [{'_5a':_5aController.text},{'_5b':_5bController.text}],
       };
 
-      states['sections']['sec_2'] = data;
+      states.sections['sec_2'] = data;
       print('22222222222222222222222${states}444444444444444444444444444444444');
           
-      await _interviewDao.updateHive(states, interview_id)
-      .then((value){
-        dataExist?showTopShortToast():null;
+      Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      dataExist ? showTopShortToast() : null;
         setState(() {
-          dataExist = true; 
+          dataExist = true;
         });
-        
-        //Navigator.pushNamed(context, Interview.id, arguments: interview)
-       });
     }
   }
 
@@ -348,7 +347,7 @@ class _TwoState extends State<Two> {
     // Clean up the controller when the widget is removed from the
     // widget tree.
     Fluttertoast.cancel();
-    _interviewDao.closeHive();
+    
     _1aController.dispose();
     _1bController.dispose();
     _2aController.dispose();

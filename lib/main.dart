@@ -1,14 +1,15 @@
+import 'package:absapp/providers/interview.dart';
 import 'package:absapp/screens/home.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/interview_list/interview_list.dart';
 import 'package:absapp/screens/login.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
-import 'package:absapp/screens/settings.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 //import 'package:provider/provider.dart';
 
 void main() => runApp(App());
@@ -21,7 +22,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return ChangeNotifierProvider<InterviewModel>(
+      create: (context) => InterviewModel(),
+      child: 
+    
+    MaterialApp(
       title: 'ABS Data Collection',
       theme: ThemeData(
         primaryColor: primaryColor,
@@ -83,6 +88,7 @@ class App extends StatelessWidget {
           }
         },
       ),
+      )
     );
   }
 }

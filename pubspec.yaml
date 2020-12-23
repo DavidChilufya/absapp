@@ -11,7 +11,7 @@ description: An offline data collection app for ZDTP&#x27;s ABS project
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.1+2
 
 environment:
   sdk: '>=2.8.0 <3.0.0'
@@ -28,12 +28,8 @@ dependencies:
   flutter_spinkit: ^4.1.2
   flutter_staggered_animations:
   path_provider: ^1.6.5
-  sembast: ^2.3.0
   hive: ^1.4.1+1
   hive_flutter: ^0.3.0+2
-  flutter_bloc: ^6.1.1
-  equatable: ^1.2.5
-  rxdart: ^0.23.1
   intl: ^0.16.1
   fluttertoast: ^4.0.1
   geolocator: ^5.3.1  

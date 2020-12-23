@@ -1,24 +1,41 @@
+import 'package:absapp/models/interview.dart';
+import 'package:absapp/providers/interview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 
 class InterviewHeader extends StatelessWidget {
-  final Map headerModel;
-  InterviewHeader({this.headerModel});
-
+  final String interview_id;
+  
+  InterviewHeader({this.interview_id});
+  /*
+   Map _headerModel = {
+      'year_': interview.year_,
+      'previous_interviews': interview.meta_data['first_interview'],
+      'household_id': interview.household_id,
+      'interview_id': interview.interview_id,
+      'coop_union': interview.meta_data['coop_union'],
+      'prime_coop': interview.meta_data['prime_coop'],
+      'status': interview.completed,
+    }; */
   @override
   Widget build(BuildContext context) {
-    //final interviewBloc = BlocProvider.of<InterviewBloc>(context);
-    //interviewBloc.add(LoadInterviewEvent(headerModel['interview_id']));
-    //print('**GGHEADER MODLE*** ${this.headerModel}');
-    String year = this.headerModel['year_'];
-    String previous_interviews = this.headerModel['previous_interviews'];
+    print("HEADER : ${ModalRoute.of(context).settings.arguments}");
+    Provider.of<InterviewModel>(context, listen: false).getInterviewByID(this.interview_id);
+    Interview interview =
+        Provider.of<InterviewModel>(context, listen: false)
+           .getInterview();
+  
+
+    String year = interview.year_;
+    String previous_interviews = interview.meta_data['first_interview'];
           //state.getInterview['meta_data']['first_interview'];
-      String household_id = this.headerModel['household_id']; //state.getInterview['household_id'];
-      String interview_id = this.headerModel['interview_id']; //state.getInterview['interview_id'];
-      String prim_coop = this.headerModel['prime_coop']; //state.getInterview['meta_data']['prime_coop'];
-      String coop_union = this.headerModel['coop_union']; //state.getInterview['meta_data']['coop_union'];
-      String interview_status = this.headerModel['status'] ? 'Complete' : 'Incomplete';;
+      String household_id = interview.household_id;
+      String interview_id = interview.interview_id;
+      String prim_coop = interview.meta_data['prime_coop']; //state.getInterview['meta_data']['prime_coop'];
+      String coop_union = interview.meta_data['coop_union']; //state.getInterview['meta_data']['coop_union'];
+      String interview_status = interview.completed ? 'Complete' : 'Incomplete';;
           //state.getInterview['completed'] ? 'Complete' : 'Incomplete';
           
        //state.getInterview['year_'];
