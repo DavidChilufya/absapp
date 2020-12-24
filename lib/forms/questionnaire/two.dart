@@ -1,7 +1,7 @@
 import 'package:absapp/models/interview.dart';
 import 'package:absapp/providers/interview.dart';
 
-import 'package:absapp/screens/questionaire/questionnaire.dart';
+import 'package:absapp/models/questionnaire.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';

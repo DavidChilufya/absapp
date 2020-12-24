@@ -1,5 +1,5 @@
 import 'package:absapp/models/interview.dart';
-import 'package:absapp/screens/questionaire/questionnaire.dart';
+import 'package:absapp/models/questionnaire.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
 import 'package:flutter/material.dart';
 

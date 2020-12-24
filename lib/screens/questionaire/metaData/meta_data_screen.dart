@@ -10,12 +10,11 @@ class InterviewMetaData extends StatelessWidget{
   final String _interview_id = randomString(10);
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
           appBar: AppBar(title: Text('New Interview - ${_interview_id}')),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-            child: MetaDataForm(interview_id : _interview_id ),),
+            child: MetaDataForm(interview_id : _interview_id, user:  ModalRoute.of(context).settings.arguments),),
         );
   }
 

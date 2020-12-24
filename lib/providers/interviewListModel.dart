@@ -53,7 +53,6 @@ class InterviewListModel extends ChangeNotifier {
     this.data_loading = false;
 
     notifyListeners();
-    return list;
   }
 
   void updateInterviewslist() {}

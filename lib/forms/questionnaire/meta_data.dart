@@ -2,7 +2,7 @@ import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/resources/previous_data.dart';
 import 'package:absapp/services/interview_dao.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
-import 'package:absapp/screens/questionaire/questionnaire.dart';
+import 'package:absapp/models/questionnaire.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -13,18 +13,19 @@ import 'package:search_widget/search_widget.dart';
 
 class MetaDataForm extends StatefulWidget {
   final String interview_id;
+  final FirebaseUser user;
 
-  MetaDataForm({this.interview_id});
+  MetaDataForm({this.interview_id, this.user});
 
   @override
-  _MetaDataFormState createState() => _MetaDataFormState(interview_id);
+  _MetaDataFormState createState() => _MetaDataFormState(interview_id, user);
 }
 
 class _MetaDataFormState extends State<MetaDataForm> {
-  _MetaDataFormState(this.interview_id);
+  _MetaDataFormState(this.interview_id, this.user);
   var year = DateTime.now().year;
   final String interview_id;
-  FirebaseUser _user;
+  FirebaseUser user;
   String coop_union;
   String prime_coop;
   dynamic prime_coop_list;
@@ -68,10 +69,9 @@ class _MetaDataFormState extends State<MetaDataForm> {
   @override
   Widget build(BuildContext context) {
     bool _show = true;
-    this._user = ModalRoute.of(context).settings.arguments;
 
-    _user_email = _user.email;
-    _user_id = _user.uid;
+    _user_email = user.email;
+    _user_id = user.uid;
     DateTime now = DateTime.now();
     _dateController.text = DateFormat('dd/MM/yyyy').format(now);
     _timeController.text = DateFormat('kk:mm').format(now);
@@ -153,7 +153,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
                             prime_coop = newValue;
                             first_interview_show = true;
                             print(
-                                '${_user.email} === ${createHouseholdId(_user_email)}');
+                                '${user.email} === ${createHouseholdId(_user_email)}');
                           });
                         },
                         underline: SizedBox(),
@@ -396,10 +396,11 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'meta_data': metaData,
           'sections': {}
         };
-        await Provider.of<InterviewModel>(context, listen: false).createInterview(interview);
-        await Provider.of<InterviewListModel>(context, listen: false).setAllInterviews();
+        await Provider.of<InterviewModel>(context, listen: false)
+            .createInterview(interview);
+        await Provider.of<InterviewListModel>(context, listen: false)
+            .setAllInterviews();
         await Navigator.popAndPushNamed(context, Interview.id);
-        
       } else {
         showTopShortToast();
       }

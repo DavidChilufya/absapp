@@ -36,6 +36,5 @@ class InterviewDao {
 
   void closeHive(){
     Hive.close();
-    print(Hive.close());
   }
 }

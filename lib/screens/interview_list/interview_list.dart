@@ -9,7 +9,9 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:multi_select_item/multi_select_item.dart';
 import 'package:provider/provider.dart';
+
 
 class InterviewList extends StatefulWidget {
   static const String id = 'interview_list';
@@ -32,13 +34,14 @@ class _InterviewListState extends State<InterviewList> {
   bool loading;
   String interviewListType;
   List interviewList;
-
+  MultiSelectController controller = MultiSelectController();
   @override
   void initState() {
     //loading = false;
     listRouteArguments = [];
     interviewListType = 'Drafts';
     interviewList = [];
+    controller.disableEditingWhenNoneSelected = true;
     super.initState();
   }
 
@@ -49,7 +52,7 @@ class _InterviewListState extends State<InterviewList> {
     interviewListType = listRouteArguments[1];
     _user = listRouteArguments[0];
     return Scaffold(
-        //appBar: AppBar(title: Text('New Interview - ${_interview_id}')),
+        appBar: AppBar(title: Text('New Interview - ')),
         body: listViewWidget());
   }
 
@@ -74,6 +77,22 @@ class _InterviewListState extends State<InterviewList> {
               )
             : Column(mainAxisAlignment: MainAxisAlignment.start, children: <
                 Widget>[
+                  Visibility(
+                  visible: interviewList.isEmpty,
+                  child: 
+                    Center(child: Column(
+                      children: [
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.3,
+                        ),
+                        Image.asset("assets/not_found.png"),
+                        Text("No Data",style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                .copyWith(color: Theme.of(context).primaryColor),)
+                      ],
+                    ),)
+                ,),
                 Expanded(
                     //height: MediaQuery.of(context).size.height * 0.9,
                     child: ListView.builder(
@@ -81,9 +100,10 @@ class _InterviewListState extends State<InterviewList> {
                   itemBuilder: (context, index) {
                     // ProjectModel project = projectSnap.data[index];
                     return GestureDetector(
-                      onTap: () async{
-                        await Provider.of<InterviewModel>(context, listen: false)
-                            .getInterviewByID(
+                      onTap: () async {
+                        await Provider.of<InterviewModel>(context,
+                                listen: false)
+                            .setInterviewByID(
                                 interviewList[index]['interview_id']);
                         await Navigator.pushNamed(context, Interview.id);
                         //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
@@ -158,6 +178,9 @@ class _InterviewListState extends State<InterviewList> {
                     );
                   },
                 )),
+                
+                
+                
                 Visibility(
                     visible: interviewListType == 'Upload',
                     child: Align(
@@ -175,125 +198,6 @@ class _InterviewListState extends State<InterviewList> {
               ]);
       },
     );
-    /* FutureBuilder(
-    future:  _interviewDao.getAllInterviews(),
-    builder: (context, dataSnap) {
-      if (dataSnap.connectionState == ConnectionState.none &&
-          dataSnap.hasData == null) {
-        
-        return Center(
-              child: Text('No connection',
-                      style: Theme.of(context).textTheme.headline5.copyWith())
-            );
-      }else if(dataSnap.connectionState == ConnectionState.done &&
-          (dataSnap.data.length) == 0 ){
-            return Center(
-              child: Text('No Data',
-                      style: Theme.of(context).textTheme.headline5.copyWith())
-            );
-      }else if(dataSnap.connectionState == ConnectionState.waiting){
-        return Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
-                ),
-            );
-      
-      }else if(dataSnap.connectionState == ConnectionState.done){
-        if(interviewListType == 'Drafts'){
-          interviewList = getInterviewsDrafts(dataSnap.data,'completed');
-        }else if(interviewListType == 'Upload'){
-          interviewList = getInterviews(dataSnap.data,'completed');
-        }else if(interviewListType == 'Tests'){
-          interviewList = getInterviews(dataSnap.data,'test');
-        }
-        
-        return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                //height: MediaQuery.of(context).size.height * 0.9, 
-                child: ListView.builder(
-                  itemCount: interviewList.length,
-                  itemBuilder: (context, index) {
-                  // ProjectModel project = projectSnap.data[index];
-                    return GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, Interview.id, arguments: interviewList[index]);
-                      //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
-                        //print('project snapshot data is: ${dataSnap.data[index]}sssssssssssssssss');
-                    },
-                    child: Container(
-                      child: Card(
-                          //                           <-- Card widget
-                          child:
-                              Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                              ListTile(
-                                //title: 
-                                subtitle: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Row(children:<Widget>[
-                                      Text(
-                                      '${index+1}',
-                                      style: Theme.of(context).textTheme.caption.copyWith()),
-                                      SizedBox(width: MediaQuery.of(context).size.width * 0.3, child:
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 10.5, right: 4),
-                                        child: Column (
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children:<Widget>[
-                                            Text(
-                                                  '${dataSnap.data[index]['meta_data']['coop_union'] }',
-                                              style: Theme.of(context).textTheme.subtitle2.copyWith()),
-                                            Text(
-                                                  '${dataSnap.data[index]['meta_data']['prime_coop'] }',
-                                              style: Theme.of(context).textTheme.subtitle1.copyWith()),  
-                                        ]) )),
-                                    ]),
-                                  Text(
-                                      '${dataSnap.data[index]['meta_data']['date_']}',
-                                      style: Theme.of(context).textTheme.caption.copyWith()),
-                                  SizedBox(width: MediaQuery.of(context).size.width * 0.18, child: Text(
-                                                  '${dataSnap.data[index]['interview_id'] }',
-                                              style: TextStyle(color: Colors.green)),
-                                  ),
-                                ]),
-                              ),
-                      ])),
-                    ),
-                );
-                  },
-                )
-              ),
-              Visibility(
-                visible: interviewListType == 'Upload',
-                child: Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: 500,
-                  child: RaisedButton(
-                    child: Text('Upload to server'),
-                    //color: dataExist?Theme.of(context).accentColor:Theme.of(context).primaryColor,
-                    //onPressed: () => _createJson.writeToFile(dataSnap.data),
-                    onPressed: postToServer,
-                  ),
-                )
-              ))
-              ,
-            SizedBox(height: 10.0)
-            
-          ]); 
-      }
-
-      return Center(
-              child: SpinKitDoubleBounce(
-                color: Theme.of(context).primaryColor,
-                size: 50.0,
-                ),
-            );
-    },
-  ); */
   }
 
   void postToServer() async {

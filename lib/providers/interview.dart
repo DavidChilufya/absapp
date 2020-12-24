@@ -9,19 +9,7 @@ class InterviewModel extends ChangeNotifier {
   Interview interview;
 
   Future<void> createInterview(Map data) async {
-    this.interview = Interview(
-        data['interview_id'],
-        data['household_id'],
-        data['year_'],
-        data['user_email'],
-        data['user_id'],
-        data['test'],
-        data['question_number'],
-        data['completed'],
-        data['uploaded'],
-        data['meta_data'],
-        data['sections']);
-
+    this.interview = Interview.fromJson(data);
     await this._interviewDao.writeToHive(data, data['interview_id']);
     notifyListeners();
     
@@ -31,23 +19,12 @@ class InterviewModel extends ChangeNotifier {
     return this.interview;
   }
 
-  Future<void> getInterviewByID(String interview_id) async {
+  Future<void> setInterviewByID(String interview_id) async {
     this.interviewsLoaded = true;
 
-    Map data = await this._interviewDao.readHive(interview_id);
+    var data = await this._interviewDao.readHive(interview_id);
     print("Interview SINGLE: $data");
-      this.interview = Interview(
-          data['interview_id'],
-          data['household_id'],
-          data['year_'],
-          data['user_email'],
-          data['user_id'],
-          data['test'],
-          data['question_number'],
-          data['completed'],
-          data['uploaded'],
-          data['meta_data'],
-          data['sections']);
+      this.interview = Interview.fromJson(data);
       this.interviewsLoaded = false;
 
     notifyListeners();

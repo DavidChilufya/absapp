@@ -23,6 +23,20 @@ class Interview {
       this.meta_data,
       this.sections);
 
+  Interview.fromJson(var data):
+       interview_id= data['interview_id'],
+       household_id = data ['household_id'],
+       user_email = data['user_email'],
+       user_id = data['user_id'],
+       question_number = data['question_number'],
+       year_ = data['year_'],
+       completed = data['completed'],
+       uploaded = data['uploaded'],
+       test = data['test'],
+       meta_data = data['meta_data'],
+       sections = data['sections']
+    ;      
+
   Map<String, dynamic> toJson() =>
     {
       'interview_id': interview_id,
