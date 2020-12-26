@@ -37,6 +37,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
   String longitude;
   String _user_email, _user_id;
   bool _test;
+  bool new_coop_unions;
 
   int _3_index;
   TextEditingController _householdIdController = TextEditingController();
@@ -44,6 +45,9 @@ class _MetaDataFormState extends State<MetaDataForm> {
   TextEditingController _longitudeController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _timeController = TextEditingController();
+
+  TextEditingController _otherCoopUnionController = TextEditingController();
+  TextEditingController _primeCoopController = TextEditingController();
 
   InterviewDao _metaDataDao = InterviewDao();
   PreviousData previousData = PreviousData();
@@ -63,6 +67,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
     coop_union = 'Select';
     prime_coop = 'Select';
     _test = false;
+    new_coop_unions = false;
     super.initState();
   }
 
@@ -125,6 +130,14 @@ class _MetaDataFormState extends State<MetaDataForm> {
                         if (coop_union == 'Mufulira') {
                           prime_coop_list = questions['_2'][1][5]['Mufulira'];
                         }
+                        if (coop_union == 'Mumbwa' ||
+                            coop_union == 'Chikuse' ||
+                            coop_union == 'Sunnyridge' ||
+                            coop_union == 'Other') {
+                          new_coop_unions = true;
+                        } else {
+                          new_coop_unions = false;
+                        }
                         prime_coop_show = true;
                         _householdIdController.clear();
                         _3_index = -1;
@@ -134,11 +147,39 @@ class _MetaDataFormState extends State<MetaDataForm> {
                     underline: SizedBox(),
                     //isExpanded: true,
                   ),
+                  Visibility(
+                      //Other coop union input
+                      visible: coop_union == 'Other',
+                      child: TextFormField(
+                        controller: _otherCoopUnionController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          labelText: "Specify Other Coop Union",
+                        ),
+                        validator: (value) {
+                          if (value.isEmpty) return 'Field cannot be blank';
+                          return null;
+                        },
+                      )),
                   Text('${questions['_2'][0]}',
                       style: Theme.of(context).textTheme.headline5.copyWith()),
                   SizedBox(height: 6),
                   Visibility(
-                      visible: prime_coop_show,
+                      // new coop unions prime coop inpute
+                      visible: new_coop_unions,
+                      child: TextFormField(
+                        controller: _primeCoopController,
+                        keyboardType: TextInputType.text,
+                        validator: (value) {
+                          if (value.isEmpty) return 'Field cannot be blank';
+                          return null;
+                        },
+                      )),
+                  Visibility(
+                      // Prime Coops dropdown list
+                      visible: prime_coop_show &&
+                          coop_union != 'Other' &&
+                          !new_coop_unions,
                       child: DropdownButton(
                         value: prime_coop,
                         items: prime_coop_list
@@ -160,10 +201,12 @@ class _MetaDataFormState extends State<MetaDataForm> {
                         //isExpanded: true,
                       )),
                   Text('${questions['_3'][0]}',
+
+                      /// First Interview ?
                       style: Theme.of(context).textTheme.headline5.copyWith()),
                   SizedBox(height: 6),
                   Visibility(
-                      visible: first_interview_show,
+                      visible: first_interview_show || new_coop_unions,
                       child: Wrap(
                         spacing: 8,
                         children: List<Widget>.generate(
@@ -368,11 +411,15 @@ class _MetaDataFormState extends State<MetaDataForm> {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
       String year_ = DateTime.now().year.toString();
+      if (new_coop_unions) {
+        prime_coop = _primeCoopController.text;
+      }
       if (firstInterview != null) {
         Map metaData = {
           'interview_id': interview_id,
           'houshold_id': _householdIdController.text,
           'coop_union': coop_union,
+          'other_coop_union': _otherCoopUnionController.text,
           'prime_coop': prime_coop,
           'first_interview': firstInterview,
           'latitude': _latitudeController.text,
@@ -396,11 +443,15 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'meta_data': metaData,
           'sections': {}
         };
+        int key = await Provider.of<InterviewListModel>(context, listen: false)
+            .all_interviews
+            .length;
         await Provider.of<InterviewModel>(context, listen: false)
-            .createInterview(interview);
+            .createInterview(interview, key);
         await Provider.of<InterviewListModel>(context, listen: false)
             .setAllInterviews();
-        await Navigator.popAndPushNamed(context, Interview.id);
+        await Navigator.popAndPushNamed(context, Interview.id,
+            arguments: this.user);
       } else {
         showTopShortToast();
       }

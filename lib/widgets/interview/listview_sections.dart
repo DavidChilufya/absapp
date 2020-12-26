@@ -1,12 +1,14 @@
 import 'package:absapp/models/interview.dart';
 import 'package:absapp/models/questionnaire.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ListViewSections extends StatelessWidget {
   final Interview interview;
+  final FirebaseUser user;
 
-  ListViewSections({this.interview});
+  ListViewSections({this.interview, this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class ListViewSections extends StatelessWidget {
                 splashColor: Colors.blue.withAlpha(30),
                 onTap: () {
                   Navigator.pushNamed(context, SectionContainer.id,
-                      arguments: [interview, myList[index]]);
+                      arguments: [myList[index], this.user]);
                 },
                 child:
                     Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
@@ -52,9 +54,7 @@ class ListViewSections extends StatelessWidget {
                     title: Text('${myList[index]['title']}',
                         style:
                             Theme.of(context).textTheme.subtitle2.copyWith()),
-                    subtitle: Row(children: <Widget>[
-                      
-                    ]),
+                    subtitle: Row(children: <Widget>[]),
                   ),
                 ])),
           ),

@@ -1,6 +1,6 @@
 class Questionaire {
   Map variables = {
-    'year':'2019',
+    'year':'2020',
     'active': true,
     'other_variables':['','','']
   };
@@ -15,7 +15,7 @@ class Questionaire {
       'status':[true],
       'title': 'Meta Data',
       'no' : '',
-      '_1': [ 'Name of dairy Cooperative Union you belong to', ['Select','Balaka','Chibombo','Fisenge','Kwanshama','Liteta','Mufulira']],
+      '_1': [ 'Name of dairy Cooperative Union you belong to', ['Select','Balaka','Chibombo','Chikuse','Fisenge','Kwanshama','Liteta','Mufulira', 'Mumbwa','Sunnyridge','Other' ]],
       '_2': [ 'Name of Primary Cooperative', [
         {'Balaka':['Select','BALAKA','TUJATANE','MASENGO A','MALUMBO','BALAKA C','TUKABASANGA','TWATASHA','MAPALO','KAFUTO','TWEENDE',
                   'MAKASU','CHOWA DAIRY','CHIBANGA YOUTH','KANDO','TUGWILIZANE','KA-BATTERY','CHINYA','MUKUBA']},
@@ -313,7 +313,7 @@ class Questionaire {
           '_1': ['A. Do you normally clean the cow teats with a clean cloth/ tissue before milking?',
                 [true], ['Select','Yes','No','Not applicable']],
           '_2': ['B. Do you use any form of mastitis detection on your farm ?',[true], ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
-          '_3': ['C. Do you normally apply any teat salve/ lubricant to the cows teats?',[true], ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
+          '_3': ['C. Do you normally apply any teat salve/ lubricant to the cows teats?',[true], ['Select','Yes','No','Not applicable']],
           '_4': ['D. Do you normally use teat dip after milking?',[true], ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
           '_5': ['E. Have you had any cases of mastitis on yoour farm during the last 12 months?',[true], 
                 ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
@@ -333,11 +333,11 @@ class Questionaire {
         {
           'sec':'sec_19',
           'status':this.variables['active'], //means section is active
-          'title': '19. Silage which you fed to your cattle between May ${this.variables['year']} - April 2020',
+          'title': '19. Silage which you fed to your cattle between May ${this.variables['year']} - April 2021',
           'no' : '19',
-          '_1': ['A. Did you make any grass silage for your cattle between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
-          '_2': ['B. Did you make any whole crop maize silage (cob in) for your cattle between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
-          '_3': ['C. Did you feed your cattle maize stover silage from your farm between May ${this.variables['year']} - April 2020',[true], ['Yes','No']],
+          '_1': ['A. Did you make any grass silage for your cattle between May ${this.variables['year']} - April 2021',[true], ['Yes','No']],
+          '_2': ['B. Did you make any whole crop maize silage (cob in) for your cattle between May ${this.variables['year']} - April 2021',[true], ['Yes','No']],
+          '_3': ['C. Did you feed your cattle maize stover silage from your farm between May ${this.variables['year']} - April 2021',[true], ['Yes','No']],
 
         },
         {
@@ -424,14 +424,14 @@ class Questionaire {
         },{
           'sec':'sec_29',
           'status':this.variables['active'], //means section is active
-          'title': '29. Reproduction problems during the previous 12 months(i.e May ${this.variables['year']} - April 2020)',
+          'title': '29. Reproduction problems during the previous 12 months(i.e May ${this.variables['year']} - April 2021)',
           'no' : '29',
           '_1': ['A. Have you had any problems getting cows pregnant ',[true], ['Yes','No']],
           '_2': ['B. Have you had any still Births/Abortions ',[true], ['Yes','No']],
           '_3': ['C. Have you had any Calf deaths ',[true], ['Yes','No']],
           '_4': ['D. How many ',[true], ['Yes','No']],
           '_5': ['E. How many female ',[true], ['Yes','No']],
-          '_6': ['F. How many other dairy .. ',[true], ['Yes','No']],
+          '_6': ['F. How many deaths of other dairy animals ',[true], ['Yes','No']],
 
         },{
           'sec':'sec_30',
@@ -494,7 +494,7 @@ class Questionaire {
         },{
           'sec':'sec_34',
           'status':this.variables['active'], //means section is active
-          'title': '34. Extension advice, training and skills - between (May  ${this.variables['year']} - April 2020)',
+          'title': '34. Extension advice, training and skills - between (May  ${this.variables['year']} - April 2021)',
           'no' : '34',
           '_1': ['A. Have you received any farm extension advice or assistance from ZDTP,MFL or others in the last 12 Months ?',[true],['Yes','No']], 
           '_2': ['B. If yes, What advice or assitance did you receive?',[true],[

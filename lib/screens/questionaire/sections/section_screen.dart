@@ -28,30 +28,30 @@ import 'package:absapp/forms/questionnaire/tweenty_seven.dart';
 import 'package:absapp/forms/questionnaire/tweenty_two.dart';
 import 'package:absapp/forms/questionnaire/two.dart';
 import 'package:absapp/providers/interview.dart';
-import 'package:absapp/screens/interview/interview_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:absapp/models/interview.dart' as interview_item;
 
 class Section extends StatefulWidget {
   final String interview_id;
   final int secNo;
+  final FirebaseUser user;
 
-  Section(this.interview_id, this.secNo);
+  Section(this.interview_id, this.secNo, this.user);
 
   @override
-  _SectionState createState() => _SectionState(this.interview_id, this.secNo);
+  _SectionState createState() => _SectionState(this.interview_id, this.secNo, this.user);
 }
 
 class _SectionState extends State<Section> {
   bool loading = true;
   //int pageIndex = 1;
-  int sectionNo; 
-  PageController  _pageViewController; //= PageController(initialPage: 0,);
+  int sectionNo;
+  PageController _pageViewController; //= PageController(initialPage: 0,);
   String interview_id;
-
-  _SectionState(this.interview_id, this.sectionNo);
+  final FirebaseUser user;
+  _SectionState(this.interview_id, this.sectionNo, this.user);
   //InterviewBloc _interviewBloc;
 
   @override
@@ -78,105 +78,84 @@ class _SectionState extends State<Section> {
       initialPage: sectionNo - 1,
     );
     //if(state.getInterview != null){
-          //loading = false;
-        //}
+    //loading = false;
+    //}
 
-         // _interviewBloc.add(LoadInterviewEvent(interview_id));
-        //interview = state.getInterview;
-        
+    // _interviewBloc.add(LoadInterviewEvent(interview_id));
+    //interview = state.getInterview;
 
-        var questionFour;
-        if(interview.meta_data['first_interview'] == 'Yes') {
-          questionFour = Four(interview_id, interview);
-        }else{
-          questionFour = Center(child: Text('Question 4 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),);
-        }
+    var questionFour;
+    if (interview.meta_data['first_interview'] == 'Yes') {
+      questionFour = Four(interview_id, interview);
+    } else {
+      questionFour = Center(
+        child: Text('Question 4 is not active',
+            style: Theme.of(context).textTheme.headline5.copyWith()),
+      );
+    }
 
-        return Scaffold(
-            body: Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
-                child: PageView(
-                  controller: _pageViewController,
-                  children: [
-                    One(interview_id,interview),
-                    
-                    Two(interview_id,interview),
-                    Center(child: Text('Question 3 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    questionFour,
-                    Five(interview_id,interview),
-                    
-                    Six(interview_id,interview),
-                    Center(child: Text('Question 7 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    //Seven(interview_id,interview),
-                    Eight(interview_id,interview),
-                    Nine(interview_id,interview),
-                    Ten(interview_id,interview),
-                    Eleven(interview_id, interview),
-                    Center(child: Text('Question 12 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    Thirteen(interview_id, interview),
-                    Fourteen(interview_id, interview),
-                    Fifteen(interview_id, interview),
-                    Sixteen(interview_id, interview),
-                    Seventeen(interview_id, interview),
-                    Eighteen(interview_id, interview),
-                    Nineteen(interview_id, interview),
-                    Tweenty(interview_id, interview),
-                    TweentyOne(interview_id, interview),
-                    TweentyTwo(interview_id, interview),
-                    TweentyThree(interview_id, interview),
-                    TweentyFour(interview_id, interview),
-                    TweentyFive(interview_id, interview),
-                    Center(child: Text('Question 26 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    TweentySeven(interview_id, interview),
-                    TweentyEight(interview_id, interview),
-                    TweentyNine(interview_id, interview),
-                    Thirty(interview_id, interview),
-                    ThirtyOne(interview_id, interview),
-                    ThirtyTwo(interview_id, interview),
-                    //ThirtyThree(interview_id, interview),
-                     Center(child: Text('Question 33 is not active',style: Theme.of(context).textTheme.headline5.copyWith()),),
-                    ThirtyFour(interview_id, interview)
+    return Scaffold(
+      body: Padding(
+          padding: const EdgeInsets.only(left: 8, right: 8, bottom: 10),
+          child: PageView(
+            controller: _pageViewController,
+            children: [
+              One(interview_id, interview),
 
-                  ],
-                )),
-        
-            );
-  }
+              Two(interview_id, interview),
+              Center(
+                child: Text('Question 3 is not active',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+              ),
+              questionFour,
+              Five(interview_id, interview, this.user),
 
-  void foo(pageIndex, interview,_pageViewController,endFloat) {
-       //floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          floatingActionButton: Row(
-            children: <Widget>[
-              Expanded(
-                  child: Padding(
-                padding: const EdgeInsets.only(left: 26, right: 50),
-                child: RaisedButton(
-                  child: Text(pageIndex == 0 ? "Cancel" : "Sections list"),
-                  color: Colors.grey,
-                  onPressed: () {
-                    //_interviewBloc.add(LoadInterviewEvent(interview_id));
-                    if (pageIndex == 0) {
-                      Navigator.pushNamed(context, Interview.id);
-                    } else {
-                      Navigator.pushNamed(context, Interview.id,
-                          arguments: interview);
-                    }
-                  },
-                ),
-              )),
-              Expanded(
-                child: RaisedButton(
-                    child: Text("Next"),
-                    onPressed: () async {
-                      await _pageViewController.nextPage(
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.fastOutSlowIn,
-                      );
-                      FocusScope.of(context).unfocus();
-                    }),
-              )
+              Six(interview_id, interview),
+              Center(
+                child: Text('Question 7 is not active',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+              ),
+              //Seven(interview_id,interview),
+              Eight(interview_id, interview),
+              Nine(interview_id, interview),
+              Ten(interview_id, interview),
+              Eleven(interview_id, interview),
+              Center(
+                child: Text('Question 12 is not active',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+              ),
+              Thirteen(interview_id, interview),
+              Fourteen(interview_id, interview),
+              Fifteen(interview_id, interview),
+              Sixteen(interview_id, interview),
+              Seventeen(interview_id, interview),
+              Eighteen(interview_id, interview),
+              Nineteen(interview_id, interview),
+              Tweenty(interview_id, interview),
+              TweentyOne(interview_id, interview),
+              TweentyTwo(interview_id, interview),
+              TweentyThree(interview_id, interview),
+              TweentyFour(interview_id, interview),
+              TweentyFive(interview_id, interview),
+              Center(
+                child: Text('Question 26 is not active',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+              ),
+              TweentySeven(interview_id, interview),
+              TweentyEight(interview_id, interview),
+              TweentyNine(interview_id, interview),
+              Thirty(interview_id, interview),
+              ThirtyOne(interview_id, interview),
+              ThirtyTwo(interview_id, interview),
+              //ThirtyThree(interview_id, interview),
+              Center(
+                child: Text('Question 33 is not active',
+                    style: Theme.of(context).textTheme.headline5.copyWith()),
+              ),
+              ThirtyFour(interview_id, interview, this.user)
             ],
-          );
+          )),
+    );
   }
 
   @override

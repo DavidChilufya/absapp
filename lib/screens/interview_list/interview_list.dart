@@ -9,9 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:multi_select_item/multi_select_item.dart';
 import 'package:provider/provider.dart';
-
 
 class InterviewList extends StatefulWidget {
   static const String id = 'interview_list';
@@ -34,14 +32,16 @@ class _InterviewListState extends State<InterviewList> {
   bool loading;
   String interviewListType;
   List interviewList;
-  MultiSelectController controller = MultiSelectController();
+  bool show_delete_buttons, show_delete_dialog;
+
   @override
   void initState() {
     //loading = false;
     listRouteArguments = [];
     interviewListType = 'Drafts';
     interviewList = [];
-    controller.disableEditingWhenNoneSelected = true;
+    show_delete_buttons = false;
+    show_delete_dialog = true;
     super.initState();
   }
 
@@ -52,7 +52,14 @@ class _InterviewListState extends State<InterviewList> {
     interviewListType = listRouteArguments[1];
     _user = listRouteArguments[0];
     return Scaffold(
-        appBar: AppBar(title: Text('New Interview - ')),
+        appBar: AppBar(
+          title: Text('Interview list'),
+          actions: [
+            IconButton(
+                  icon: Icon(Icons.delete,color: Colors.black45),
+                  onPressed: () => showDeleteButton(context))
+          ],
+        ),
         body: listViewWidget());
   }
 
@@ -67,7 +74,7 @@ class _InterviewListState extends State<InterviewList> {
         } else if (interviewListType == 'Tests') {
           interviewList = state.tests;
         }
-
+        
         return state.data_loading
             ? Center(
                 child: SpinKitDoubleBounce(
@@ -77,22 +84,29 @@ class _InterviewListState extends State<InterviewList> {
               )
             : Column(mainAxisAlignment: MainAxisAlignment.start, children: <
                 Widget>[
-                  Visibility(
+                Visibility(
                   visible: interviewList.isEmpty,
-                  child: 
-                    Center(child: Column(
+                  child: Center(
+                    child: Column(
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height * 0.3,
                         ),
                         Image.asset("assets/not_found.png"),
-                        Text("No Data",style: Theme.of(context)
-                                .textTheme
-                                .headline3
-                                .copyWith(color: Theme.of(context).primaryColor),)
+                        Text(
+                          "No Data",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              .copyWith(color: Theme.of(context).primaryColor),
+                        )
                       ],
-                    ),)
-                ,),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 6,
+                ),
                 Expanded(
                     //height: MediaQuery.of(context).size.height * 0.9,
                     child: ListView.builder(
@@ -104,10 +118,18 @@ class _InterviewListState extends State<InterviewList> {
                         await Provider.of<InterviewModel>(context,
                                 listen: false)
                             .setInterviewByID(
-                                interviewList[index]['interview_id']);
-                        await Navigator.pushNamed(context, Interview.id);
+                                interviewList[index]['item']['interview_id'], interviewList[index]['key']);
+                        await Navigator.pushNamed(context, Interview.id, arguments: this._user);
                         //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
                         //print('project snapshot data is: ${interviewList[index]['interview_id']}sssssssssssssssss');
+                      },
+                      onLongPress: () {
+                        if (show_delete_dialog) {
+                          showDeletDialog(context, interviewList[index]['item'],
+                              interviewList[index]['key']);
+                        } else {
+                          deleteInterview(context, interviewList[index]['key']);
+                        }
                       },
                       child: Container(
                         child: Card(
@@ -141,14 +163,14 @@ class _InterviewListState extends State<InterviewList> {
                                                             .start,
                                                     children: <Widget>[
                                                       Text(
-                                                          '${interviewList[index]['meta_data']['coop_union']}',
+                                                          '${interviewList[index]['item']['meta_data']['coop_union']}',
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
                                                                   .subtitle2
                                                                   .copyWith()),
                                                       Text(
-                                                          '${interviewList[index]['meta_data']['prime_coop']}',
+                                                          '${interviewList[index]['item']['meta_data']['prime_coop']}',
                                                           style:
                                                               Theme.of(context)
                                                                   .textTheme
@@ -157,20 +179,34 @@ class _InterviewListState extends State<InterviewList> {
                                                     ]))),
                                       ]),
                                       Text(
-                                          '${interviewList[index]['meta_data']['date_']}',
+                                          '${interviewList[index]['item']['meta_data']['date_']}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .caption
                                               .copyWith()),
+                                      Spacer(),        
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.18,
                                         child: Text(
-                                            '${interviewList[index]['interview_id']}',
+                                            '${interviewList[index]['item']['interview_id']}',
                                             style:
                                                 TextStyle(color: Colors.green)),
                                       ),
+                                      this.show_delete_buttons ? 
+                                      IconButton(
+                                              icon: Icon(Icons
+                                                  .delete_forever_outlined,color: Colors.red),
+                                              onPressed: () => this.show_delete_dialog ? showDeletDialog(
+                                                  context,
+                                                  interviewList[index]['item'],
+                                                  interviewList[index]['key']) :
+                                                  deleteInterview(context, interviewList[index]['key'])
+                                                  ) :
+                                      Container(
+
+                                      )            
                                     ]),
                               ),
                             ])),
@@ -178,11 +214,8 @@ class _InterviewListState extends State<InterviewList> {
                     );
                   },
                 )),
-                
-                
-                
                 Visibility(
-                    visible: interviewListType == 'Upload',
+                    visible: interviewListType == 'Upload' && interviewList.isNotEmpty,
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
@@ -227,5 +260,77 @@ class _InterviewListState extends State<InterviewList> {
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1);
+  }
+
+  showDeleteButton(BuildContext context) {
+    setState(() {
+      this.show_delete_buttons = true;
+    });
+  }
+
+  dontShowDeleteDialog(BuildContext context) {
+    setState(() {
+      this.show_delete_dialog = false;
+    });
+  }
+
+  void showDeletDialog(BuildContext context, Map data, int key) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String user_name = data['sections']['sec_1'] == null
+            ? 'No name'
+            : data['sections']['sec_1']['_1'];
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          title: Center(child: Text('${user_name} - ${data['meta_data']['coop_union']}')),
+          content: Container(
+            height:MediaQuery.of(context).size.height * 0.1,
+            child: Center(child: Text("Once you delete this item, it will not be recovered"))),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Dont show again",
+                style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              .copyWith(color: Colors.grey)),
+              onPressed: () {
+                dontShowDeleteDialog(context);
+              },
+            ),
+            FlatButton(
+              child: Text("Cancel",
+                style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              .copyWith(color:  Theme.of(context).accentColor)),
+                              
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            RaisedButton(
+              color: Colors.redAccent,
+              child: Text("Delete",
+                style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              .copyWith(color: Colors.white70)
+                              ),
+              onPressed: () {
+                deleteInterview(context, key);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> deleteInterview(BuildContext context, int key) async {
+    print(key);
+    await Provider.of<InterviewListModel>(context, listen: false)
+        .deleteInterview(key: key);
   }
 }

@@ -78,7 +78,7 @@ void _showSignOutDialog(BuildContext context) {
      return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           title: Text("Confirm sign out?"),
-          content: Text("Your Tabs will still be here next time you sign in"),
+          content: Text("Your Data will still be here next time you sign in"),
           actions: <Widget>[
             FlatButton(
               child: Text("Cancel"),

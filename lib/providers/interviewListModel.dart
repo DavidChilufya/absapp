@@ -28,15 +28,17 @@ class InterviewListModel extends ChangeNotifier {
 
     for (var i = 0; i < list.length; i++) {
       if (!list[i]['completed'] && !list[i]['test']) {
-        drafts.add(list[i]);
+        drafts.add({'key': i, 'item': list[i]});
       }
 
       if (list[i]['completed'] && !list[i]['test']) {
-        pending.add(list[i]);
+        pending.add({'key': i, 'item': list[i]});
+        ;
       }
 
       if (list[i]['test']) {
-        tests.add(list[i]);
+        tests.add({'key': i, 'item': list[i]});
+        ;
       }
     }
 
@@ -53,6 +55,11 @@ class InterviewListModel extends ChangeNotifier {
     this.data_loading = false;
 
     notifyListeners();
+  }
+
+  Future<void> deleteInterview({int key}) async{
+    await this._interviewDao.deleteInterview(key: key);
+    await this.setAllInterviews();
   }
 
   void updateInterviewslist() {}
