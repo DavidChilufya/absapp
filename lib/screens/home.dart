@@ -61,7 +61,7 @@ class _Home extends State<Home>  {
                 ],
               ),
           ),
-          SizedBox(height: 4,),
+          SizedBox(height: 30,),
           GridDashboard(_user) 
         ],
       ),

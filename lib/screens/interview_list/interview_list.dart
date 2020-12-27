@@ -195,15 +195,16 @@ class _InterviewListState extends State<InterviewList> {
                                                 TextStyle(color: Colors.green)),
                                       ),
                                       this.show_delete_buttons ? 
-                                      IconButton(
-                                              icon: Icon(Icons
-                                                  .delete_forever_outlined,color: Colors.red),
-                                              onPressed: () => this.show_delete_dialog ? showDeletDialog(
+                                      RaisedButton(onPressed: () => this.show_delete_dialog ? showDeletDialog(
                                                   context,
                                                   interviewList[index]['item'],
                                                   interviewList[index]['key']) :
-                                                  deleteInterview(context, interviewList[index]['key'])
-                                                  ) :
+                                                  deleteInterview(context, interviewList[index]['key']),
+                                                  child: Text('Delete',style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith(color: Colors.redAccent.shade200)))
+                                      :
                                       Container(
 
                                       )            

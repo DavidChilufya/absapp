@@ -56,9 +56,6 @@ class _SectionState extends State<Section> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    //final interviewBloc = BlocProvider.of<InterviewBloc>(context);
-    //interviewBloc.add(LoadInterviewEvent(interview_id));
     super.initState();
   }
 

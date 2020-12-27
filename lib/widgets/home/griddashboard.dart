@@ -25,14 +25,14 @@ class GridDashboard extends StatelessWidget {
     },
     {'title': "Upload", 'total': "0", 'img': "assets/pending_upload.png"},
     {'title': "Uploaded", 'total': "", 'img': "assets/uploaded.png"},
-    {'title': "All", 'total': "0", 'img': "assets/todo.png"},
+    {'title': "All", 'total': "0", 'img': "assets/all.png"},
   ];
 
   @override
   Widget build(BuildContext context) {
     //myList[1]['total'] = getInterviews().length.toString() ;
     //print('${getInterviews()}');
-    var color = Theme.of(context).accentColor.withAlpha(30);
+    var color = Color(0xff1cdda6);
     return Consumer<InterviewListModel>(
       builder: (context, interview_list, child) {
         return Flexible(
@@ -57,11 +57,16 @@ class GridDashboard extends StatelessWidget {
                     myList[5]['total'] = //All
                     '5';
                     
-                    return GestureDetector(
-                      child: Container(
-                        decoration: BoxDecoration(
-                            color: color,
-                            borderRadius: BorderRadius.circular(10)),
+                    return InkWell(
+                      splashColor: Theme.of(context).accentColor,
+                                    highlightColor:
+                                        Theme.of(context).accentColor,
+                      child: Card(
+                        elevation: 5,
+                        color: color,
+                        //decoration: BoxDecoration(
+                            //color: color,
+                            //borderRadius: BorderRadius.circular(10)),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -103,17 +108,17 @@ class GridDashboard extends StatelessWidget {
   
   }
 
-  void navigate(BuildContext context, Map data) {
+  Future<void> navigate(BuildContext context, Map data) async {
     if (data['title'] == 'New') {
-      Navigator.pushNamed(context, InterviewMetaData.id, arguments: _user);
+      await Navigator.pushNamed(context, InterviewMetaData.id, arguments: _user);
     } else if (data['title'] == 'Drafts') {
-      Navigator.pushNamed(context, InterviewList.id,
+      await Navigator.pushNamed(context, InterviewList.id,
           arguments: [_user, 'Drafts']);
     } else if (data['title'] == 'Tests') {
-      Navigator.pushNamed(context, InterviewList.id,
+      await Navigator.pushNamed(context, InterviewList.id,
           arguments: [_user, 'Tests']);
     } else if (data['title'] == 'Upload') {
-      Navigator.pushNamed(context, InterviewList.id,
+      await Navigator.pushNamed(context, InterviewList.id,
           arguments: [_user, 'Upload']);
     }
   }
