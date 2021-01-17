@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:absapp/models/interview.dart';
 import 'package:absapp/providers/interview.dart';
 import 'package:absapp/models/questionnaire.dart';
@@ -23,8 +25,8 @@ class _EleventState extends State<Eleven> {
   Interview interview;
 
   String _title, q1, q2, q3, q4, q5; //Questions
-  List _1options,_optionsDemoPlots,_optionsFunded,_listFunded,_listOther;
-  List<bool> _listDemoPlots, _fundedVisible,_otherVisible;
+  List _1options, _optionsDemoPlots, _optionsFunded, _listFunded, _listOther;
+  List<bool> _listDemoPlots, _fundedVisible, _otherVisible;
   bool _demoVisible = false;
   int _1_index;
   String _1answer;
@@ -74,26 +76,127 @@ class _EleventState extends State<Eleven> {
   final _formKey = GlobalKey<FormState>();
   bool loading = false;
   bool dataExist = false;
+  bool queTenExist = false;
   String submitBtnTxt;
   //Initial values
 
+  QuestionEleven queEleven;
   @override
   void initState() {
-    _listDemoPlots = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-    _otherVisible = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-    _fundedVisible = [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false];
-    _listFunded = [_1FundedBy, _2FundedBy, _3FundedBy,_4FundedBy,_5FundedBy,_6FundedBy,
-            _7FundedBy,_8FundedBy,_9FundedBy,_10FundedBy,_11FundedBy,_12FundedBy,_13FundedBy,
-            _14FundedBy,_15FundedBy,_16FundedBy,_17FundedBy,_18FundedBy,_19FundedBy];
+    queEleven = QuestionEleven(interview.sections['sec_10']);
 
-    _listOther = [_1OtherController, _2OtherController, _3OtherController,_4OtherController,_5OtherController,_6OtherController,
-                _7OtherController,_8OtherController,_9OtherController,_10OtherController,_11OtherController,_12OtherController,
-                _13OtherController,_14OtherController,_15OtherController,_16OtherController,_17OtherController,_18OtherController,_19OtherController];
+    _listDemoPlots = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _otherVisible = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _fundedVisible = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _listFunded = [
+      _1FundedBy,
+      _2FundedBy,
+      _3FundedBy,
+      _4FundedBy,
+      _5FundedBy,
+      _6FundedBy,
+      _7FundedBy,
+      _8FundedBy,
+      _9FundedBy,
+      _10FundedBy,
+      _11FundedBy,
+      _12FundedBy,
+      _13FundedBy,
+      _14FundedBy,
+      _15FundedBy,
+      _16FundedBy,
+      _17FundedBy,
+      _18FundedBy,
+      _19FundedBy
+    ];
+
+    _listOther = [
+      _1OtherController,
+      _2OtherController,
+      _3OtherController,
+      _4OtherController,
+      _5OtherController,
+      _6OtherController,
+      _7OtherController,
+      _8OtherController,
+      _9OtherController,
+      _10OtherController,
+      _11OtherController,
+      _12OtherController,
+      _13OtherController,
+      _14OtherController,
+      _15OtherController,
+      _16OtherController,
+      _17OtherController,
+      _18OtherController,
+      _19OtherController
+    ];
     if (interview.sections['sec_11'] != null) {
+      //print('11 DATTTTAA ${interview.sections['sec_11']}');
       dataExist = true;
       _1answer = interview.sections['sec_11']['_1'][0];
       _1_index = interview.sections['sec_11']['_1'][1];
-      _demoVisible = _1answer == 'Yes'?true:false;
+      _demoVisible = _1answer == 'Yes' ? true : false;
       _listDemoPlots = [
         interview.sections['sec_11']['_2'][0]['_demo_plots'],
         interview.sections['sec_11']['_2'][1]['_demo_plots'],
@@ -135,7 +238,6 @@ class _EleventState extends State<Eleven> {
         interview.sections['sec_11']['_2'][16]['_demo_plots'],
         interview.sections['sec_11']['_2'][17]['_demo_plots'],
         interview.sections['sec_11']['_2'][18]['_demo_plots'],
-
       ];
       _otherVisible = [
         interview.sections['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'][3],
@@ -148,15 +250,24 @@ class _EleventState extends State<Eleven> {
         interview.sections['sec_11']['_2'][7]['_funded_by'][0]['_funded_by'][3],
         interview.sections['sec_11']['_2'][8]['_funded_by'][0]['_funded_by'][3],
         interview.sections['sec_11']['_2'][9]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][10]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][11]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][12]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][13]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][14]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][15]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'][3],
-        interview.sections['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'][3],
+        interview.sections['sec_11']['_2'][10]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][11]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][12]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][13]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][14]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][15]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][16]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][17]['_funded_by'][0]['_funded_by']
+            [3],
+        interview.sections['sec_11']['_2'][18]['_funded_by'][0]['_funded_by']
+            [3],
       ];
       _listFunded = [
         interview.sections['sec_11']['_2'][0]['_funded_by'][0]['_funded_by'],
@@ -178,32 +289,69 @@ class _EleventState extends State<Eleven> {
         interview.sections['sec_11']['_2'][16]['_funded_by'][0]['_funded_by'],
         interview.sections['sec_11']['_2'][17]['_funded_by'][0]['_funded_by'],
         interview.sections['sec_11']['_2'][18]['_funded_by'][0]['_funded_by'],
-        ];
-      _1OtherController..text = interview.sections['sec_11']['_2'][0]['_funded_by'][1]['other'];
-      _2OtherController..text = interview.sections['sec_11']['_2'][1]['_funded_by'][1]['other'];
-      _3OtherController..text = interview.sections['sec_11']['_2'][2]['_funded_by'][1]['other'];
-      _4OtherController..text = interview.sections['sec_11']['_2'][3]['_funded_by'][1]['other'];
-      _5OtherController..text = interview.sections['sec_11']['_2'][4]['_funded_by'][1]['other'];
-      _6OtherController..text = interview.sections['sec_11']['_2'][5]['_funded_by'][1]['other'];
-      _7OtherController..text = interview.sections['sec_11']['_2'][6]['_funded_by'][1]['other'];
-      _8OtherController..text = interview.sections['sec_11']['_2'][7]['_funded_by'][1]['other'];
-      _9OtherController..text = interview.sections['sec_11']['_2'][8]['_funded_by'][1]['other'];
-      _10OtherController..text = interview.sections['sec_11']['_2'][9]['_funded_by'][1]['other'];
-      _11OtherController..text = interview.sections['sec_11']['_2'][10]['_funded_by'][1]['other'];
-      _12OtherController..text = interview.sections['sec_11']['_2'][11]['_funded_by'][1]['other'];
-      _13OtherController..text = interview.sections['sec_11']['_2'][12]['_funded_by'][1]['other'];
-      _14OtherController..text = interview.sections['sec_11']['_2'][13]['_funded_by'][1]['other'];
-      _15OtherController..text = interview.sections['sec_11']['_2'][14]['_funded_by'][1]['other'];
-      _16OtherController..text = interview.sections['sec_11']['_2'][15]['_funded_by'][1]['other'];
-      _17OtherController..text = interview.sections['sec_11']['_2'][16]['_funded_by'][1]['other'];
-      _18OtherController..text = interview.sections['sec_11']['_2'][17]['_funded_by'][1]['other'];
-      _19OtherController..text = interview.sections['sec_11']['_2'][18]['_funded_by'][1]['other'];
+      ];
+      _1OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][0]['_funded_by'][1]['other'];
+      _2OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][1]['_funded_by'][1]['other'];
+      _3OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][2]['_funded_by'][1]['other'];
+      _4OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][3]['_funded_by'][1]['other'];
+      _5OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][4]['_funded_by'][1]['other'];
+      _6OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][5]['_funded_by'][1]['other'];
+      _7OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][6]['_funded_by'][1]['other'];
+      _8OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][7]['_funded_by'][1]['other'];
+      _9OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][8]['_funded_by'][1]['other'];
+      _10OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][9]['_funded_by'][1]['other'];
+      _11OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][10]['_funded_by'][1]['other'];
+      _12OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][11]['_funded_by'][1]['other'];
+      _13OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][12]['_funded_by'][1]['other'];
+      _14OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][13]['_funded_by'][1]['other'];
+      _15OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][14]['_funded_by'][1]['other'];
+      _16OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][15]['_funded_by'][1]['other'];
+      _17OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][16]['_funded_by'][1]['other'];
+      _18OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][17]['_funded_by'][1]['other'];
+      _19OtherController
+        ..text =
+            interview.sections['sec_11']['_2'][18]['_funded_by'][1]['other'];
 
-
-          
       //_3isChckList = interview.sections['sec_8']['_3']['_3'];
       //_3OtherShow = _3isChckList[4] ? true : false;
     }
+
     super.initState();
   }
 
@@ -262,8 +410,9 @@ class _EleventState extends State<Eleven> {
                                     onSelected: (bool selected) {
                                       setState(() {
                                         _1answer = _1options[index];
-                                        _1_index = selected?index:null;
-                                        _demoVisible =  _1answer == 'Yes'? true: false;
+                                        _1_index = selected ? index : null;
+                                        _demoVisible =
+                                            _1answer == 'Yes' ? true : false;
                                       });
                                     },
                                   );
@@ -283,75 +432,118 @@ class _EleventState extends State<Eleven> {
                                     SizedBox(height: 6),
                                     Wrap(
                                         children: List<Widget>.generate(
-                                            _optionsDemoPlots.length, (int index) {
-                                      return Column(
-                                        children: <Widget>[
-                                          Row(children:<Widget>[
-                                            Checkbox(
+                                            _optionsDemoPlots.length,
+                                            (int index) {
+                                      return Column(children: <Widget>[
+                                        Row(children: <Widget>[
+                                          Text('${index + 1}.',
+                                              style: queEleven
+                                                      .getCropsGrown()[index]
+                                                  ? Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2
+                                                      .copyWith()
+                                                  : TextStyle(
+                                                      decoration: TextDecoration
+                                                          .lineThrough)),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          Text(_optionsDemoPlots[index],
+                                              style: queEleven
+                                                      .getCropsGrown()[index]
+                                                  ? Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle2
+                                                      .copyWith()
+                                                  : TextStyle(
+                                                      decoration: TextDecoration
+                                                          .lineThrough)),
+                                          Spacer(),
+                                          Visibility(
+                                            visible: queEleven
+                                                .getCropsGrown()[index],
+                                            child: Checkbox(
                                               value: _listDemoPlots[index],
                                               onChanged: (bool value) {
                                                 setState(() {
                                                   _listDemoPlots[index] = value;
-                                                  _fundedVisible[index] =  _listDemoPlots[index]? true: false;
+                                                  _fundedVisible[index] =
+                                                      _listDemoPlots[index]
+                                                          ? true
+                                                          : false;
                                                 });
                                               },
                                             ),
-                                            Text(_optionsDemoPlots[index],style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2
-                                                .copyWith()),
-                                          ]),
-                                          Padding(
-                                            padding: const EdgeInsets.only(left:32.0),
-                                            child: Visibility(
+                                          ),
+                                        ]),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 32.0),
+                                          child: Visibility(
                                               visible: _fundedVisible[index],
                                               child: Column(
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
                                                 children: <Widget>[
                                                   Row(
-                                                    children: List<Widget>.generate(
-                                                        _optionsFunded.length, (int index2) {
-                                                          print('${_listFunded} ${index}');
-                                                          return Row(children: <Widget>[
-                                                            Checkbox(
-                                                              value: _listFunded[index][index2],
-                                                              onChanged: (bool value) {
-                                                                setState(() {
-                                                                  _listFunded[index][index2] = value;
-                                                                  _otherVisible[index] = _listFunded[index][3]? true: false;
-                                                                });
-                                                              },
-                                                            ),
-                                                            Text(_optionsFunded[index2]),
-                                                            
-                                                          ]);
-                                                        }
-                                                    )
-                                                  ),
+                                                      children:
+                                                          List<Widget>.generate(
+                                                              _optionsFunded
+                                                                  .length,
+                                                              (int index2) {
+                                                    return Row(children: <
+                                                        Widget>[
+                                                      Checkbox(
+                                                        value:
+                                                            _listFunded[index]
+                                                                [index2],
+                                                        onChanged:
+                                                            (bool value) {
+                                                          setState(() {
+                                                            _listFunded[index]
+                                                                    [index2] =
+                                                                value;
+                                                            _otherVisible[
+                                                                    index] =
+                                                                _listFunded[
+                                                                        index][3]
+                                                                    ? true
+                                                                    : false;
+                                                          });
+                                                        },
+                                                      ),
+                                                      Text(_optionsFunded[
+                                                          index2]),
+                                                    ]);
+                                                  })),
                                                   Visibility(
-                                                    visible: _otherVisible[index],
-                                                    child: TextFormField(
-                                                      controller: _listOther[index],
-                                                      keyboardType: TextInputType.text,
-                                                      decoration: InputDecoration(
-                                                                labelText: "Other",
-                                                              ),
-                                                      validator: (value) {
-                                                        if (value.isEmpty){return 'Field cannot be blank';}
-                                                        else{ return null; }
-                                                      },
-                                                    )
-                                                  )
-                                              ],) 
-                                            ) ,
-                                          )
-                                         
+                                                      visible:
+                                                          _otherVisible[index],
+                                                      child: TextFormField(
+                                                        controller:
+                                                            _listOther[index],
+                                                        keyboardType:
+                                                            TextInputType.text,
+                                                        decoration:
+                                                            InputDecoration(
+                                                          labelText: "Other",
+                                                        ),
+                                                        validator: (value) {
+                                                          if (value.isEmpty) {
+                                                            return 'Field cannot be blank';
+                                                          } else {
+                                                            return null;
+                                                          }
+                                                        },
+                                                      ))
+                                                ],
+                                              )),
+                                        )
                                       ]);
                                     })),
-                                   
                                   ],
-                                )
-                                ),
+                                )),
                           ],
                         )),
                     SizedBox(height: 14),
@@ -366,7 +558,7 @@ class _EleventState extends State<Eleven> {
                 color: dataExist
                     ? Theme.of(context).accentColor
                     : Theme.of(context).primaryColor,
-                onPressed: () => _submitForm(interview),
+                onPressed: queEleven.dataExist() ? () => _submitForm(interview) : null,
               ),
             ))
       ],
@@ -376,40 +568,30 @@ class _EleventState extends State<Eleven> {
   void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
+      List que11_sec2 = [];
+      for (int i = 0; i < _listDemoPlots.length; i++) {
+        que11_sec2.add({
+          '_demo_plots': _listDemoPlots[i],
+          '_funded_by': [
+            {'_funded_by': _listFunded[i]},
+            {'other': _listOther[i].text}
+          ]
+        });
+      }
 
       Map data = {
         //'_answers': [{'_planted':_cropChckList[0], 'area_planted':_1APController.text,'_use': [{'_use':list1},{'other': _1OtherController.text}]}],
-        '_1': [_1answer,_1_index] ,
-        '_2': [
-            {'_demo_plots':_listDemoPlots[0],'_funded_by': [{'_funded_by':_listFunded[0]},{'other': _listOther[0].text} ]},
-            {'_demo_plots':_listDemoPlots[1],'_funded_by': [{'_funded_by':_listFunded[1]},{'other': _listOther[1].text} ]},
-            {'_demo_plots':_listDemoPlots[2],'_funded_by': [{'_funded_by':_listFunded[2]},{'other': _listOther[2].text} ]},
-            {'_demo_plots':_listDemoPlots[3],'_funded_by': [{'_funded_by':_listFunded[3]},{'other': _listOther[3].text} ]},
-            {'_demo_plots':_listDemoPlots[4],'_funded_by': [{'_funded_by':_listFunded[4]},{'other': _listOther[4].text} ]},
-            {'_demo_plots':_listDemoPlots[5],'_funded_by': [{'_funded_by':_listFunded[5]},{'other': _listOther[5].text} ]},
-            {'_demo_plots':_listDemoPlots[6],'_funded_by': [{'_funded_by':_listFunded[6]},{'other': _listOther[6].text} ]},
-            {'_demo_plots':_listDemoPlots[7],'_funded_by': [{'_funded_by':_listFunded[7]},{'other': _listOther[7].text} ]},
-            {'_demo_plots':_listDemoPlots[8],'_funded_by': [{'_funded_by':_listFunded[8]},{'other': _listOther[8].text} ]},
-            {'_demo_plots':_listDemoPlots[9],'_funded_by': [{'_funded_by':_listFunded[9]},{'other': _listOther[9].text} ]},
-            {'_demo_plots':_listDemoPlots[10],'_funded_by': [{'_funded_by':_listFunded[10]},{'other': _listOther[10].text} ]},
-            {'_demo_plots':_listDemoPlots[11],'_funded_by': [{'_funded_by':_listFunded[11]},{'other': _listOther[11].text} ]},
-            {'_demo_plots':_listDemoPlots[12],'_funded_by': [{'_funded_by':_listFunded[12]},{'other': _listOther[12].text} ]},
-            {'_demo_plots':_listDemoPlots[13],'_funded_by': [{'_funded_by':_listFunded[13]},{'other': _listOther[13].text} ]},
-            {'_demo_plots':_listDemoPlots[14],'_funded_by': [{'_funded_by':_listFunded[14]},{'other': _listOther[14].text} ]},
-            {'_demo_plots':_listDemoPlots[15],'_funded_by': [{'_funded_by':_listFunded[15]},{'other': _listOther[15].text} ]},
-            {'_demo_plots':_listDemoPlots[16],'_funded_by': [{'_funded_by':_listFunded[16]},{'other': _listOther[16].text} ]},
-            {'_demo_plots':_listDemoPlots[17],'_funded_by': [{'_funded_by':_listFunded[17]},{'other': _listOther[17].text} ]},
-            {'_demo_plots':_listDemoPlots[18],'_funded_by': [{'_funded_by':_listFunded[18]},{'other': _listOther[18].text} ]},
-
-          ],
+        '_1': [_1answer, _1_index],
+        '_2': que11_sec2
       };
 
       states.sections['sec_11'] = data;
-      await Provider.of<InterviewModel>(context, listen: false).addSection(states);
+      await Provider.of<InterviewModel>(context, listen: false)
+          .addSection(states);
       dataExist ? showTopShortToast() : null;
-        setState(() {
-          dataExist = true;
-        });
+      setState(() {
+        dataExist = true;
+      });
     }
   }
 
@@ -428,5 +610,44 @@ class _EleventState extends State<Eleven> {
     Fluttertoast.cancel();
     _3OtherController.dispose();
     super.dispose();
+  }
+}
+
+class QuestionEleven {
+  Questionaire questionaire = Questionaire();
+
+  Map questions;
+  List _crops_grown = [];
+  bool _dataExist;
+  QuestionEleven(Map questionTen) {
+    this.questions = questionaire.getSections()[10];
+    if (questionTen != null) {
+      this._dataExist = true;
+      for (int i = 0; i < this.questions['_2'][2].length; i++) {
+        if (questionTen['_${i + 1}']['_planted']) {
+          //INTRODUCE A NEW VARIABLE FOR CROPS GROWN AND GIVE IT A TRUTH VALUE DEPENDING ON WHETHER IT WAS GROWN
+          _crops_grown.add(true);
+        } else {
+          _crops_grown.add(false);
+        }
+        //questionTen[]
+
+      }
+    } else {
+
+      this._dataExist = false;
+
+      for (int i = 0; i < this.questions['_2'][2].length; i++) {
+         _crops_grown.add(true);
+      }
+    }
+  }
+
+  bool dataExist() {
+    return this._dataExist;
+  }
+
+  List getCropsGrown() {
+    return this._crops_grown;
   }
 }

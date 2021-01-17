@@ -184,21 +184,7 @@ class _EighteenState extends State<Eighteen> {
                                           labelText: "Pure Friesian/ Holstein",
                                         ),
                                       ),
-                                    ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _1_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                    )
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -232,6 +218,21 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),]),
+                                    SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5,
+                                      child: TextFormField(
+                                        controller: _1_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      ),
+                                    ),  
                               SizedBox(height: 12),
                               Text('${q2}',
                                   style: Theme.of(context)
@@ -269,20 +270,7 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _2_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                    
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -316,7 +304,22 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),]),
-                                
+                                    SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5, 
+                                      child: TextFormField(
+                                        controller: _2_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      )
+                                      )
+                                ,
                               SizedBox(height: 12),
                               Text('${q3}',
                                   style: Theme.of(context)
@@ -354,20 +357,7 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _3_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                   
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -401,6 +391,22 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),]),
+                                  SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5, 
+                                      child:TextFormField(
+                                        controller: _3_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      )
+                                      )
+                                     ,
                                 
                               SizedBox(height: 12),
                               Text('${q4}',
@@ -439,20 +445,7 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _4_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                    
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -486,7 +479,21 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),]),
-                                
+                                    SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5, 
+                                      child: TextFormField(
+                                        controller: _4_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      )
+                                      ),
                               SizedBox(height: 12),
                               Text('${q5}',
                                   style: Theme.of(context)
@@ -524,20 +531,7 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _5_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                   
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -571,6 +565,22 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),]),
+                                    SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5, 
+                                      child:TextFormField(
+                                        controller: _5_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      )
+                                      ),
+                                   
                                 
                               SizedBox(height: 12),
                               Text('${q6}',
@@ -609,20 +619,7 @@ class _EighteenState extends State<Eighteen> {
                                         ),
                                       ),
                                     ),
-                                    SizedBox(width: 6),
-                                    Flexible(
-                                      child: TextFormField(
-                                        controller: _6_3Controller,
-                                        keyboardType: TextInputType.number,
-                                        validator: (value) {
-                                          if (value.isEmpty) return 'Field cannot be blank';
-                                          return null;
-                                        },
-                                        decoration: InputDecoration(
-                                          labelText: "Local Breed",
-                                        ),
-                                      ),
-                                    ),
+                                    
                                   ],
                                 ),
                                 SizedBox(height: 6),
@@ -658,6 +655,22 @@ class _EighteenState extends State<Eighteen> {
                                         
                                       ),
                                     ),]),
+                                    SizedBox(height: 6),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width*0.5, 
+                                      child: TextFormField(
+                                        controller: _6_3Controller,
+                                        keyboardType: TextInputType.number,
+                                        validator: (value) {
+                                          if (value.isEmpty) return 'Field cannot be blank';
+                                          return null;
+                                        },
+                                        decoration: InputDecoration(
+                                          labelText: "Local Breed",
+                                        ),
+                                      ),
+                                      ),
+                                   
                                 
                               SizedBox(height: 12),
                               

@@ -111,12 +111,13 @@ class _TenState extends State<Ten> {
 
   @override
   void initState() {
-   
+    
     _cropUseList = [list1,list2,list3,list4,list5,list6,list7,list8,list9,list10,list11,list12,list13,list14,list15,list16,list17,list18,list19];
     _cropChckList = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     _cropChckListShow = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     _otherListShow = [false, false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false];
     if (interview.sections['sec_10'] != null) {
+      print('DATTTTAA ${interview.sections['sec_10']}');
       dataExist = true;
       Map data1 = interview.sections['sec_10']['_1'];
       Map data2 = interview.sections['sec_10']['_2'];

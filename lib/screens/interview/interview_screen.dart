@@ -11,34 +11,43 @@ class Interview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-        backgroundColor: Colors.grey.shade500,
-        body: Consumer<InterviewModel>(
-          builder: (context, state, child) {
-            return state.interviewsLoaded ? 
-                Center(
-                    child: SpinKitDoubleBounce(
-                      color: Theme.of(context).primaryColor,
-                      size: 50.0,
+      backgroundColor: Colors.grey.shade500,
+      body: Consumer<InterviewModel>(
+        builder: (context, state, child) {
+          return state.interviewsLoaded
+              ? Center(
+                  child: SpinKitDoubleBounce(
+                    color: Theme.of(context).primaryColor,
+                    size: 50.0,
+                  ),
+                )
+              : Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 30,
                     ),
-                  ): 
-                Column(
-                children: <Widget>[
-                  SizedBox(
-                    height: 30,
-                  ),
-                  InterviewHeader(
-                    interview: state.interview,
-                    item_key: state.key,
-                    user: ModalRoute.of(context).settings.arguments
-                  ),
-                  SizedBox(height: 12),
-                  Flexible(child: ListViewSections(interview: state.interview, user: ModalRoute.of(context).settings.arguments))
-                ],
-              );
-          },
-        ));
+                    InterviewHeader(
+                        interview: state.interview,
+                        item_key: state.key,
+                        user: ModalRoute.of(context).settings.arguments),
+                    SizedBox(height: 12),
+                    Flexible(
+                        child: ListViewSections(
+                            interview: state.interview,
+                            user: ModalRoute.of(context).settings.arguments))
+                  ],
+                );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushNamed(context, Interview.id);
+          print(Interview.id);
+        },
+        child: Icon(Icons.home),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
+    );
   }
-  
 }

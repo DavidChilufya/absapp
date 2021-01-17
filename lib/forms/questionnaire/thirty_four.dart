@@ -1734,9 +1734,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                     SizedBox(height: 6),
                                   ]),
                             ),
-                            Visibility(
-                                visible: _3bshow,
-                                child: Column(
+                            Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
@@ -1969,7 +1967,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                                 SizedBox(height: 10),
                                               ]))
-                                    ])),
+                                    ]),
                             Text('${q5[0]}',
                                 style: Theme.of(context)
                                     .textTheme

@@ -283,8 +283,8 @@ class Questionaire {
           'no' : '16',
           '_1' : ['Do you have your own tractor?',[true],['Yes','No']],
           '_2' : ['Do you have access to a tractor?',[true],['Yes','No']],
-          '_3' : ['Do you own a chopper?',[true],['Yes','No']],
-          '_4' : ['Do you get access to one?',[true],['Yes','No']],
+          '_3' : ['Do you own a chopper / chaff cutter?',[true],['Yes','No']],
+          '_4' : ['Do you get access to chopper / chaff cutter?',[true],['Yes','No']],
           '_questions': [
               ['A. Tractor',[true],['New', 'Used','Not working']],
               ['B. Hand Tractor',[true],['New', 'Used','Not working']],
@@ -314,9 +314,9 @@ class Questionaire {
                 [true], ['Select','Yes','No','Not applicable']],
           '_2': ['B. Do you use any form of mastitis detection on your farm ?',[true], ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
           '_3': ['C. Do you normally apply any teat salve/ lubricant to the cows teats?',[true], ['Select','Yes','No','Not applicable']],
-          '_4': ['D. Do you normally use teat dip after milking?',[true], ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
+          '_4': ['D. Do you normally use teat dip after milking?',[true], ['Select','Yes','No','Not applicable']],
           '_5': ['E. Have you had any cases of mastitis on yoour farm during the last 12 months?',[true], 
-                ['Select','Yes','No','Sunlight','Other RMT','Not applicable']],
+                ['Select','Yes','No','Not applicable']],
         },
         {
           'sec':'sec_18',
