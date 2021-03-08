@@ -28,6 +28,14 @@ class InterviewDao {
     var interviewsBox = await Hive.openBox(INTERVIEW_TABLE);
     return interviewsBox.put(interview_id, interview);
   }
+
+  void updateHiveInterviewUploaded(int key, data) async {
+    final appDocumentDir =
+        await path_provider.getApplicationDocumentsDirectory();
+    Hive.init(appDocumentDir.path);
+    var interviewsBox = await Hive.openBox(INTERVIEW_TABLE);
+    return interviewsBox.putAt(key, data);
+  }
   
   Future getAllInterviews() async {
     final appDocumentDir =

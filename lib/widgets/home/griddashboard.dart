@@ -1,5 +1,6 @@
 import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/interview_list/interview_list.dart';
+import 'package:absapp/screens/interview_list/previous_interviews.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 class GridDashboard extends StatelessWidget {
-  final FirebaseUser _user;
+  final User _user;
   GridDashboard(this._user);
   static const String id = 'grid_dashboard';
 
@@ -54,6 +55,8 @@ class GridDashboard extends StatelessWidget {
                       interview_list.tests.length.toString();
                     myList[3]['total'] = //Pending Upload
                       interview_list.pending_upload.length.toString();
+                    myList[4]['total'] = //Uploaded
+                      interview_list.uploaded_interviews.length.toString();  
                     myList[5]['total'] = //All
                     '5';
                     
@@ -120,6 +123,12 @@ class GridDashboard extends StatelessWidget {
     } else if (data['title'] == 'Upload') {
       await Navigator.pushNamed(context, InterviewList.id,
           arguments: [_user, 'Upload']);
+    } else if (data['title'] == 'Uploaded') {
+      await Navigator.pushNamed(context, InterviewList.id,
+          arguments: [_user, 'Uploaded']);
+    } else if (data['title'] == 'All') {
+      await Navigator.pushNamed(context, PreviousInterviews.id,
+          arguments: [_user, 'All']);      
     }
   }
 

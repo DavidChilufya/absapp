@@ -6,7 +6,7 @@ class Interview {
   bool test;
   String question_number;
   bool completed;
-  String uploaded;
+  bool uploaded;
   Map meta_data;
   Map sections;
 

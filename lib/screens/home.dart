@@ -6,7 +6,7 @@ import 'package:absapp/widgets/home/griddashboard.dart';
 
 class Home extends StatefulWidget {
   static const String id = 'home';
-  final FirebaseUser _user;
+  final User _user;
 
   Home(this._user);
   _Home createState() => _Home(this._user);
@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home>  {
   
-  final FirebaseUser _user;
+  final User _user;
   _Home(this._user);
   //CreateInterview_DAO foo;
   @override

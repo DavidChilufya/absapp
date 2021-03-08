@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ListViewSections extends StatelessWidget {
   final Interview interview;
-  final FirebaseUser user;
+  final User user;
 
   ListViewSections({this.interview, this.user});
 

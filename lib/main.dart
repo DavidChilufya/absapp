@@ -3,17 +3,23 @@ import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/home.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
 import 'package:absapp/screens/interview_list/interview_list.dart';
+import 'package:absapp/screens/interview_list/previous_interviews.dart';
 import 'package:absapp/screens/login.dart';
 import 'package:absapp/screens/questionaire/metaData/meta_data_screen.dart';
 import 'package:absapp/screens/questionaire/sections/section_container.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 //import 'package:provider/provider.dart';
 
-void main() => runApp(App());
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp();
+   runApp(App());
+}
 
 class App extends StatelessWidget {
   final Color primaryColor = Color(0xff03da9d);
@@ -74,12 +80,13 @@ class App extends StatelessWidget {
             InterviewMetaData.id: (context) => InterviewMetaData(),
             Interview.id: (context) => Interview(),
             SectionContainer.id: (context) => SectionContainer(),
-            InterviewList.id: (context) => InterviewList()
+            InterviewList.id: (context) => InterviewList(),
+            PreviousInterviews.id: (context) => PreviousInterviews()
           },
           debugShowCheckedModeBanner: false,
-          home: FutureBuilder<FirebaseUser>(
+          home: FutureBuilder<User>(
             future: Auth.getCurrentUser(),
-            builder: (context, AsyncSnapshot<FirebaseUser> userSnapshot) {
+            builder: (context, AsyncSnapshot<User> userSnapshot) {
               if (userSnapshot.connectionState == ConnectionState.done) {
                 if (userSnapshot.error != null) {
                   print("error");

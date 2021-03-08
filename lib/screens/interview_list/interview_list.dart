@@ -1,12 +1,12 @@
 import 'package:absapp/providers/interview.dart';
 import 'package:absapp/providers/interviewListModel.dart';
-import 'package:absapp/resources/create_json.dart';
 import 'package:absapp/screens/interview/interview_screen.dart';
+import 'package:absapp/helpers/data_upload/data_upload.dart';
+import 'package:absapp/services/upload_to_server_firebase.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -20,14 +20,11 @@ class InterviewList extends StatefulWidget {
   _InterviewListState createState() => _InterviewListState();
 }
 
-class _InterviewListState extends State<InterviewList> {
-  final URL = 'https://abs.chilufyamedia.com/abs_api.php';
-
-  final CreateJson _createJson = CreateJson();
-  FirebaseUser _user;
-
+class _InterviewListState extends State<InterviewList> with DataUpload {
+  User _user;
+  //IUploadToServer uploadToServer;
+  int _totalUploaded;
   List list = [];
-  List _newList = [];
   List listRouteArguments;
   bool loading;
   String interviewListType;
@@ -36,13 +33,15 @@ class _InterviewListState extends State<InterviewList> {
 
   @override
   void initState() {
+    super.initState();
+    uploadToServer = UploadToServerFirebase();
+    _totalUploaded = 0;
     //loading = false;
     listRouteArguments = [];
     interviewListType = 'Drafts';
     interviewList = [];
     show_delete_buttons = false;
     show_delete_dialog = true;
-    super.initState();
   }
 
   @override
@@ -50,14 +49,17 @@ class _InterviewListState extends State<InterviewList> {
     //print(ModalRoute.of(context).settings.arguments);
     listRouteArguments = ModalRoute.of(context).settings.arguments;
     interviewListType = listRouteArguments[1];
+    if (interviewListType == "Upload") {
+      uploadToServer.confirmConnectionStatus();
+    }
     _user = listRouteArguments[0];
     return Scaffold(
         appBar: AppBar(
           title: Text('Interview list'),
           actions: [
             IconButton(
-                  icon: Icon(Icons.delete,color: Colors.black45),
-                  onPressed: () => showDeleteButton(context))
+                icon: Icon(Icons.delete, color: Colors.black45),
+                onPressed: () => showDeleteButton(context))
           ],
         ),
         body: listViewWidget());
@@ -71,10 +73,12 @@ class _InterviewListState extends State<InterviewList> {
           interviewList = state.drafts;
         } else if (interviewListType == 'Upload') {
           interviewList = state.pending_upload;
+        } else if (interviewListType == 'Uploaded') {
+          interviewList = state.uploaded_interviews;
         } else if (interviewListType == 'Tests') {
           interviewList = state.tests;
         }
-        
+
         return state.data_loading
             ? Center(
                 child: SpinKitDoubleBounce(
@@ -118,8 +122,10 @@ class _InterviewListState extends State<InterviewList> {
                         await Provider.of<InterviewModel>(context,
                                 listen: false)
                             .setInterviewByID(
-                                interviewList[index]['item']['interview_id'], interviewList[index]['key']);
-                        await Navigator.pushNamed(context, Interview.id, arguments: this._user);
+                                interviewList[index]['item']['interview_id'],
+                                interviewList[index]['key']);
+                        await Navigator.pushNamed(context, Interview.id,
+                            arguments: this._user);
                         //Navigator.pushNamed(context, SectionContainer.id, arguments: [interview, list[index]]);
                         //print('project snapshot data is: ${interviewList[index]['interview_id']}sssssssssssssssss');
                       },
@@ -184,7 +190,7 @@ class _InterviewListState extends State<InterviewList> {
                                               .textTheme
                                               .caption
                                               .copyWith()),
-                                      Spacer(),        
+                                      Spacer(),
                                       SizedBox(
                                         width:
                                             MediaQuery.of(context).size.width *
@@ -194,20 +200,29 @@ class _InterviewListState extends State<InterviewList> {
                                             style:
                                                 TextStyle(color: Colors.green)),
                                       ),
-                                      this.show_delete_buttons ? 
-                                      RaisedButton(onPressed: () => this.show_delete_dialog ? showDeletDialog(
-                                                  context,
-                                                  interviewList[index]['item'],
-                                                  interviewList[index]['key']) :
-                                                  deleteInterview(context, interviewList[index]['key']),
-                                                  child: Text('Delete',style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1
-                                                    .copyWith(color: Colors.redAccent.shade200)))
-                                      :
-                                      Container(
-
-                                      )            
+                                      this.show_delete_buttons
+                                          ? RaisedButton(
+                                              onPressed: () =>
+                                                  this.show_delete_dialog
+                                                      ? showDeletDialog(
+                                                          context,
+                                                          interviewList[index]
+                                                              ['item'],
+                                                          interviewList[index]
+                                                              ['key'])
+                                                      : deleteInterview(
+                                                          context,
+                                                          interviewList[index]
+                                                              ['key']),
+                                              child: Text('Delete',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyText1
+                                                      .copyWith(
+                                                          color: Colors
+                                                              .redAccent
+                                                              .shade200)))
+                                          : Container()
                                     ]),
                               ),
                             ])),
@@ -216,7 +231,16 @@ class _InterviewListState extends State<InterviewList> {
                   },
                 )),
                 Visibility(
-                    visible: interviewListType == 'Upload' && interviewList.isNotEmpty,
+                  visible: _totalUploaded > 0,
+                  child: Text("${_totalUploaded} / ${interviewList.length}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          .copyWith(color: Theme.of(context).primaryColor)),
+                ),
+                Visibility(
+                    visible: interviewListType == 'Upload' &&
+                        interviewList.isNotEmpty,
                     child: Align(
                         alignment: Alignment.bottomCenter,
                         child: SizedBox(
@@ -225,7 +249,7 @@ class _InterviewListState extends State<InterviewList> {
                             child: Text('Upload to server'),
                             //color: dataExist?Theme.of(context).accentColor:Theme.of(context).primaryColor,
                             //onPressed: () => _createJson.writeToFile(dataSnap.data),
-                            onPressed: postToServer,
+                            onPressed: () => postToServer(interviewList),
                           ),
                         ))),
                 SizedBox(height: 10.0)
@@ -234,8 +258,25 @@ class _InterviewListState extends State<InterviewList> {
     );
   }
 
-  void postToServer() async {
+  void postToServer(data) async {
+    Stream stream = this.uploadToServer.upload(data);
+    if (uploadToServer.getConnectionStatus()) {
+      stream.listen((event) {
+        setState(() {
+          _totalUploaded = event + 1;
+        });
+      });
+      if (_totalUploaded +1 == data.length) {
+        dataUploadedToast();
+      }
+      //await uploadToServer.upload(data);
+      //dataUploadedToast();
+    } else {
+      noNetToast();
+    }
+
     //print(_newList);
+    /*
     try {
       final result = await InternetAddress.lookup('abs.chilufyamedia.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -245,6 +286,7 @@ class _InterviewListState extends State<InterviewList> {
     } on SocketException catch (_) {
       noNetToast();
     }
+    */
   }
 
   void noNetToast() {
@@ -257,7 +299,7 @@ class _InterviewListState extends State<InterviewList> {
 
   void dataUploadedToast() {
     Fluttertoast.showToast(
-        msg: "Data Uploaded",
+        msg: "Uploading complete",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1);
@@ -284,28 +326,30 @@ class _InterviewListState extends State<InterviewList> {
             : data['sections']['sec_1']['_1'];
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          title: Center(child: Text('${user_name} - ${data['meta_data']['coop_union']}')),
+          title: Center(
+              child: Text('${user_name} - ${data['meta_data']['coop_union']}')),
           content: Container(
-            height:MediaQuery.of(context).size.height * 0.1,
-            child: Center(child: Text("Once you delete this item, it will not be recovered"))),
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Center(
+                  child: Text(
+                      "Once you delete this item, it will not be recovered"))),
           actions: <Widget>[
             FlatButton(
               child: Text("Dont show again",
-                style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.grey)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: Colors.grey)),
               onPressed: () {
                 dontShowDeleteDialog(context);
               },
             ),
             FlatButton(
               child: Text("Cancel",
-                style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color:  Theme.of(context).accentColor)),
-                              
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: Theme.of(context).accentColor)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -313,11 +357,10 @@ class _InterviewListState extends State<InterviewList> {
             RaisedButton(
               color: Colors.redAccent,
               child: Text("Delete",
-                style: Theme.of(context)
-                              .textTheme
-                              .headline6
-                              .copyWith(color: Colors.white70)
-                              ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: Colors.white70)),
               onPressed: () {
                 deleteInterview(context, key);
                 Navigator.of(context).pop();

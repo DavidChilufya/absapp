@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class ThirtyFour extends StatefulWidget {
   final String interview_id;
   final Interview interview;
-  final FirebaseUser user;
+  final User user;
 
   ThirtyFour(this.interview_id, this.interview, this.user);
 
@@ -25,7 +25,7 @@ class ThirtyFour extends StatefulWidget {
 class _ThirtyFourState extends State<ThirtyFour> {
   _ThirtyFourState(this.interview_id, this.interview, this.user);
   Interview interview;
-  final FirebaseUser user;
+  final User user;
 
   Questionaire questionaire = Questionaire();
   Map questions;
@@ -54,7 +54,10 @@ class _ThirtyFourState extends State<ThirtyFour> {
   bool _2show = false;
   bool _3bshow = false;
 
-  List<bool> _5isChckList;
+  List<bool> _2organizationChckList,
+      _3organizationChckList,
+      _4organizationChckList,
+      _5isChckList;
 
   bool _2_1otherOgranisationShow = false;
   bool _2_2otherOgranisationShow = false;
@@ -155,6 +158,31 @@ class _ThirtyFourState extends State<ThirtyFour> {
       false,
       false
     ];
+
+    _2organizationChckList = [false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,];
+
+    _3organizationChckList = [false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,];
+
+    _4organizationChckList = [false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,];   
+
     _2_1advice_answer = 'Select Organisation';
     _2_2advice_answer = 'Select Organisation';
     _2_3advice_answer = 'Select Organisation';
@@ -408,6 +436,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
         ..text = interview.sections['sec_34']['_4'][6][1]['benefits'];
 
       _5isChckList = interview.sections['sec_34']['_5'];
+      // _5isChckList = interview.sections['sec_34']['_5'];
 
       _commenOsuggestionController
         ..text = interview.sections['sec_34']['comment'];
@@ -1735,239 +1764,214 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                   ]),
                             ),
                             Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('${q4[0]}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5
-                                              .copyWith()),
-                                      Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 32.0),
-                                          child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text('${q4[2][0]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_1Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_1benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][1]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_2Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_2benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][2]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_3Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_3benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][3]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_4Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_4benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][4]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_5Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_5benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][5]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_6Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_6benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][6]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_7Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_7benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                                Text('${q4[2][7]['topic']}',
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                TextFormField(
-                                                  controller: _4_8Controller,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "How Applying",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 6),
-                                                TextFormField(
-                                                  controller:
-                                                      _4_8benefitsController,
-                                                  keyboardType:
-                                                      TextInputType.text,
-                                                  decoration: InputDecoration(
-                                                    labelText: "Benefits Seen",
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10),
-                                              ]))
-                                    ]),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text('${q4[0]}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline5
+                                          .copyWith()),
+                                  Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 32.0),
+                                      child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Text('${q4[2][0]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_1Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_1benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][1]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_2Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_2benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][2]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_3Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_3benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][3]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_4Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_4benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][4]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_5Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_5benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][5]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_6Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_6benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][6]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_7Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_7benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                            Text('${q4[2][7]['topic']}',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline6
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                            TextFormField(
+                                              controller: _4_8Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "How Applying",
+                                              ),
+                                            ),
+                                            SizedBox(height: 6),
+                                            TextFormField(
+                                              controller:
+                                                  _4_8benefitsController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Benefits Seen",
+                                              ),
+                                            ),
+                                            SizedBox(height: 10),
+                                          ]))
+                                ]),
                             Text('${q5[0]}',
                                 style: Theme.of(context)
                                     .textTheme
@@ -2230,14 +2234,18 @@ class _ThirtyFourState extends State<ThirtyFour> {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           title: Center(child: Text('Interview Complete')),
-          content:
-              Container(
-                height:MediaQuery.of(context).size.height * 0.1,
-                child: Center(child: Text("Interview Complete, Thank you very much for your time"))),
+          content: Container(
+              height: MediaQuery.of(context).size.height * 0.1,
+              child: Center(
+                  child: Text(
+                      "Interview Complete, Thank you very much for your time"))),
           actions: <Widget>[
             FlatButton(
-              child:
-                  Text("Cancel", style: Theme.of(context).textTheme.headline6.copyWith(color: Colors.grey)),
+              child: Text("Cancel",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline6
+                      .copyWith(color: Colors.grey)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -2249,7 +2257,8 @@ class _ThirtyFourState extends State<ThirtyFour> {
                       .headline6
                       .copyWith(color: Theme.of(context).accentColor)),
               onPressed: () {
-                Navigator.popUntil(context, ModalRoute.withName(interview_screen.Interview.id));
+                Navigator.popUntil(context,
+                    ModalRoute.withName(interview_screen.Interview.id));
               },
             ),
             RaisedButton(

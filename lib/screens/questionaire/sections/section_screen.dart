@@ -36,7 +36,7 @@ import 'package:absapp/models/interview.dart' as interview_item;
 class Section extends StatefulWidget {
   final String interview_id;
   final int secNo;
-  final FirebaseUser user;
+  final User user;
 
   Section(this.interview_id, this.secNo, this.user);
 
@@ -50,7 +50,7 @@ class _SectionState extends State<Section> {
   int sectionNo;
   PageController _pageViewController; //= PageController(initialPage: 0,);
   String interview_id;
-  final FirebaseUser user;
+  final User user;
   _SectionState(this.interview_id, this.sectionNo, this.user);
   //InterviewBloc _interviewBloc;
 

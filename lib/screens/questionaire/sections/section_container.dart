@@ -14,7 +14,7 @@ class SectionContainer extends StatelessWidget {
     List routeData = ModalRoute.of(context).settings.arguments;
     // Map interview = routeData[0];
     var section = routeData[0];
-    FirebaseUser user = routeData[1];
+    User user = routeData[1];
     Interview interview =
         Provider.of<InterviewModel>(context, listen: false).getInterview();
     //print(' ###INTERVIEW### ${routeData}');

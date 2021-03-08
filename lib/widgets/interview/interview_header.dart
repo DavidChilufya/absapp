@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class InterviewHeader extends StatelessWidget {
   final Interview interview;
   final int item_key;
-  final FirebaseUser user;
+  final User user;
 
   InterviewHeader({this.interview, this.item_key, this.user});
 

@@ -13,7 +13,7 @@ import 'package:search_widget/search_widget.dart';
 
 class MetaDataForm extends StatefulWidget {
   final String interview_id;
-  final FirebaseUser user;
+  final User user;
 
   MetaDataForm({this.interview_id, this.user});
 
@@ -25,7 +25,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
   _MetaDataFormState(this.interview_id, this.user);
   var year = DateTime.now().year;
   final String interview_id;
-  FirebaseUser user;
+  User user;
   String coop_union;
   String prime_coop;
   dynamic prime_coop_list;
@@ -438,7 +438,7 @@ class _MetaDataFormState extends State<MetaDataForm> {
           'question_number': '0',
           'year_': year_,
           'completed': false,
-          'uploaded': '',
+          'uploaded': false,
           'test': _test,
           'meta_data': metaData,
           'sections': {}

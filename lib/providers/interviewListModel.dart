@@ -11,6 +11,7 @@ class InterviewListModel extends ChangeNotifier {
   List drafts = [];
   List tests = [];
   List pending_upload = [];
+  List uploaded_interviews = [];
 
   InterviewListModel() {
     this.setAllInterviews();
@@ -25,14 +26,22 @@ class InterviewListModel extends ChangeNotifier {
     List drafts = [];
     List tests = [];
     List pending = [];
+    List uploaded_interviews = [];
 
     for (var i = 0; i < list.length; i++) {
       if (!list[i]['completed'] && !list[i]['test']) {
         drafts.add({'key': i, 'item': list[i]});
       }
 
-      if (list[i]['completed'] && !list[i]['test']) {
+      if (list[i]['completed'] &&
+          !list[i]['test'] &&
+          !list[i]['uploaded']) {
         pending.add({'key': i, 'item': list[i]});
+        ;
+      }
+
+      if (list[i]['completed'] && !list[i]['test'] && list[i]['uploaded']) {
+        uploaded_interviews.add({'key': i, 'item': list[i]});
         ;
       }
 
@@ -45,11 +54,13 @@ class InterviewListModel extends ChangeNotifier {
     this.drafts = drafts;
     this.pending_upload = pending;
     this.tests = tests;
+    this.uploaded_interviews = uploaded_interviews;
 
     this.interviewLists = InterviewLists(
         all_interviews: this.all_interviews,
         drafts: this.drafts,
         pending_upload: this.pending_upload,
+        uploaded_interviews: this.uploaded_interviews,
         test: this.tests);
 
     this.data_loading = false;
@@ -57,7 +68,7 @@ class InterviewListModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteInterview({int key}) async{
+  Future<void> deleteInterview({int key}) async {
     await this._interviewDao.deleteInterview(key: key);
     await this.setAllInterviews();
   }

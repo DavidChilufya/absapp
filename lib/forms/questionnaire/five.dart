@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class Five extends StatefulWidget {
   final String interview_id;
   final Interview interview;
-  final FirebaseUser user;
+  final User user;
 
   Five(this.interview_id, this.interview, this.user);
 
@@ -27,7 +27,7 @@ class _FiveState extends State<Five> {
   Questionaire questionaire = Questionaire();
   Map questions;
   Interview interview;
-  final FirebaseUser user;
+  final User user;
 
   String _title, q1, q2, q3, q4, q5; //Questions
   List _1options, _2options, _3options, _4options;
