@@ -258,19 +258,27 @@ class _InterviewListState extends State<InterviewList> with DataUpload {
     );
   }
 
+  Future streamSubmit(Stream<int> stream) async {
+    int total_uploaded = 0;
+    await for (var value in stream) {
+      total_uploaded += value;
+      print("Uploaded : ${total_uploaded} : ${value}");
+    }
+
+    setState(() {
+      this._totalUploaded = total_uploaded;
+      print("State Upload : ${this._totalUploaded} : }");
+    });
+
+    //return total_uploaded;
+  }
+
   void postToServer(data) async {
-    Stream stream = this.uploadToServer.upload(data);
     if (uploadToServer.getConnectionStatus()) {
-      stream.listen((event) {
-        setState(() {
-          _totalUploaded = event + 1;
-        });
-      });
-      if (_totalUploaded +1 == data.length) {
+      await streamSubmit(this.uploadToServer.upload(data));
+      if (this._totalUploaded + 1 == data.length) {
         dataUploadedToast();
       }
-      //await uploadToServer.upload(data);
-      //dataUploadedToast();
     } else {
       noNetToast();
     }

@@ -311,68 +311,68 @@ class _ThirtyFourState extends State<ThirtyFour> {
       _1_index = interview.sections['sec_34']['_1'][1];
       _2show = (interview.sections['sec_34']['_1'][0]) == 'Yes' ? true : false;
 
-      _2_1Controller..text = interview.sections['sec_34']['_2'][0][0]['advice'];
-       _2_1chckListState = interview.sections['sec_34']['_2'][0][1][0]['organisation'];
+      _2_1Controller..text = interview.sections['sec_34']['_2']['_1']['advice'];
+       _2_1chckListState = interview.sections['sec_34']['_2']['_1']['organisation'];
       _2_1otherController
         ..text =
-            interview.sections['sec_34']['_2'][0][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_1']['organisation_other'];
       _2_1otherOgranisationShow = _2_1chckListState[7] ? true : false;        
 
-      _2_2Controller..text = interview.sections['sec_34']['_2'][1][0]['advice'];
+      _2_2Controller..text = interview.sections['sec_34']['_2']['_2']['advice'];
       _2_2chckListState  =
-          interview.sections['sec_34']['_2'][1][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_2']['organisation'];
       _2_2otherController
         ..text =
-            interview.sections['sec_34']['_2'][1][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_2']['organisation_other'];
       _2_2otherOgranisationShow = _2_2chckListState[7] ? true : false;
 
-      _2_3Controller..text = interview.sections['sec_34']['_2'][2][0]['advice'];
+      _2_3Controller..text = interview.sections['sec_34']['_2']['_3']['advice'];
 
       _2_3chckListState =
-          interview.sections['sec_34']['_2'][2][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_3']['organisation'];
       _2_3otherController
         ..text =
-            interview.sections['sec_34']['_2'][2][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_3']['organisation_other'];
       _2_3otherOgranisationShow = _2_3chckListState[7] ? true : false;
 
-      _2_4Controller..text = interview.sections['sec_34']['_2'][3][0]['advice'];
+      _2_4Controller..text = interview.sections['sec_34']['_2']['_4']['advice'];
       _2_4chckListState =
-          interview.sections['sec_34']['_2'][3][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_4']['organisation'];
       _2_4otherController
         ..text =
-            interview.sections['sec_34']['_2'][3][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_4']['organisation_other'];
       _2_4otherOgranisationShow =_2_4chckListState[7] ? true : false;
 
-      _2_5Controller..text = interview.sections['sec_34']['_2'][4][0]['advice'];
+      _2_5Controller..text = interview.sections['sec_34']['_2']['_5']['advice'];
       _2_5chckListState =
-          interview.sections['sec_34']['_2'][4][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_5']['organisation'];
       _2_5otherController
         ..text =
-            interview.sections['sec_34']['_2'][4][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_5']['organisation_other'];
       _2_5otherOgranisationShow = _2_5chckListState[7] ? true : false;
 
-      _2_6Controller..text = interview.sections['sec_34']['_2'][5][0]['advice'];
+      _2_6Controller..text = interview.sections['sec_34']['_2']['_6']['advice'];
       _2_6chckListState =
-          interview.sections['sec_34']['_2'][5][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_6']['organisation'];
       _2_6otherController
         ..text =
-            interview.sections['sec_34']['_2'][5][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_6']['organisation_other'];
       _2_6otherOgranisationShow = _2_6chckListState[7] ? true : false;
 
-      _2_7Controller..text = interview.sections['sec_34']['_2'][6][0]['advice'];
+      _2_7Controller..text = interview.sections['sec_34']['_2']['_7']['advice'];
       _2_7chckListState =
-          interview.sections['sec_34']['_2'][6][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_7']['organisation'];
       _2_7otherController
         ..text =
-            interview.sections['sec_34']['_2'][6][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_7']['organisation_other'];
       _2_7otherOgranisationShow = _2_7chckListState[7] ? true : false;
 
-      _2_8Controller..text = interview.sections['sec_34']['_2'][7][0]['advice'];
+      _2_8Controller..text = interview.sections['sec_34']['_2']['_8']['advice'];
       _2_8chckListState =
-          interview.sections['sec_34']['_2'][7][1][0]['organisation'];
+          interview.sections['sec_34']['_2']['_8']['organisation'];
       _2_8otherController
         ..text =
-            interview.sections['sec_34']['_2'][7][1][1]['organisation_other'];
+            interview.sections['sec_34']['_2']['_8']['organisation_other'];
       _2_8otherOgranisationShow = _2_8chckListState[7] ? true : false;
 
       _3answer = interview.sections['sec_34']['_3'][0];
@@ -380,132 +380,132 @@ class _ThirtyFourState extends State<ThirtyFour> {
       _3bshow = (interview.sections['sec_34']['_3'][0]) == 'Yes' ? true : false;
 
       _3b_1Controller
-        ..text = interview.sections['sec_34']['_3_1'][0][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_1']['when'];
       _3_1chckListState =
-          interview.sections['sec_34']['_3_1'][0][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_1']['organisation'];
       _3b_1otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][0][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_1']['organisation_other'];
       _3bComment_1Controller
-        ..text = interview.sections['sec_34']['_3_1'][0][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_1']['comment'];
       _3b_1otherOgranisationShow = _3_1chckListState[7] ? true : false;
 
       _3b_2Controller
-        ..text = interview.sections['sec_34']['_3_1'][1][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_2']['when'];
       _3_2chckListState =
-          interview.sections['sec_34']['_3_1'][1][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_2']['organisation'];
       _3b_2otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][1][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_2']['organisation_other'];
       _3bComment_2Controller
-        ..text = interview.sections['sec_34']['_3_1'][1][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_2']['comment'];
       _3b_2otherOgranisationShow = _3_2chckListState[7] ? true : false;
 
       _3b_3Controller
-        ..text = interview.sections['sec_34']['_3_1'][2][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_3']['when'];
       _3_3chckListState =
-          interview.sections['sec_34']['_3_1'][2][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_3']['organisation'];
       _3b_3otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][2][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_3']['organisation_other'];
       _3bComment_3Controller
-        ..text = interview.sections['sec_34']['_3_1'][2][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_3']['comment'];
       _3b_3otherOgranisationShow = _3_3chckListState[7] ? true : false;
 
       _3b_4Controller
-        ..text = interview.sections['sec_34']['_3_1'][3][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_4']['when'];
       _3_4chckListState =
-          interview.sections['sec_34']['_3_1'][3][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_4']['organisation'];
       _3b_4otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][3][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_4']['organisation_other'];
       _3bComment_4Controller
-        ..text = interview.sections['sec_34']['_3_1'][3][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_4']['comment'];
       _3b_4otherOgranisationShow = _3_4chckListState[7] ? true : false;
 
       _3b_5Controller
-        ..text = interview.sections['sec_34']['_3_1'][4][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_5']['when'];
       _3_5chckListState =
-          interview.sections['sec_34']['_3_1'][4][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_5']['organisation'];
       _3b_5otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][4][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_5']['organisation_other'];
       _3bComment_5Controller
-        ..text = interview.sections['sec_34']['_3_1'][4][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_5']['comment'];
       _3b_5otherOgranisationShow = _3_5chckListState[7] ? true : false;
 
       _3b_6Controller
-        ..text = interview.sections['sec_34']['_3_1'][5][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_6']['when'];
       _3_6chckListState =
-          interview.sections['sec_34']['_3_1'][5][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_6']['organisation'];
       _3b_6otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][5][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_6']['organisation_other'];
       _3bComment_6Controller
-        ..text = interview.sections['sec_34']['_3_1'][5][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_6']['comment'];
       _3b_6otherOgranisationShow = _3_6chckListState[7] ? true : false;
 
       _3b_7Controller
-        ..text = interview.sections['sec_34']['_3_1'][6][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_7']['when'];
       _3_7chckListState =
-          interview.sections['sec_34']['_3_1'][6][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_7']['organisation'];
       _3b_7otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][6][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_7']['organisation_other'];
       _3bComment_7Controller
-        ..text = interview.sections['sec_34']['_3_1'][6][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_7']['comment'];
       _3b_7otherOgranisationShow = _3_7chckListState[7] ? true : false;
 
       _3b_8Controller
-        ..text = interview.sections['sec_34']['_3_1'][7][0]['when'];
+        ..text = interview.sections['sec_34']['_3_1']['_8']['when'];
       _3_8chckListState =
-          interview.sections['sec_34']['_3_1'][7][1][0]['organisation'];
+          interview.sections['sec_34']['_3_1']['_8']['organisation'];
       _3b_8otherController
         ..text =
-            interview.sections['sec_34']['_3_1'][7][1][1]['organisation_other'];
+            interview.sections['sec_34']['_3_1']['_8']['organisation_other'];
       _3bComment_8Controller
-        ..text = interview.sections['sec_34']['_3_1'][7][2]['comment'];
+        ..text = interview.sections['sec_34']['_3_1']['_8']['comment'];
       _3b_8otherOgranisationShow = _3_8chckListState[7] ? true : false;
 
       _4_1Controller
-        ..text = interview.sections['sec_34']['_4'][0][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_1']['applying'];
       _4_1benefitsController
-        ..text = interview.sections['sec_34']['_4'][0][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_1']['benefits'];
 
       _4_2Controller
-        ..text = interview.sections['sec_34']['_4'][1][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_2']['applying'];
       _4_2benefitsController
-        ..text = interview.sections['sec_34']['_4'][1][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_2']['benefits'];
 
       _4_3Controller
-        ..text = interview.sections['sec_34']['_4'][2][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_3']['applying'];
       _4_3benefitsController
-        ..text = interview.sections['sec_34']['_4'][2][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_3']['benefits'];
 
       _4_4Controller
-        ..text = interview.sections['sec_34']['_4'][3][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_4']['applying'];
       _4_4benefitsController
-        ..text = interview.sections['sec_34']['_4'][3][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_4']['benefits'];
 
       _4_5Controller
-        ..text = interview.sections['sec_34']['_4'][4][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_5']['applying'];
       _4_5benefitsController
-        ..text = interview.sections['sec_34']['_4'][4][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_5']['benefits'];
 
       _4_6Controller
-        ..text = interview.sections['sec_34']['_4'][5][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_6']['applying'];
       _4_6benefitsController
-        ..text = interview.sections['sec_34']['_4'][5][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_6']['benefits'];
 
       _4_7Controller
-        ..text = interview.sections['sec_34']['_4'][6][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_7']['applying'];
       _4_7benefitsController
-        ..text = interview.sections['sec_34']['_4'][6][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_7']['benefits'];
 
       _4_8Controller
-        ..text = interview.sections['sec_34']['_4'][6][0]['applying'];
+        ..text = interview.sections['sec_34']['_4']['_8']['applying'];
       _4_8benefitsController
-        ..text = interview.sections['sec_34']['_4'][6][1]['benefits'];
+        ..text = interview.sections['sec_34']['_4']['_8']['benefits'];
 
       _5isChckList = interview.sections['sec_34']['_5'];
       // _5isChckList = interview.sections['sec_34']['_5'];
@@ -2216,168 +2216,128 @@ class _ThirtyFourState extends State<ThirtyFour> {
   void _submitForm(Interview states) async {
     if (_formKey.currentState.validate()) {
       // If the form is valid, display a Snackbar.
-
-      Map data = {
+    Map data = {
         '_1': [_1answer, _1_index],
-        '_2': [
-          [
-            {'advice': _2_1Controller.text},
-            [
-              {'organisation': _2_1chckListState},
-              {'organisation_other': _2_1otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_2Controller.text},
-            [
-              {'organisation': _2_2chckListState},
-              {'organisation_other': _2_2otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_3Controller.text},
-            [
-              {'organisation': _2_3chckListState},
-              {'organisation_other': _2_3otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_4Controller.text},
-            [
-              {'organisation': _2_4chckListState},
-              {'organisation_other': _2_4otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_5Controller.text},
-            [
-              {'organisation': _2_5chckListState},
-              {'organisation_other': _2_5otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_6Controller.text},
-            [
-              {'organisation': _2_6chckListState},
-              {'organisation_other': _2_6otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_7Controller.text},
-            [
-              {'organisation': _2_7chckListState},
-              {'organisation_other': _2_7otherController.text}
-            ]
-          ],
-          [
-            {'advice': _2_8Controller.text},
-            [
-              {'organisation': _2_8chckListState},
-              {'organisation_other': _2_8otherController.text}
-            ]
-          ],
-        ],
+        '_2': {
+          '_1': {
+            'advice': _2_1Controller.text,
+            'organisation': _2_1chckListState,
+            'organisation_other': _2_1otherController.text
+          },
+          '_2': {
+            'advice': _2_2Controller.text,
+            'organisation': _2_2chckListState,
+            'organisation_other': _2_2otherController.text
+          },
+          '_3': {
+            'advice': _2_3Controller.text,
+            'organisation': _2_3chckListState,
+            'organisation_other': _2_3otherController.text
+          },
+          '_4': {
+            'advice': _2_4Controller.text,
+            'organisation': _2_4chckListState,
+            'organisation_other': _2_4otherController.text
+          },
+          '_5': {
+            'advice': _2_5Controller.text,
+            'organisation': _2_5chckListState,
+            'organisation_other': _2_5otherController.text
+          },
+          '_6': {
+            'advice': _2_6Controller.text,
+            'organisation': _2_6chckListState,
+            'organisation_other': _2_6otherController.text
+          },
+          '_7': {
+            'advice': _2_7Controller.text,
+            'organisation': _2_7chckListState,
+            'organisation_other': _2_7otherController.text
+          },
+          '_8': {
+            'advice': _2_8Controller.text,
+            'organisation': _2_8chckListState,
+            'organisation_other': _2_8otherController.text
+          },
+        },
         '_3': [_3answer, _3_index],
-        '_3_1': [
-          [
-            {'when': _3b_1Controller.text},
-            [
-              {'organisation': _3_1chckListState},
-              {'organisation_other': _3b_1otherController.text}
-            ],
-            {'comment': _3bComment_1Controller.text}
-          ],
-          [
-            {'when': _3b_2Controller.text},
-            [
-              {'organisation': _3_2chckListState},
-              {'organisation_other': _3b_2otherController.text}
-            ],
-            {'comment': _3bComment_2Controller.text}
-          ],
-          [
-            {'when': _3b_3Controller.text},
-            [
-              {'organisation': _3_3chckListState},
-              {'organisation_other': _3b_3otherController.text}
-            ],
-            {'comment': _3bComment_3Controller.text}
-          ],
-          [
-            {'when': _3b_4Controller.text},
-            [
-              {'organisation': _3_4chckListState},
-              {'organisation_other': _3b_4otherController.text}
-            ],
-            {'comment': _3bComment_4Controller.text}
-          ],
-          [
-            {'when': _3b_5Controller.text},
-            [
-              {'organisation': _3_5chckListState},
-              {'organisation_other': _3b_5otherController.text}
-            ],
-            {'comment': _3bComment_5Controller.text}
-          ],
-          [
-            {'when': _3b_6Controller.text},
-            [
-              {'organisation': _3_6chckListState},
-              {'organisation_other': _3b_6otherController.text}
-            ],
-            {'comment': _3bComment_6Controller.text}
-          ],
-          [
-            {'when': _3b_7Controller.text},
-            [
-              {'organisation': _3_7chckListState},
-              {'organisation_other': _3b_7otherController.text}
-            ],
-            {'comment': _3bComment_7Controller.text}
-          ],
-          [
-            {'when': _3b_8Controller.text},
-            [
-              {'organisation': _3_8chckListState},
-              {'organisation_other': _3b_8otherController.text}
-            ],
-            {'comment': _3bComment_8Controller.text}
-          ]
-        ],
-        '_4': [
-          [
-            {'applying': _4_1Controller.text},
-            {'benefits': _4_1benefitsController.text}
-          ],
-          [
-            {'applying': _4_2Controller.text},
-            {'benefits': _4_2benefitsController.text}
-          ],
-          [
-            {'applying': _4_3Controller.text},
-            {'benefits': _4_3benefitsController.text}
-          ],
-          [
-            {'applying': _4_4Controller.text},
-            {'benefits': _4_4benefitsController.text}
-          ],
-          [
-            {'applying': _4_5Controller.text},
-            {'benefits': _4_5benefitsController.text}
-          ],
-          [
-            {'applying': _4_6Controller.text},
-            {'benefits': _4_6benefitsController.text}
-          ],
-          [
-            {'applying': _4_7Controller.text},
-            {'benefits': _4_7benefitsController.text}
-          ],
-          [
-            {'applying': _4_8Controller.text},
-            {'benefits': _4_8benefitsController.text}
-          ],
-        ],
+        '_3_1': {
+          '_1':{
+            'when': _3b_1Controller.text,
+            'organisation': _3_1chckListState,
+            'organisation_other': _3b_1otherController.text,
+            'comment': _3bComment_1Controller.text
+          },
+          '_2':{
+            'when': _3b_2Controller.text,
+            'organisation': _3_2chckListState,
+            'organisation_other': _3b_2otherController.text,
+            'comment': _3bComment_2Controller.text
+          },
+          '_3':{
+            'when': _3b_3Controller.text,
+            'organisation': _3_3chckListState,
+            'organisation_other': _3b_3otherController.text,
+            'comment': _3bComment_3Controller.text
+          },
+          '_4':{
+            'when': _3b_4Controller.text,
+            'organisation': _3_4chckListState,
+            'organisation_other': _3b_4otherController.text,
+            'comment': _3bComment_4Controller.text
+          },
+          '_5':{
+            'when': _3b_5Controller.text,
+            'organisation': _3_5chckListState,
+            'organisation_other': _3b_5otherController.text,
+            'comment': _3bComment_5Controller.text
+          },
+          '_6':{
+            'when': _3b_6Controller.text,
+            'organisation': _3_6chckListState,
+            'organisation_other': _3b_6otherController.text,
+            'comment': _3bComment_6Controller.text,
+          },
+          '_7':{
+            'when': _3b_7Controller.text,
+            'organisation': _3_7chckListState,
+            'organisation_other': _3b_7otherController.text,
+            'comment': _3bComment_7Controller.text,
+          },
+          '_8':{
+            'when': _3b_8Controller.text,
+            'organisation': _3_8chckListState,
+            'organisation_other': _3b_8otherController.text,
+            'comment': _3bComment_8Controller.text,
+          },
+          '_9':{},
+        },
+        '_4': {
+          '_1':{
+            'applying': _4_1Controller.text,
+            'benefits': _4_1benefitsController.text},
+          '_2':{
+            'applying': _4_2Controller.text,
+            'benefits': _4_2benefitsController.text},
+          '_3':{
+            'applying': _4_3Controller.text,
+            'benefits': _4_3benefitsController.text},
+          '_4':{
+            'applying': _4_4Controller.text,
+            'benefits': _4_4benefitsController.text},
+          '_5':{
+            'applying': _4_5Controller.text,
+            'benefits': _4_5benefitsController.text},
+          '_6':{
+            'applying': _4_6Controller.text,
+            'benefits': _4_6benefitsController.text},
+          '_7':{
+            'applying': _4_7Controller.text,
+            'benefits': _4_7benefitsController.text},
+          '_8':{
+            'applying': _4_8Controller.text,
+            'benefits': _4_8benefitsController.text},
+        },
         '_5': _5isChckList,
         'comment': _commenOsuggestionController.text
       };

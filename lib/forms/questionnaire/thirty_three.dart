@@ -69,42 +69,42 @@ class _ThirtyThreeState extends State<ThirtyThree> {
       _2OtherShow = data['_2'][0][5];
       _2OtherController..text = data['_2'][1];
 
-      _1_1OtherController..text = data['_1'][0]['_2'][1];
-      _1_2OtherController..text = data['_1'][1]['_2'][1];
-      _1_3OtherController..text = data['_1'][2]['_2'][1];
-      _1_4OtherController..text = data['_1'][3]['_2'][1];
-      _1_5OtherController..text = data['_1'][4]['_2'][1];
-      _1_6OtherController..text = data['_1'][5]['_2'][1];
-      _1OtherController..text = data['_1'][5]['_1'][0];
+      _1_1OtherController..text = data['_1']['_1']['_2'][1];
+      _1_2OtherController..text = data['_1']['_2']['_2'][1];
+      _1_3OtherController..text = data['_1']['_3']['_2'][1];
+      _1_4OtherController..text = data['_1']['_4']['_2'][1];
+      _1_5OtherController..text = data['_1']['_5']['_2'][1];
+      _1_6OtherController..text = data['_1']['_6']['_2'][1];
+      _1OtherController..text = data['_1']['_6']['_1'][0];
 
-      _1_1WhenController..text = data['_1'][0]['_3'];
-      _1_2WhenController..text = data['_1'][1]['_3'];
-      _1_3WhenController..text = data['_1'][2]['_3'];
-      _1_4WhenController..text = data['_1'][3]['_3'];
-      _1_5WhenController..text = data['_1'][4]['_3'];
-      _1_6WhenController..text = data['_1'][5]['_3'];
+      _1_1WhenController..text = data['_1']['_1']['_3'];
+      _1_2WhenController..text = data['_1']['_2']['_3'];
+      _1_3WhenController..text = data['_1']['_3']['_3'];
+      _1_4WhenController..text = data['_1']['_4']['_3'];
+      _1_5WhenController..text = data['_1']['_5']['_3'];
+      _1_6WhenController..text = data['_1']['_5']['_3'];
 
 
-      _1_1answer = data['_1'][0]['_2'][0];
-      _1_2answer = data['_1'][1]['_2'][0];
-      _1_3answer = data['_1'][2]['_2'][0];
-      _1_4answer = data['_1'][3]['_2'][0];
-      _1_5answer = data['_1'][4]['_2'][0];
-      _1_6answer = data['_1'][5]['_2'][0];
+      _1_1answer = data['_1']['_1']['_2'][0];
+      _1_2answer = data['_1']['_2']['_2'][0];
+      _1_3answer = data['_1']['_3']['_2'][0];
+      _1_4answer = data['_1']['_4']['_2'][0];
+      _1_5answer = data['_1']['_5']['_2'][0];
+      _1_6answer = data['_1']['_6']['_2'][0];
 
-      _1_1Show = data['_1'][0]['_1'];
-      _1_2Show = data['_1'][1]['_1'];
-      _1_3Show = data['_1'][2]['_1'];
-      _1_4Show = data['_1'][3]['_1'] ;
-      _1_5Show = data['_1'][4]['_1'];
-      _1_6Show = data['_1'][5]['_1'][1];
+      _1_1Show = data['_1']['_1']['_1'];
+      _1_2Show = data['_1']['_2']['_1'];
+      _1_3Show = data['_1']['_3']['_1'];
+      _1_4Show = data['_1']['_4']['_1'] ;
+      _1_5Show = data['_1']['_5']['_1'];
+      _1_6Show = data['_1']['_6']['_1'][1];
 
-      _1_1OtherShow = data['_1'][0]['_2'][0] == 'Other'?true:false;
-      _1_2OtherShow = data['_1'][1]['_2'][0] == 'Other'?true:false;
-      _1_3OtherShow = data['_1'][2]['_2'][0] == 'Other'?true:false;
-      _1_4OtherShow = data['_1'][3]['_2'][0] == 'Other'?true:false;
-      _1_5OtherShow = data['_1'][4]['_2'][0] == 'Other'?true:false;
-      _1_6OtherShow = data['_1'][5]['_2'][0] == 'Other'?true:false;
+      _1_1OtherShow = data['_1']['_1']['_2'][0] == 'Other'?true:false;
+      _1_2OtherShow = data['_1']['_2']['_2'][0] == 'Other'?true:false;
+      _1_3OtherShow = data['_1']['_3']['_2'][0] == 'Other'?true:false;
+      _1_4OtherShow = data['_1']['_4']['_2'][0] == 'Other'?true:false;
+      _1_5OtherShow = data['_1']['_5']['_2'][0] == 'Other'?true:false;
+      _1_6OtherShow = data['_1']['_6']['_2'][0] == 'Other'?true:false;
 
     }
     super.initState();
@@ -642,14 +642,26 @@ class _ThirtyThreeState extends State<ThirtyThree> {
       // If the form is valid, display a Snackbar.
       
       Map data = {
-        '_1':[
-          {'_1':_1isChckList[0],'_2':[_1_1answer,_1_1OtherController.text],'_3':_1_1WhenController.text},
-          {'_1':_1isChckList[1],'_2':[_1_2answer,_1_2OtherController.text],'_3':_1_2WhenController.text},
-          {'_1':_1isChckList[2],'_2':[_1_3answer,_1_3OtherController.text],'_3':_1_3WhenController.text},
-          {'_1':_1isChckList[3],'_2':[_1_4answer,_1_4OtherController.text],'_3':_1_4WhenController.text},
-          {'_1':_1isChckList[4],'_2':[_1_5answer,_1_5OtherController.text],'_3':_1_5WhenController.text},
-          {'_1':[_1OtherController.text, _1isChckList[5]],'_2':[_1_6answer,_1_6OtherController.text],'_3':_1_6WhenController.text},
-        ],
+        '_1':{
+          '_1':{
+            '_1':_1isChckList[0],'_2':[_1_1answer,_1_1OtherController.text],'_3':_1_1WhenController.text
+          },
+          '_2':{
+            '_1':_1isChckList[1],'_2':[_1_2answer,_1_2OtherController.text],'_3':_1_2WhenController.text
+          },
+          '_3':{
+            '_1':_1isChckList[2],'_2':[_1_3answer,_1_3OtherController.text],'_3':_1_3WhenController.text
+          },
+          '_4':{
+            '_1':_1isChckList[3],'_2':[_1_4answer,_1_4OtherController.text],'_3':_1_4WhenController.text
+          },
+          '_5':{
+            '_1':_1isChckList[4],'_2':[_1_5answer,_1_5OtherController.text],'_3':_1_5WhenController.text
+          },
+          '_6':{
+            '_1':[_1OtherController.text, _1isChckList[5]],'_2':[_1_6answer,_1_6OtherController.text],'_3':_1_6WhenController.text
+          },
+        },
         '_2': [_2isChckList,_2OtherController.text],
       };
 

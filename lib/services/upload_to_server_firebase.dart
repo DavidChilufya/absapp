@@ -30,9 +30,8 @@ class UploadToServerFirebase implements IUploadToServer {
   @override
   Stream<int> upload(data) async* {
     // print("Data Added @@@---- ${data}");
-    if (_internet_connection_status) {
       for (int i = 0; i < data.length; i++) {
-        print("Data Added ---- ${data[i]['item']}");
+        
         await interviews.add({'interviews': data[i]['item'] }).then((value) {
           data[i]['item']['uploaded'] = true;
           _interviewDao.updateHiveInterviewUploaded(
@@ -41,7 +40,6 @@ class UploadToServerFirebase implements IUploadToServer {
 
         yield i;
       }
-    }
   }
 
   @override

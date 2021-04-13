@@ -52,8 +52,8 @@ class _TweentyOneState extends State<TweentyOne> {
       _2Controller..text = interview.sections['sec_21']['_2'][1];
       _3Controller..text = interview.sections['sec_21']['_2'][2];
       _4Controller..text = interview.sections['sec_21']['_2'][3];
-      _5_1Controller..text = interview.sections['sec_21']['_2'][4][0];
-      _5_2Controller..text = interview.sections['sec_21']['_2'][4][1];
+      _5_1Controller..text = interview.sections['sec_21']['_2_5_1'];
+      _5_2Controller..text = interview.sections['sec_21']['_2'][4];
     }
     super.initState();
   }
@@ -266,7 +266,14 @@ class _TweentyOneState extends State<TweentyOne> {
       
       Map data = {
         '_1': [_1answer,_1_index],
-        '_2': [_1Controller.text,_2Controller.text,_3Controller.text,_4Controller.text,[_5_1Controller.text,_5_2Controller.text,]],
+        '_2': [
+          _1Controller.text,
+          _2Controller.text,
+          _3Controller.text,
+          _4Controller.text,
+          _5_2Controller.text
+        ],
+        '_2_5_1':_5_1Controller.text 
       };
 
       states.sections['sec_21'] = data;
