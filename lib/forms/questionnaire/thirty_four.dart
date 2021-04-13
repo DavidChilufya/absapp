@@ -34,30 +34,15 @@ class _ThirtyFourState extends State<ThirtyFour> {
   List q2, q3, q3b, q4, q5;
   List _1options;
   int _1_index, _3_index;
+  List<bool> _2_1chckListState,_2_2chckListState,_2_3chckListState,_2_4chckListState,_2_5chckListState,_2_6chckListState,_2_7chckListState,_2_8chckListState;
+  List<bool> _3_1chckListState,_3_2chckListState,_3_3chckListState,_3_4chckListState,_3_5chckListState,_3_6chckListState,_3_7chckListState,_3_8chckListState;
   String _1answer, _3answer;
-  String _2_1advice_answer,
-      _2_2advice_answer,
-      _2_3advice_answer,
-      _2_4advice_answer,
-      _2_5advice_answer,
-      _2_6advice_answer,
-      _2_7advice_answer,
-      _2_8advice_answer;
-  String _3b_1delivered_answer,
-      _3b_2delivered_answer,
-      _3b_3delivered_answer,
-      _3b_4delivered_answer,
-      _3b_5delivered_answer,
-      _3b_6delivered_answer,
-      _3b_7delivered_answer,
-      _3b_8delivered_answer;
+
   bool _2show = false;
   bool _3bshow = false;
 
-  List<bool> _2organizationChckList,
-      _3organizationChckList,
-      _4organizationChckList,
-      _5isChckList;
+  List<bool> _5isChckList;
+      
 
   bool _2_1otherOgranisationShow = false;
   bool _2_2otherOgranisationShow = false;
@@ -147,6 +132,166 @@ class _ThirtyFourState extends State<ThirtyFour> {
 
   @override
   void initState() {
+    _2_1chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_2chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_3chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_4chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_5chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_6chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_7chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _2_8chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_1chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_2chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_3chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_4chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_5chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_6chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_7chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
+    _3_8chckListState = [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ];
     _5isChckList = [
       false,
       false,
@@ -159,47 +304,6 @@ class _ThirtyFourState extends State<ThirtyFour> {
       false
     ];
 
-    _2organizationChckList = [false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,];
-
-    _3organizationChckList = [false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,];
-
-    _4organizationChckList = [false,
-      false,
-      false,
-      false,
-      false,
-      false,
-      false,];   
-
-    _2_1advice_answer = 'Select Organisation';
-    _2_2advice_answer = 'Select Organisation';
-    _2_3advice_answer = 'Select Organisation';
-    _2_4advice_answer = 'Select Organisation';
-    _2_5advice_answer = 'Select Organisation';
-    _2_6advice_answer = 'Select Organisation';
-    _2_7advice_answer = 'Select Organisation';
-    _2_8advice_answer = 'Select Organisation';
-
-    _3b_1delivered_answer = 'Who delivered';
-    _3b_2delivered_answer = 'Who delivered';
-    _3b_3delivered_answer = 'Who delivered';
-    _3b_4delivered_answer = 'Who delivered';
-    _3b_5delivered_answer = 'Who delivered';
-    _3b_6delivered_answer = 'Who delivered';
-    _3b_7delivered_answer = 'Who delivered';
-    _3b_8delivered_answer = 'Who delivered';
 
     if (interview.sections['sec_34'] != null) {
       dataExist = true;
@@ -208,92 +312,68 @@ class _ThirtyFourState extends State<ThirtyFour> {
       _2show = (interview.sections['sec_34']['_1'][0]) == 'Yes' ? true : false;
 
       _2_1Controller..text = interview.sections['sec_34']['_2'][0][0]['advice'];
-      _2_1advice_answer =
-          interview.sections['sec_34']['_2'][0][1][0]['organisation'];
+       _2_1chckListState = interview.sections['sec_34']['_2'][0][1][0]['organisation'];
       _2_1otherController
         ..text =
             interview.sections['sec_34']['_2'][0][1][1]['organisation_other'];
-      _2_1otherOgranisationShow =
-          interview.sections['sec_34']['_2'][0][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_1otherOgranisationShow = _2_1chckListState[7] ? true : false;        
 
       _2_2Controller..text = interview.sections['sec_34']['_2'][1][0]['advice'];
-      _2_2advice_answer =
+      _2_2chckListState  =
           interview.sections['sec_34']['_2'][1][1][0]['organisation'];
       _2_2otherController
         ..text =
             interview.sections['sec_34']['_2'][1][1][1]['organisation_other'];
-      _2_2otherOgranisationShow =
-          interview.sections['sec_34']['_2'][1][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_2otherOgranisationShow = _2_2chckListState[7] ? true : false;
 
       _2_3Controller..text = interview.sections['sec_34']['_2'][2][0]['advice'];
-      _2_3advice_answer =
+
+      _2_3chckListState =
           interview.sections['sec_34']['_2'][2][1][0]['organisation'];
       _2_3otherController
         ..text =
             interview.sections['sec_34']['_2'][2][1][1]['organisation_other'];
-      _2_3otherOgranisationShow =
-          interview.sections['sec_34']['_2'][2][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_3otherOgranisationShow = _2_3chckListState[7] ? true : false;
 
       _2_4Controller..text = interview.sections['sec_34']['_2'][3][0]['advice'];
-      _2_4advice_answer =
+      _2_4chckListState =
           interview.sections['sec_34']['_2'][3][1][0]['organisation'];
       _2_4otherController
         ..text =
             interview.sections['sec_34']['_2'][3][1][1]['organisation_other'];
-      _2_4otherOgranisationShow =
-          interview.sections['sec_34']['_2'][3][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_4otherOgranisationShow =_2_4chckListState[7] ? true : false;
 
       _2_5Controller..text = interview.sections['sec_34']['_2'][4][0]['advice'];
-      _2_5advice_answer =
+      _2_5chckListState =
           interview.sections['sec_34']['_2'][4][1][0]['organisation'];
       _2_5otherController
         ..text =
             interview.sections['sec_34']['_2'][4][1][1]['organisation_other'];
-      _2_5otherOgranisationShow =
-          interview.sections['sec_34']['_2'][4][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_5otherOgranisationShow = _2_5chckListState[7] ? true : false;
 
       _2_6Controller..text = interview.sections['sec_34']['_2'][5][0]['advice'];
-      _2_6advice_answer =
+      _2_6chckListState =
           interview.sections['sec_34']['_2'][5][1][0]['organisation'];
       _2_6otherController
         ..text =
             interview.sections['sec_34']['_2'][5][1][1]['organisation_other'];
-      _2_6otherOgranisationShow =
-          interview.sections['sec_34']['_2'][5][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_6otherOgranisationShow = _2_6chckListState[7] ? true : false;
 
       _2_7Controller..text = interview.sections['sec_34']['_2'][6][0]['advice'];
-      _2_7advice_answer =
+      _2_7chckListState =
           interview.sections['sec_34']['_2'][6][1][0]['organisation'];
       _2_7otherController
         ..text =
             interview.sections['sec_34']['_2'][6][1][1]['organisation_other'];
-      _2_7otherOgranisationShow =
-          interview.sections['sec_34']['_2'][6][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_7otherOgranisationShow = _2_7chckListState[7] ? true : false;
 
       _2_8Controller..text = interview.sections['sec_34']['_2'][7][0]['advice'];
-      _2_8advice_answer =
+      _2_8chckListState =
           interview.sections['sec_34']['_2'][7][1][0]['organisation'];
       _2_8otherController
         ..text =
             interview.sections['sec_34']['_2'][7][1][1]['organisation_other'];
-      _2_8otherOgranisationShow =
-          interview.sections['sec_34']['_2'][7][1][0]['organisation'] == 'Other'
-              ? true
-              : false;
+      _2_8otherOgranisationShow = _2_8chckListState[7] ? true : false;
 
       _3answer = interview.sections['sec_34']['_3'][0];
       _3_index = interview.sections['sec_34']['_3'][1];
@@ -301,99 +381,91 @@ class _ThirtyFourState extends State<ThirtyFour> {
 
       _3b_1Controller
         ..text = interview.sections['sec_34']['_3_1'][0][0]['when'];
-      _3b_1delivered_answer =
+      _3_1chckListState =
           interview.sections['sec_34']['_3_1'][0][1][0]['organisation'];
       _3b_1otherController
         ..text =
             interview.sections['sec_34']['_3_1'][0][1][1]['organisation_other'];
       _3bComment_1Controller
         ..text = interview.sections['sec_34']['_3_1'][0][2]['comment'];
-      _3b_1otherOgranisationShow =
-          _3b_1delivered_answer == 'Other' ? true : false;
+      _3b_1otherOgranisationShow = _3_1chckListState[7] ? true : false;
 
       _3b_2Controller
         ..text = interview.sections['sec_34']['_3_1'][1][0]['when'];
-      _3b_2delivered_answer =
+      _3_2chckListState =
           interview.sections['sec_34']['_3_1'][1][1][0]['organisation'];
       _3b_2otherController
         ..text =
             interview.sections['sec_34']['_3_1'][1][1][1]['organisation_other'];
       _3bComment_2Controller
         ..text = interview.sections['sec_34']['_3_1'][1][2]['comment'];
-      _3b_2otherOgranisationShow =
-          _3b_2delivered_answer == 'Other' ? true : false;
+      _3b_2otherOgranisationShow = _3_2chckListState[7] ? true : false;
 
       _3b_3Controller
         ..text = interview.sections['sec_34']['_3_1'][2][0]['when'];
-      _3b_3delivered_answer =
+      _3_3chckListState =
           interview.sections['sec_34']['_3_1'][2][1][0]['organisation'];
       _3b_3otherController
         ..text =
             interview.sections['sec_34']['_3_1'][2][1][1]['organisation_other'];
       _3bComment_3Controller
         ..text = interview.sections['sec_34']['_3_1'][2][2]['comment'];
-      _3b_3otherOgranisationShow =
-          _3b_3delivered_answer == 'Other' ? true : false;
+      _3b_3otherOgranisationShow = _3_3chckListState[7] ? true : false;
 
       _3b_4Controller
         ..text = interview.sections['sec_34']['_3_1'][3][0]['when'];
-      _3b_4delivered_answer =
+      _3_4chckListState =
           interview.sections['sec_34']['_3_1'][3][1][0]['organisation'];
       _3b_4otherController
         ..text =
             interview.sections['sec_34']['_3_1'][3][1][1]['organisation_other'];
       _3bComment_4Controller
         ..text = interview.sections['sec_34']['_3_1'][3][2]['comment'];
-      _3b_4otherOgranisationShow =
-          _3b_4delivered_answer == 'Other' ? true : false;
+      _3b_4otherOgranisationShow = _3_4chckListState[7] ? true : false;
 
       _3b_5Controller
         ..text = interview.sections['sec_34']['_3_1'][4][0]['when'];
-      _3b_5delivered_answer =
+      _3_5chckListState =
           interview.sections['sec_34']['_3_1'][4][1][0]['organisation'];
       _3b_5otherController
         ..text =
             interview.sections['sec_34']['_3_1'][4][1][1]['organisation_other'];
       _3bComment_5Controller
         ..text = interview.sections['sec_34']['_3_1'][4][2]['comment'];
-      _3b_5otherOgranisationShow =
-          _3b_5delivered_answer == 'Other' ? true : false;
+      _3b_5otherOgranisationShow = _3_5chckListState[7] ? true : false;
 
       _3b_6Controller
         ..text = interview.sections['sec_34']['_3_1'][5][0]['when'];
-      _3b_6delivered_answer =
+      _3_6chckListState =
           interview.sections['sec_34']['_3_1'][5][1][0]['organisation'];
       _3b_6otherController
         ..text =
             interview.sections['sec_34']['_3_1'][5][1][1]['organisation_other'];
       _3bComment_6Controller
         ..text = interview.sections['sec_34']['_3_1'][5][2]['comment'];
-      _3b_6otherOgranisationShow =
-          _3b_6delivered_answer == 'Other' ? true : false;
+      _3b_6otherOgranisationShow = _3_6chckListState[7] ? true : false;
 
       _3b_7Controller
         ..text = interview.sections['sec_34']['_3_1'][6][0]['when'];
-      _3b_7delivered_answer =
+      _3_7chckListState =
           interview.sections['sec_34']['_3_1'][6][1][0]['organisation'];
       _3b_7otherController
         ..text =
             interview.sections['sec_34']['_3_1'][6][1][1]['organisation_other'];
       _3bComment_7Controller
         ..text = interview.sections['sec_34']['_3_1'][6][2]['comment'];
-      _3b_7otherOgranisationShow =
-          _3b_7delivered_answer == 'Other' ? true : false;
+      _3b_7otherOgranisationShow = _3_7chckListState[7] ? true : false;
 
       _3b_8Controller
         ..text = interview.sections['sec_34']['_3_1'][7][0]['when'];
-      _3b_8delivered_answer =
+      _3_8chckListState =
           interview.sections['sec_34']['_3_1'][7][1][0]['organisation'];
       _3b_8otherController
         ..text =
             interview.sections['sec_34']['_3_1'][7][1][1]['organisation_other'];
       _3bComment_8Controller
         ..text = interview.sections['sec_34']['_3_1'][7][2]['comment'];
-      _3b_8otherOgranisationShow =
-          _3b_8delivered_answer == 'Other' ? true : false;
+      _3b_8otherOgranisationShow = _3_8chckListState[7] ? true : false;
 
       _4_1Controller
         ..text = interview.sections['sec_34']['_4'][0][0]['applying'];
@@ -543,30 +615,38 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_1advice_answer,
-                                              items: q2[2][0]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_1advice_answer = newValue;
-                                                  _2_1otherOgranisationShow =
-                                                      _2_1advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][0]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_1chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_1chckListState[
+                                                              index] = value;
+                                                          _2_1otherOgranisationShow =
+                                                              _2_1chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][0]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+                                         
                                             Visibility(
                                               visible:
                                                   _2_1otherOgranisationShow,
@@ -603,30 +683,38 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_2advice_answer,
-                                              items: q2[2][1]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_2advice_answer = newValue;
-                                                  _2_2otherOgranisationShow =
-                                                      _2_2advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][1]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_2chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_2chckListState[
+                                                              index] = value;
+                                                          _2_2otherOgranisationShow =
+                                                              _2_2chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][1]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _2_2otherOgranisationShow,
@@ -663,30 +751,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_3advice_answer,
-                                              items: q2[2][2]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_3advice_answer = newValue;
-                                                  _2_3otherOgranisationShow =
-                                                      _2_3advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][2]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_3chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_3chckListState[
+                                                              index] = value;
+                                                          _2_3otherOgranisationShow =
+                                                              _2_3chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][2]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_3otherOgranisationShow,
@@ -723,30 +818,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_4advice_answer,
-                                              items: q2[2][3]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_4advice_answer = newValue;
-                                                  _2_4otherOgranisationShow =
-                                                      _2_4advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][3]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_4chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_4chckListState[
+                                                              index] = value;
+                                                          _2_4otherOgranisationShow =
+                                                              _2_4chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][3]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_4otherOgranisationShow,
@@ -783,30 +885,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_5advice_answer,
-                                              items: q2[2][4]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_5advice_answer = newValue;
-                                                  _2_5otherOgranisationShow =
-                                                      _2_5advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][4]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_5chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_5chckListState[
+                                                              index] = value;
+                                                          _2_5otherOgranisationShow =
+                                                              _2_5chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][4]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_5otherOgranisationShow,
@@ -843,30 +952,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_6advice_answer,
-                                              items: q2[2][5]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_6advice_answer = newValue;
-                                                  _2_6otherOgranisationShow =
-                                                      _2_6advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][5]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_6chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_6chckListState[
+                                                              index] = value;
+                                                          _2_6otherOgranisationShow =
+                                                              _2_6chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][5]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_6otherOgranisationShow,
@@ -903,30 +1019,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_7advice_answer,
-                                              items: q2[2][6]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_7advice_answer = newValue;
-                                                  _2_7otherOgranisationShow =
-                                                      _2_7advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                            Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][6]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_7chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_7chckListState[
+                                                              index] = value;
+                                                          _2_7otherOgranisationShow =
+                                                              _2_7chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][6]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_7otherOgranisationShow,
@@ -963,30 +1086,37 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 labelText: "Advice",
                                               ),
                                             ),
-                                            DropdownButton(
-                                              value: _2_8advice_answer,
-                                              items: q2[2][7]['organisation']
-                                                  .map<
-                                                      DropdownMenuItem<
-                                                          String>>((value) {
-                                                return DropdownMenuItem<String>(
-                                                  value: value,
-                                                  child: Text(value),
-                                                );
-                                              }).toList(),
-                                              onChanged: (String newValue) {
-                                                setState(() {
-                                                  _2_8advice_answer = newValue;
-                                                  _2_8otherOgranisationShow =
-                                                      _2_8advice_answer ==
-                                                              'Other'
-                                                          ? true
-                                                          : false;
-                                                });
-                                              },
-                                              underline: SizedBox(),
-                                              //isExpanded: true,
-                                            ),
+                                            Text("organisation : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q2[2][7]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _2_8chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _2_8chckListState[
+                                                              index] = value;
+                                                          _2_8otherOgranisationShow =
+                                                              _2_8chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q2[2][7]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _2_8otherOgranisationShow,
@@ -1076,35 +1206,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_1delivered_answer,
-                                                  items: q3b[2][0]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_1delivered_answer =
-                                                          newValue;
-                                                      _3b_1otherOgranisationShow =
-                                                          _3b_1delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
                                               ],
                                             ),
+                                            
+                                            SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_1Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][0]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_1chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_1chckListState[
+                                                              index] = value;
+                                                          _3b_1otherOgranisationShow =
+                                                              _3_1chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][7]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             SizedBox(height: 6.0),
                                             Visibility(
                                               visible:
@@ -1119,18 +1266,8 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_1Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
                                           ]),
                                     ),
-                                    SizedBox(height: 6),
                                     SizedBox(height: 6),
                                     Padding(
                                       padding:
@@ -1166,36 +1303,51 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_2delivered_answer,
-                                                  items: q3b[2][1]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_2delivered_answer =
-                                                          newValue;
-                                                      _3b_2otherOgranisationShow =
-                                                          _3b_2delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                               
                                               ],
                                             ),
                                             SizedBox(height: 6.0),
+                                            
+                                            SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_2Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][1]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_2chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_2chckListState[
+                                                              index] = value;
+                                                          _3b_2otherOgranisationShow =
+                                                              _3_2chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][1]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
                                             Visibility(
                                               visible:
                                                   _3b_2otherOgranisationShow,
@@ -1209,18 +1361,9 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_2Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
-                                    SizedBox(height: 6),
                                     SizedBox(height: 6),
                                     Padding(
                                       padding:
@@ -1256,36 +1399,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_3delivered_answer,
-                                                  items: q3b[2][2]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_3delivered_answer =
-                                                          newValue;
-                                                      _3b_3otherOgranisationShow =
-                                                          _3b_3delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                          
                                               ],
                                             ),
+                                            
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_3Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][2]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_3chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_3chckListState[
+                                                              index] = value;
+                                                          _3b_3otherOgranisationShow =
+                                                              _3_3chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][2]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_3otherOgranisationShow,
@@ -1299,18 +1458,9 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_3Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
-                                    SizedBox(height: 6),
                                     SizedBox(height: 6),
                                     Padding(
                                       padding:
@@ -1346,36 +1496,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_4delivered_answer,
-                                                  items: q3b[2][3]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_4delivered_answer =
-                                                          newValue;
-                                                      _3b_4otherOgranisationShow =
-                                                          _3b_4delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                                
                                               ],
                                             ),
+                                            
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_4Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][3]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_4chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_4chckListState[
+                                                              index] = value;
+                                                          _3b_4otherOgranisationShow =
+                                                              _3_4chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][3]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_4otherOgranisationShow,
@@ -1389,19 +1555,11 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_4Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
                                     SizedBox(height: 6),
-                                    SizedBox(height: 6),
+                                
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(left: 32.0),
@@ -1436,36 +1594,51 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_5delivered_answer,
-                                                  items: q3b[2][4]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_5delivered_answer =
-                                                          newValue;
-                                                      _3b_5otherOgranisationShow =
-                                                          _3b_5delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                               
                                               ],
                                             ),
+                                          
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_5Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][4]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_5chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_5chckListState[
+                                                              index] = value;
+                                                          _3b_5otherOgranisationShow =
+                                                              _3_5chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][4]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_5otherOgranisationShow,
@@ -1479,18 +1652,8 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_5Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
                                           ]),
                                     ),
-                                    SizedBox(height: 6),
                                     SizedBox(height: 6),
                                     Padding(
                                       padding:
@@ -1526,36 +1689,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_6delivered_answer,
-                                                  items: q3b[2][5]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_6delivered_answer =
-                                                          newValue;
-                                                      _3b_6otherOgranisationShow =
-                                                          _3b_6delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                               
                                               ],
                                             ),
+                                            
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_6Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+                                             Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][5]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_6chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_6chckListState[
+                                                              index] = value;
+                                                          _3b_6otherOgranisationShow =
+                                                              _3_6chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][5]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_6otherOgranisationShow,
@@ -1569,19 +1748,11 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_6Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
                                     SizedBox(height: 6),
-                                    SizedBox(height: 6),
+                                   
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(left: 32.0),
@@ -1616,36 +1787,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_7delivered_answer,
-                                                  items: q3b[2][6]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_7delivered_answer =
-                                                          newValue;
-                                                      _3b_7otherOgranisationShow =
-                                                          _3b_7delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                                
                                               ],
                                             ),
+                                           
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_7Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][6]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_7chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_7chckListState[
+                                                              index] = value;
+                                                          _3b_7otherOgranisationShow =
+                                                              _3_7chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][6]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_7otherOgranisationShow,
@@ -1659,19 +1846,11 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_7Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
                                     SizedBox(height: 6),
-                                    SizedBox(height: 6),
+                               
                                     Padding(
                                       padding:
                                           const EdgeInsets.only(left: 32.0),
@@ -1706,36 +1885,52 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                     ),
                                                   ),
                                                 ),
-                                                DropdownButton(
-                                                  value: _3b_8delivered_answer,
-                                                  items: q3b[2][7]
-                                                          ['organisation']
-                                                      .map<
-                                                          DropdownMenuItem<
-                                                              String>>((value) {
-                                                    return DropdownMenuItem<
-                                                        String>(
-                                                      value: value,
-                                                      child: Text(value),
-                                                    );
-                                                  }).toList(),
-                                                  onChanged: (String newValue) {
-                                                    setState(() {
-                                                      _3b_8delivered_answer =
-                                                          newValue;
-                                                      _3b_8otherOgranisationShow =
-                                                          _3b_8delivered_answer ==
-                                                                  'Other'
-                                                              ? true
-                                                              : false;
-                                                    });
-                                                  },
-                                                  underline: SizedBox(),
-                                                  //isExpanded: true,
-                                                ),
+                                               
                                               ],
                                             ),
+                                            
                                             SizedBox(height: 6.0),
+                                            TextFormField(
+                                              controller:
+                                                  _3bComment_8Controller,
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                labelText: "Comment",
+                                              ),
+                                            ),
+
+                                            Text("Delivered By : ",style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    .copyWith()),
+                                             Wrap(
+                                                children: List<Widget>.generate(
+                                                    q3b[2][7]['organisation']
+                                                        .length, (int index) {
+                                              return SizedBox(
+                                                  width: 180,
+                                                  child: Row(children: <Widget>[
+                                                    Checkbox(
+                                                      value: _3_8chckListState[
+                                                          index],
+                                                      onChanged: (bool value) {
+                                                        setState(() {
+                                                          _3_8chckListState[
+                                                              index] = value;
+                                                          _3b_8otherOgranisationShow =
+                                                              _3_8chckListState[7] ==
+                                                                      true
+                                                                  ? true
+                                                                  : false;
+                                                        });
+                                                      },
+                                                    ),
+                                                    Text(q3b[2][7]
+                                                            ['organisation']
+                                                        [index]),
+                                                  ]));
+                                            })),
+
                                             Visibility(
                                               visible:
                                                   _3b_8otherOgranisationShow,
@@ -1749,15 +1944,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
                                                 ),
                                               ),
                                             ),
-                                            SizedBox(height: 6.0),
-                                            TextFormField(
-                                              controller:
-                                                  _3bComment_8Controller,
-                                              keyboardType: TextInputType.text,
-                                              decoration: InputDecoration(
-                                                labelText: "Comment",
-                                              ),
-                                            ),
+
                                           ]),
                                     ),
                                     SizedBox(height: 6),
@@ -2036,56 +2223,56 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'advice': _2_1Controller.text},
             [
-              {'organisation': _2_1advice_answer},
+              {'organisation': _2_1chckListState},
               {'organisation_other': _2_1otherController.text}
             ]
           ],
           [
             {'advice': _2_2Controller.text},
             [
-              {'organisation': _2_2advice_answer},
+              {'organisation': _2_2chckListState},
               {'organisation_other': _2_2otherController.text}
             ]
           ],
           [
             {'advice': _2_3Controller.text},
             [
-              {'organisation': _2_3advice_answer},
+              {'organisation': _2_3chckListState},
               {'organisation_other': _2_3otherController.text}
             ]
           ],
           [
             {'advice': _2_4Controller.text},
             [
-              {'organisation': _2_4advice_answer},
+              {'organisation': _2_4chckListState},
               {'organisation_other': _2_4otherController.text}
             ]
           ],
           [
             {'advice': _2_5Controller.text},
             [
-              {'organisation': _2_5advice_answer},
+              {'organisation': _2_5chckListState},
               {'organisation_other': _2_5otherController.text}
             ]
           ],
           [
             {'advice': _2_6Controller.text},
             [
-              {'organisation': _2_6advice_answer},
+              {'organisation': _2_6chckListState},
               {'organisation_other': _2_6otherController.text}
             ]
           ],
           [
             {'advice': _2_7Controller.text},
             [
-              {'organisation': _2_7advice_answer},
+              {'organisation': _2_7chckListState},
               {'organisation_other': _2_7otherController.text}
             ]
           ],
           [
             {'advice': _2_8Controller.text},
             [
-              {'organisation': _2_8advice_answer},
+              {'organisation': _2_8chckListState},
               {'organisation_other': _2_8otherController.text}
             ]
           ],
@@ -2095,7 +2282,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_1Controller.text},
             [
-              {'organisation': _3b_1delivered_answer},
+              {'organisation': _3_1chckListState},
               {'organisation_other': _3b_1otherController.text}
             ],
             {'comment': _3bComment_1Controller.text}
@@ -2103,7 +2290,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_2Controller.text},
             [
-              {'organisation': _3b_2delivered_answer},
+              {'organisation': _3_2chckListState},
               {'organisation_other': _3b_2otherController.text}
             ],
             {'comment': _3bComment_2Controller.text}
@@ -2111,7 +2298,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_3Controller.text},
             [
-              {'organisation': _3b_3delivered_answer},
+              {'organisation': _3_3chckListState},
               {'organisation_other': _3b_3otherController.text}
             ],
             {'comment': _3bComment_3Controller.text}
@@ -2119,7 +2306,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_4Controller.text},
             [
-              {'organisation': _3b_4delivered_answer},
+              {'organisation': _3_4chckListState},
               {'organisation_other': _3b_4otherController.text}
             ],
             {'comment': _3bComment_4Controller.text}
@@ -2127,7 +2314,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_5Controller.text},
             [
-              {'organisation': _3b_5delivered_answer},
+              {'organisation': _3_5chckListState},
               {'organisation_other': _3b_5otherController.text}
             ],
             {'comment': _3bComment_5Controller.text}
@@ -2135,7 +2322,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_6Controller.text},
             [
-              {'organisation': _3b_6delivered_answer},
+              {'organisation': _3_6chckListState},
               {'organisation_other': _3b_6otherController.text}
             ],
             {'comment': _3bComment_6Controller.text}
@@ -2143,7 +2330,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_7Controller.text},
             [
-              {'organisation': _3b_7delivered_answer},
+              {'organisation': _3_7chckListState},
               {'organisation_other': _3b_7otherController.text}
             ],
             {'comment': _3bComment_7Controller.text}
@@ -2151,7 +2338,7 @@ class _ThirtyFourState extends State<ThirtyFour> {
           [
             {'when': _3b_8Controller.text},
             [
-              {'organisation': _3b_8delivered_answer},
+              {'organisation': _3_8chckListState},
               {'organisation_other': _3b_8otherController.text}
             ],
             {'comment': _3bComment_8Controller.text}

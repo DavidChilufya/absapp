@@ -138,7 +138,19 @@ class _FiveState extends State<Five> {
                                   .map<DropdownMenuItem<String>>((value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
-                                  child: Text(value),
+                                  child: Container(
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.grey,
+                                      ),
+                                      borderRadius: BorderRadius.circular(6)
+                                    ),
+                                    padding: EdgeInsets.all(3.0),
+                                    margin: EdgeInsets.only(top: 5.0),
+                                    width: double.infinity,
+                                    child: Text(value),
+                                  ) ,
                                 );
                               }).toList(),
                               onChanged: (String newValue) {

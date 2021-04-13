@@ -184,6 +184,10 @@ class _TweentyNineState extends State<TweentyNine> {
                                         _3_index = selected ? index : null;
                                         _show =
                                             _3answer == 'Yes' ? true : false;
+                                        if (_3answer == 'No') {
+                                          _4Controller..text = '';
+                                          _5Controller..text = '';
+                                        }
                                       });
                                     },
                                   );
