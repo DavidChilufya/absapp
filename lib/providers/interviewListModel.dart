@@ -73,5 +73,9 @@ class InterviewListModel extends ChangeNotifier {
     await this.setAllInterviews();
   }
 
+  Future<void> moveToComplete() async{
+    await this.setAllInterviews();
+  }
+
   void updateInterviewslist() {}
 }

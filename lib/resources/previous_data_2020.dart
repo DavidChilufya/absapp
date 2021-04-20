@@ -351,8 +351,8 @@ class PreviousData2020 {
     "test": false,
     "meta_data": {
       "interview_id": "axqnecmfru",
-      "coop_union": "Balaka",
-      "prime_coop": "Select",
+      "coop_union": "Chikuse",
+      "prime_coop": "",
       "first_interview": "Yes",
       "latitude": "-14.48694",
       "longitude": "28.66581",
@@ -1065,8 +1065,8 @@ class PreviousData2020 {
     "test": false,
     "meta_data": {
       "interview_id": "xqolgih0nz",
-      "coop_union": "Balaka",
-      "prime_coop": "TWEENDE",
+      "coop_union": "Chikuse",
+      "prime_coop": "", //TWEENDE
       "first_interview": "Yes",
       "latitude": "-15.4681359",
       "longitude": "28.3401225",
@@ -2357,7 +2357,7 @@ class PreviousData2020 {
     "test": false,
     "meta_data": {
       "interview_id": "jjtauer429",
-      "coop_union": "Mufulira",
+      "coop_union": "Sunnyridge",
       "prime_coop": "Select",
       "first_interview": "Yes",
       "latitude": "12.601808",
@@ -3377,8 +3377,8 @@ class PreviousData2020 {
     "test": false,
     "meta_data": {
       "interview_id": "vr0c2gguzu",
-      "coop_union": "Mufulira",
-      "prime_coop": "KAFUE",
+      "coop_union": "Sunnyridge",
+      "prime_coop": "",
       "first_interview": "Yes",
       "latitude": "-15.4681359",
       "longitude": "28.3401225",

@@ -46,11 +46,13 @@ class _WelcomeState extends State<Welcome> {
                                 .bodyText1
                                 .copyWith(color: Theme.of(context).primaryColor),
                           ),
-                          SizedBox(height: 50),
+                          SizedBox(height: 200),
                           Image(
+                            
                             image: AssetImage(
-                              'assets/graphics/transfer.png',
+                              'assets/graphics/data_collection.png',
                             ),
+                            height: MediaQuery.of(context).size.height * 0.35,
                           ),
                           Expanded(
                             child: Column(

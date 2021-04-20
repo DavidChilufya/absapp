@@ -26,7 +26,7 @@ class GridDashboard extends StatelessWidget {
     },
     {'title': "Upload", 'total': "0", 'img': "assets/pending_upload.png"},
     {'title': "Uploaded", 'total': "", 'img': "assets/uploaded.png"},
-    {'title': "All", 'total': "0", 'img': "assets/all.png"},
+    {'title': "All", 'total': "", 'img': "assets/all.png"},
   ];
 
   @override
@@ -57,8 +57,7 @@ class GridDashboard extends StatelessWidget {
                       interview_list.pending_upload.length.toString();
                     myList[4]['total'] = //Uploaded
                       interview_list.uploaded_interviews.length.toString();  
-                    myList[5]['total'] = //All
-                    '5';
+                   
                     
                     return InkWell(
                       splashColor: Theme.of(context).accentColor,

@@ -231,14 +231,6 @@ class _InterviewListState extends State<InterviewList> with DataUpload {
                   },
                 )),
                 Visibility(
-                  visible: _totalUploaded > 0,
-                  child: Text("${_totalUploaded} / ${interviewList.length}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline6
-                          .copyWith(color: Theme.of(context).primaryColor)),
-                ),
-                Visibility(
                     visible: interviewListType == 'Upload' &&
                         interviewList.isNotEmpty,
                     child: Align(
@@ -259,42 +251,21 @@ class _InterviewListState extends State<InterviewList> with DataUpload {
   }
 
   Future streamSubmit(Stream<int> stream) async {
-    int total_uploaded = 0;
     await for (var value in stream) {
-      total_uploaded += value;
-      print("Uploaded : ${total_uploaded} : ${value}");
+      await Provider.of<InterviewListModel>(context, listen: false)
+          .moveToComplete();
     }
-
-    setState(() {
-      this._totalUploaded = total_uploaded;
-      print("State Upload : ${this._totalUploaded} : }");
-    });
-
+    await dataUploadedToast();
     //return total_uploaded;
   }
 
   void postToServer(data) async {
     if (uploadToServer.getConnectionStatus()) {
+      uploadClickedToast();
       await streamSubmit(this.uploadToServer.upload(data));
-      if (this._totalUploaded + 1 == data.length) {
-        dataUploadedToast();
-      }
     } else {
       noNetToast();
     }
-
-    //print(_newList);
-    /*
-    try {
-      final result = await InternetAddress.lookup('abs.chilufyamedia.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        await _createJson.postToServer(_newList, _user.uid);
-        dataUploadedToast();
-      }
-    } on SocketException catch (_) {
-      noNetToast();
-    }
-    */
   }
 
   void noNetToast() {
@@ -305,12 +276,22 @@ class _InterviewListState extends State<InterviewList> with DataUpload {
         timeInSecForIosWeb: 1);
   }
 
-  void dataUploadedToast() {
+  void uploadClickedToast() {
     Fluttertoast.showToast(
-        msg: "Uploading complete",
+        msg: "Upload Started",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1);
+  }
+
+  void dataUploadedToast() async {
+    await Fluttertoast.showToast(
+        msg: "Data Upload complete",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1);
+    await Provider.of<InterviewListModel>(context, listen: false)
+        .moveToComplete();
   }
 
   showDeleteButton(BuildContext context) {
@@ -381,7 +362,7 @@ class _InterviewListState extends State<InterviewList> with DataUpload {
   }
 
   Future<void> deleteInterview(BuildContext context, int key) async {
-    print(key);
+    //print(key);
     await Provider.of<InterviewListModel>(context, listen: false)
         .deleteInterview(key: key);
   }

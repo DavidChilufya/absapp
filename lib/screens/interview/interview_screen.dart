@@ -39,15 +39,7 @@ class Interview extends StatelessWidget {
                   ],
                 );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, Interview.id);
-          print(Interview.id);
-        },
-        child: Icon(Icons.home),
-        backgroundColor: Theme.of(context).primaryColor,
-      ),
+      )
     );
   }
 }

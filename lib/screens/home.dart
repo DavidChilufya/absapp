@@ -1,8 +1,10 @@
+import 'package:absapp/providers/interviewListModel.dart';
 import 'package:absapp/screens/welcome.dart';
 import 'package:absapp/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:absapp/widgets/home/griddashboard.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   static const String id = 'home';
@@ -62,7 +64,11 @@ class _Home extends State<Home>  {
               ),
           ),
           SizedBox(height: 30,),
-          GridDashboard(_user) 
+          GridDashboard(_user),
+          RaisedButton(
+            child: Text('REFRESH'),
+            color: Theme.of(context).accentColor,
+            onPressed: () => refresh(context)),
         ],
       ),
     );
@@ -70,6 +76,10 @@ class _Home extends State<Home>  {
 
 }
 
+void refresh(context) async{
+  await Provider.of<InterviewListModel>(context, listen: false)
+        .setAllInterviews();
+}
 
 void _showSignOutDialog(BuildContext context) {
   showDialog(

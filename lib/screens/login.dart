@@ -161,9 +161,12 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         SizedBox(height: 30),
-                        Image(
-                          image: AssetImage(
-                            'assets/graphics/fingerprint.png',
+                        Center(
+                          child: Image(
+                            image: AssetImage(
+                              'assets/graphics/fingerprint.png',
+                            ),
+                            height: MediaQuery.of(context).size.height * 0.3,
                           ),
                         ),
                       ],
